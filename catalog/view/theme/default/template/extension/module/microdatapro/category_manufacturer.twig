@@ -1,0 +1,133 @@
+{# microdatapro 7.7  #}
+{% if breadcrumbs %}
+{% if syntax  ==  "md" or syntax  ==  "all" %}
+<!--microdatapro {{ version }} breadcrumb start [microdata] -->
+<span itemscope itemtype="http://schema.org/BreadcrumbList">
+{% for key, breadcrumb in breadcrumbs %}
+<span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+<link itemprop="item" href="{{ breadcrumb.href }}">
+<meta itemprop="name" content="{{ breadcrumb.text }}" />
+<meta itemprop="position" content="{{ key }}" />
+</span>
+{% endfor %}
+</span>
+<!--microdatapro {{ version }} breadcrumb end [microdata] -->
+{% endif %}
+{% if syntax  ==  "ld" or syntax  ==  "all" %}
+<!--microdatapro {{ version }} breadcrumb start [json-ld] -->
+<script type="application/ld+json">
+{
+"@context": "http://schema.org",
+"@type": "BreadcrumbList",
+"itemListElement": [{% for key, breadcrumb in breadcrumbs %}{
+"@type": "ListItem",
+"position": {{ key }},
+"item": {
+"@id": "{{ breadcrumb.href }}",
+"name": "{{ breadcrumb.text }}"
+}
+}{% if key != count_breadcrumbs %},{% endif %}{% endfor %}]
+}
+</script>
+<!--microdatapro {{ version }} breadcrumb end [json-ld] -->
+{% endif %}
+{% endif %}
+{% if (range or review) %}
+{% if syntax  ==  "md" or syntax  ==  "all" %}
+<!--microdatapro {{ version }} product start [microdata] -->
+<span itemscope itemtype="http://schema.org/Product">
+<meta itemprop="name" content="{{ name }}">
+<link itemprop="image" href="{{ image }}" />
+<span itemprop="brand" itemtype="https://schema.org/Brand" itemscope><meta itemprop="name" content="{{ name }}" /></span>
+<meta itemprop="description" content="{{ description }}">
+<meta itemprop="sku" content="{{ sku }}">
+<meta itemprop="mpn" content="{{ sku }}">
+{% if review %}
+<span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+<meta itemprop="ratingCount" content="{{ rating_count }}">
+<meta itemprop="ratingValue" content="{{ rating_value }}">
+<meta itemprop="bestRating" content="5">
+</span>
+{% endif %}
+{% if range %}
+<span itemprop="offers" itemscope itemtype="http://schema.org/AggregateOffer">
+<meta itemprop="highPrice" content="{{ max }}">
+<meta itemprop="lowPrice" content="{{ min }}">
+<meta itemprop="offerCount" content="{{ total }}">
+<meta itemprop="priceCurrency" content="{{ code }}">
+</span>
+{% endif %}
+</span>
+<!--microdatapro {{ version }} product end [microdata] -->
+{% endif %}
+{% if syntax == "ld" or syntax == "all" %}
+<!--microdatapro {{ version }} product start [json-ld] -->
+<script type="application/ld+json">
+{
+"@context": "http://schema.org/",
+"@type": "Product",
+"name": "{{ name }}",
+"image": "{{ image }}",
+"brand": {"@type": "Brand","name": "{{ name }}"},
+"description": "{{ description }}",
+"sku": "{{ sku }}",
+"mpn": "{{ sku }}"
+{% if review %},"aggregateRating": {
+"@type": "AggregateRating",
+"bestRating": "5",
+"ratingValue": "{{ rating_value }}",
+"ratingCount": "{{ rating_count }}"
+}{% endif %}
+{% if range %},"offers": {
+"@type": "AggregateOffer",
+"lowPrice": "{{ min }}",
+"highPrice": "{{ max }}",
+"offerCount": "{{ total }}",
+"priceCurrency": "{{ code }}"
+}{% endif %}
+}
+</script>
+<!--microdatapro {{ version }} product end [json-ld] -->
+{% endif %}
+{% endif %}
+{% if images %}
+{% if syntax  ==  "md" or syntax  ==  "all" %}
+<!--microdatapro {{ version }} gallery start[microdata] -->
+<span itemscope itemtype="http://schema.org/ImageGallery">
+{% for image in images %}
+<span itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+<meta itemprop="name" content="{{ image.name }}" />
+<meta itemprop="description" content="{{ image.name }}" />
+<link itemprop="thumbnailUrl" href="{{ image.thumb }}" />
+<link itemprop="contentUrl" href="{{ image.popup }}" />
+<meta itemprop="author" content="{{ author }}" />
+<meta itemprop="datePublished" content="{{ image.date_added }}">
+</span>
+{% endfor %}
+</span>
+<!--microdatapro {{ version }} gallery end [microdata] -->
+{% endif %}
+{% if syntax  ==  "ld" or syntax  ==  "all" %}
+<!--microdatapro {{ version }} gallery start [json-ld] -->
+<script type="application/ld+json">
+{
+"@context": "http://schema.org",
+"@type": "ImageGallery",
+"associatedMedia":[
+{% set key_i = 1 %}{% for image in images %}
+{
+"@type": "ImageObject",
+"author": "{{ author }}",
+"thumbnailUrl": "{{ image.thumb }}",
+"contentUrl": "{{ image.popup }}",
+"datePublished": "{{ image.date_added }}",
+"description": "{{ image.name }}",
+"name": "{{ image.name }}"
+}{% if key_i != count_images %},{% endif %}
+{% set key_i = key_i + 1 %}{% endfor %}
+]
+}
+</script>
+<!--microdatapro {{ version }} gallery end [json-ld] -->
+{% endif %}
+{% endif %}

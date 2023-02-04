@@ -1,0 +1,54 @@
+#jetcache-informer {	font-size: 12px;
+}
+.sc-flex-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+}
+.sc-flex-container-left {	background-color: #16a9de;
+	color: #fff;
+	justify-content: flex-start;
+	align-items: flex-start;
+	text-align: left;
+}
+.sc-flex-container-right {	color: #129856;
+	background-color: #125689;
+	justify-content: flex-start;
+	align-items: flex-start;
+	text-align: right;
+}
+.sc-jetcache-heading a {
+	font-size: 1.2em;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	color: #fff;
+	text-decoration: none;
+}
+.sc-jetcache-bottom-heading {
+    background-color: #16a9de;
+    color: #fff;
+    overflow: hidden;
+    z-index: 10000;
+    bottom: 0;
+    width: 100%;
+    position: fixed;
+    text-align: center;
+    padding-left: 2px;
+    padding-right: 10px;
+}
+a.jetcache-button-buy, a.jetcache-button-buy:visited, a.jetcache-button-buy:focus {
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    background-color: #21bef2;
+    color: #fff;
+    padding: 2px 8px;
+    border: 1px solid #fff;
+    text-decoration: none;
+    font-size: 1em;
+}
+a.jetcache-button-buy:hover {
+    color: #21bef2;
+    background-color: #fff;
+}
+#round_cache_all {	display: none;
+}

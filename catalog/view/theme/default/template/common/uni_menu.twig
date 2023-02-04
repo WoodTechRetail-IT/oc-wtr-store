@@ -1,0 +1,304 @@
+{% if categories %}
+{% if deff is defined and deff %}
+<div id="uni-menu-box" class="col-lg-3">
+	<div  id="uni-ultra-menu-header" class="uni-ultra-menu d-flex align-items-center justify-content-center">
+		<!--span><i class="fa fa-bars"></i> {{ text_category }}</span-->
+		<span class="uni-mm-cat-link-fas"><div class="bars"></div><div class="bars"></div><div class="bars"></div></span> 
+		<span class="uni-mm-cat-link-text">{{ text_category }}</span>
+		<span class="uni-mm-link-down"><div class="down1"></div><div class="down2"></div></span>
+	</div>
+	<nav id="uni-menu-dropdown-menu">
+		<ul id="uni-menu-ul" class="uni-menu-ul uni-menu-parent-ul list-unstyled">
+			{% endif %}
+			{% if categories and uni_megamenu_categories is defined and uni_megamenu_categories %}
+			{% for category in categories %}
+			{% if category.children or category.uni_pages is not empty %}
+			{% if mobile is defined and mobile %} 
+			<li>
+				<a href="{{ category.href }}" class="{% if category.uni_image %} d-flex align-items-center{% endif %}">{% if category.uni_image %}<img class="uni-menu-cat-icon" src="{{ category.uni_image }}" alt="{{ category.name }}" />{% endif %}{{ category.name }}</a>
+				<ul>
+					{% for child in category.children %}
+					<li><a href="{{ child.href }}">{{ child.name }}</a>
+						{% if child.children or child.uni_pages is not empty %}
+						<ul>		
+							{% for child_2 in child.children %}
+							<li><a href="{{ child_2.href }}">{{ child_2.name }}</a>	
+								{% if child_2.children or child_2.uni_pages is not empty %}
+								<ul>
+									{% for ch in child_2.children %}
+									<li><a href="{{ ch.href }}">{{ ch.name }}</a>
+										{% if ch.uni_pages is not empty %}
+										<ul>
+											{% for uni_page in ch.uni_pages %}
+											{% if uni_page.page_links is not empty %}
+											<li class="group-title">
+												<strong>{{ uni_page.page_group[language_id] }}</strong>
+												{% for link in uni_page.page_links %}
+												<a href="{{ link[language_id].link }}" title="{{ link[language_id].title }}">{{ link[language_id].title }}</a>
+												{% endfor %}
+											</li>
+											{% endif %}
+											{% endfor %}
+										</ul>
+										{% endif %}
+									</li>
+									{% endfor %}
+									{% if child.uni_pages is not empty %}
+									{% for uni_page in child_2.uni_pages %}
+									{% if uni_page.page_links is not empty %}
+									<li class="group-title">
+										<strong>{{ uni_page.page_group[language_id] }}</strong>
+										{% for link in uni_page.page_links %}
+										<a href="{{ link[language_id].link }}" title="{{ link[language_id].title }}">{{ link[language_id].title }}</a>
+										{% endfor %}
+									</li>
+									{% endif %}
+									{% endfor %}
+									{% endif %}
+								</ul>
+								{% endif %}
+							</li>
+							{% endfor %}						
+							{% if child.uni_pages is not empty %}
+							{% for uni_page in child.uni_pages %}
+							{% if uni_page.page_links is not empty %}
+							<li class="group-title">
+								<strong>{{ uni_page.page_group[language_id] }}</strong>
+								{% for link in uni_page.page_links %}
+								<a href="{{ link[language_id].link }}" title="{{ link[language_id].title }}">{{ link[language_id].title }}</a>
+								{% endfor %}
+							</li>
+							{% endif %}
+							{% endfor %}
+							{% endif %}
+						</ul>
+						{% endif %}
+					</li>
+					{% endfor %}
+					{% if category.uni_pages is not empty %}
+					{% for uni_page in category.uni_pages %}
+					{% if uni_page.page_links is not empty %}
+					<li class="group-title">
+						<strong>{{ uni_page.page_group[language_id] }}</strong>
+						{% for link in uni_page.page_links %}
+						<a href="{{ link[language_id].link }}" title="{{ link[language_id].title }}">{{ link[language_id].title }}</a>
+						{% endfor %}
+					</li>
+					{% endif %}
+					{% endfor %}
+					{% endif %}
+				</ul>
+			</li>
+			{% else %}
+			<li class="uni-menu-li">
+				<div class="d-flex align-items-center justify-content-between">
+					<a href="{{ category.href }}" class="uni-menu-a{% if category.uni_image %} d-flex align-items-center{% endif %}">{% if category.uni_image %}<img class="uni-menu-cat-icon" src="{{ category.uni_image }}" alt="{{ category.name }}" />{% endif %}<span class="uni-menu-item-name">{{ category.name }}</span></a>{% if category.children or category.uni_pages is not empty %}<span class="uni-menu-toggle"><span class="right-down"></span></span>{% endif %}
+				</div>
+				<div class="uni-menu-child-ul">
+					<div class="uni-menu-back"><span class="left-down"></span> {{ category.name }}</div>
+					<ul class="uni-menu-ul list-unstyled">
+						{% for child in category.children %}
+						<li class="uni-menu-li">
+							<div class="d-flex align-items-center justify-content-between">
+								<a href="{{ child.href }}"><span class="uni-menu-item-name">{{ child.name }}</span></a>{% if child.children or child.uni_pages is not empty %}<span class="uni-menu-toggle"><span class="right-down"></span></span>{% endif %}
+							</div>
+							{% if child.children or child.uni_pages is not empty %}
+							<div class="uni-menu-child-ul">
+								<div class="uni-menu-back"><span class="left-down"></span> {{ child.name }}</div>
+								<ul class="uni-menu-ul list-unstyled">		
+									{% for child_2 in child.children %}
+									<li class="uni-menu-li">
+										<div class="d-flex align-items-center justify-content-between">
+											<a href="{{ child_2.href }}"><span class="uni-menu-item-name">{{ child_2.name }}</span></a>{% if child_2.children or child_2.uni_pages is not empty %}<span class="uni-menu-toggle"><span class="right-down"></span></span>{% endif %}
+										</div>
+										{% if child_2.children or child_2.uni_pages is not empty %}
+										<div class="uni-menu-child-ul">
+											<div class="uni-menu-back"><span class="left-down"></span> {{ child_2.name }}</div>
+											<ul class="uni-menu-ul list-unstyled">
+												{% for ch in child_2.children %}
+												<li class="uni-menu-li">
+													{% if ch.uni_pages is not empty %}
+													<div class="d-flex align-items-center justify-content-between">
+														{% endif %}
+														<a href="{{ ch.href }}"><span class="uni-menu-item-name">{{ ch.name }}</span></a>
+														{% if ch.uni_pages is not empty %}
+													</div>
+													<div class="uni-menu-not-child-ul">
+														<ul class="uni-menu-ul list-unstyled">
+															{% for uni_page in ch.uni_pages %}
+															{% if uni_page.page_links is not empty %}
+															<li class="group-title">
+																<strong>{{ uni_page.page_group[language_id] }}</strong>
+																{% for link in uni_page.page_links %}
+																<a href="{{ link[language_id].link }}" title="{{ link[language_id].title }}">{{ link[language_id].title }}</a>
+																{% endfor %}
+															</li>
+															{% endif %}
+															{% endfor %}
+														</ul>
+													</div>
+													{% endif %}
+												</li>
+												{% endfor %}
+												{% if child.uni_pages is not empty %}
+												{% for uni_page in child_2.uni_pages %}
+												{% if uni_page.page_links is not empty %}
+												<li class="group-title">
+													<strong>{{ uni_page.page_group[language_id] }}</strong>
+													{% for link in uni_page.page_links %}
+													<a href="{{ link[language_id].link }}" title="{{ link[language_id].title }}">{{ link[language_id].title }}</a>
+													{% endfor %}
+												</li>
+												{% endif %}
+												{% endfor %}
+												{% endif %}
+											</ul>
+										</div>
+										{% endif %}
+									</li>
+									{% endfor %}						
+									{% if child.uni_pages is not empty %}
+									{% for uni_page in child.uni_pages %}
+									{% if uni_page.page_links is not empty %}
+									<li class="group-title">
+										<strong>{{ uni_page.page_group[language_id] }}</strong>
+										{% for link in uni_page.page_links %}
+										<a href="{{ link[language_id].link }}" title="{{ link[language_id].title }}">{{ link[language_id].title }}</a>
+										{% endfor %}
+									</li>
+									{% endif %}
+									{% endfor %}
+									{% endif %}
+								</ul>
+							</div>
+							{% endif %}
+						</li>
+						{% endfor %}
+						{% if category.uni_pages is not empty %}
+						{% for uni_page in category.uni_pages %}
+						{% if uni_page.page_links is not empty %}
+						<li class="group-title">
+							<strong>{{ uni_page.page_group[language_id] }}</strong>
+							{% for link in uni_page.page_links %}
+							<a href="{{ link[language_id].link }}" title="{{ link[language_id].title }}">{{ link[language_id].title }}</a>
+							{% endfor %}
+						</li>
+						{% endif %}
+						{% endfor %}
+						{% endif %}
+					</ul>
+				</div>
+			</li>
+			{% endif %}
+			{% else %}
+			{% if mobile is defined and mobile %} 
+			<li><a href="{{ category.href }}" class="{% if category.uni_image %} d-flex align-items-center{% endif %}">{% if category.uni_image %}<img class="uni-menu-cat-icon" src="{{ category.uni_image }}" alt="{{ category.name }}" />{% endif %}{{ category.name }}</a></li>
+			{% else %}
+			<li class="uni-menu-li"><a href="{{ category.href }}" class="uni-menu-a{% if category.uni_image %} d-flex align-items-center{% endif %}">{% if category.uni_image %}<img class="uni-menu-cat-icon" src="{{ category.uni_image }}" alt="{{ category.name }}" />{% endif %}<span class="uni-menu-item-name">{{ category.name }}</span></a></li>
+			{% endif %}
+			{% endif %}
+			{% endfor %}
+			
+			{% if uni_all_categories is defined and uni_all_categories and deff is not defined %}
+			{% if mobile is defined and mobile %}
+			<li><a href="{{ uni_all_categories }}" >&#10144; {{ uni_all_categories_text }}</a></li>
+			{% else %}
+			<li class="uni-menu-li"><a href="{{ uni_all_categories }}" class="uni-menu-a"><span class="uni-menu-item-name">&#10144; {{ uni_all_categories_text }}</span></a></li>
+			{% endif %}
+			{% endif %}
+			{% endif %}
+			
+			{% if unimenu_blog_categories and uni_megamenu_blog_categories is defined and uni_megamenu_blog_categories %}
+			{% for blog_category in unimenu_blog_categories %}
+			{% if blog_category.children %}
+			{% if mobile is defined and mobile %} 
+			<li>
+				<a href="{{ blog_category.href }}" class="{% if blog_category.uni_image %} d-flex align-items-center{% endif %}">{% if blog_category.uni_image %}<img class="uni-menu-cat-icon" src="{{ blog_category.uni_image }}" alt="{{ blog_category.name }}" />{% endif %}{{ blog_category.name }}</a>
+				<ul>
+					{% for child in blog_category.children %}
+					<li>
+						<a href="{{ child.href }}">{{ child.name }}</a>
+						{% if child.children %}
+						<ul>		
+							{% for child_2 in child.children %}
+							<li>
+								<a href="{{ child_2.href }}">{{ child_2.name }}</a>
+								{% if child_2.children %}
+								<ul>
+									{% for ch in child_2.children %}
+									<li>
+										<a href="{{ ch.href }}">{{ ch.name }}</a>
+									</li>
+									{% endfor %}
+								</ul>
+								{% endif %}
+							</li>
+							{% endfor %}						
+						</ul>
+						{% endif %}
+					</li>
+					{% endfor %}
+				</ul>
+			</li>
+			{% else %}
+			<li class="uni-menu-li">
+				<div class="d-flex align-items-center justify-content-between">
+					<a href="{{ blog_category.href }}" class="uni-menu-a{% if blog_category.uni_image %} d-flex align-items-center{% endif %}">{% if blog_category.uni_image %}<img class="uni-menu-cat-icon" src="{{ blog_category.uni_image }}" alt="{{ blog_category.name }}" />{% endif %}<span class="uni-menu-item-name">{{ blog_category.name }}</span></a>{% if blog_category.children %}<span class="uni-menu-toggle"><span class="right-down"></span></span>{% endif %}
+				</div>
+				<div class="uni-menu-child-ul">
+					<div class="uni-menu-back"><span class="left-down"></span> {{ blog_category.name }}</div>
+					<ul class="uni-menu-ul list-unstyled">
+						{% for child in blog_category.children %}
+						<li class="uni-menu-li">
+							<div class="d-flex align-items-center justify-content-between">
+								<a href="{{ child.href }}"><span class="uni-menu-item-name">{{ child.name }}</span></a>{% if child.children %}<span class="uni-menu-toggle"><span class="right-down"></span></span>{% endif %}
+							</div>
+							{% if child.children %}
+							<div class="uni-menu-child-ul">
+								<div class="uni-menu-back"><span class="left-down"></span> {{ child.name }}</div>
+								<ul class="uni-menu-ul list-unstyled">		
+									{% for child_2 in child.children %}
+									<li class="uni-menu-li">
+										<div class="d-flex align-items-center justify-content-between">
+											<a href="{{ child_2.href }}"><span class="uni-menu-item-name">{{ child_2.name }}</span></a>{% if child_2.children %}<span class="uni-menu-toggle"><span class="right-down"></span></span>{% endif %}
+										</div>
+										{% if child_2.children %}
+										<div class="uni-menu-child-ul">
+											<div class="uni-menu-back"><span class="left-down"></span> {{ child_2.name }}</div>
+											<ul class="uni-menu-ul list-unstyled">
+												{% for ch in child_2.children %}
+												<li class="uni-menu-li">
+													<a href="{{ ch.href }}"><span class="uni-menu-item-name">{{ ch.name }}</span></a>
+												</li>
+												{% endfor %}
+											</ul>
+										</div>
+										{% endif %}
+									</li>
+									{% endfor %}						
+								</ul>
+							</div>
+							{% endif %}
+						</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</li>
+			{% endif %}
+			{% else %}
+			{% if mobile is defined and mobile %} 
+			<li><a href="{{ blog_category.href }}" class="{% if blog_category.uni_image %} d-flex align-items-center{% endif %}">{% if blog_category.uni_image %}<img class="uni-menu-cat-icon" src="{{ blog_category.uni_image }}" alt="{{ blog_category.name }}" />{% endif %}{{ blog_category.name }}</a></li>
+			{% else %}
+			<li class="uni-menu-li"><a href="{{ blog_category.href }}" class="uni-menu-a{% if blog_category.uni_image %} d-flex align-items-center{% endif %}">{% if blog_category.uni_image %}<img class="uni-menu-cat-icon" src="{{ blog_category.uni_image }}" alt="{{ blog_category.name }}" />{% endif %}<span class="uni-menu-item-name">{{ blog_category.name }}</span></a></li>
+			{% endif %}
+			{% endif %}
+			{% endfor %}
+			{% endif %}
+			
+			{% if deff is defined and deff %}
+		</ul>
+	</nav>
+</div>
+</div>
+{% endif %}
+{% endif %}

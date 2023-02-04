@@ -1,0 +1,43 @@
+<div
+        role="tablist" aria-multiselectable="true" id="accordion-{{ item_id }}" class="panel-group accordion">
+
+    {% if heading_status %} <h4>{{ name }}</h4> {% endif %}
+    {{ about }}
+    {% for k, question in list  %}
+    <div
+
+            class="panel panel-default card">
+        <a class="panel-heading card-header {% if collapse_activate_1st and k==0 %} collapsed {% endif %}"
+           data-toggle="collapse"
+            href="#collapse-{{ item_id~'-'~k }} "
+            aria-controls="#collapse-{{ item_id~'-'~k }} "
+        >
+            <h4 class="panel-title mb-0">
+                <span class="accordion-item-icon">{{ question.marker }}</span>
+                {{ question.title }}
+            </h4>
+        </a>
+        <div id="collapse-{{ item_id~'-'~k }}" class="panel-collapse collapse {% if collapse_activate_1st and k==0  %} in {% endif %}"
+                {% if hide_sublings %}
+                    data-parent="#accordion-{{ item_id }}"
+                {% endif %}
+        >
+            <div class="panel-body card-body">
+                {% if question.thumb %}
+                    {% if question.link %}
+                        <a href="{{ question.link }}"><img src="{{ question.thumb }}" alt="{{ question.title }}" title="{{ question.title }}"></a>
+                    {% else %}
+                        <img src="{{ question.thumb }}" alt="{{ question.title }}" title="{{ question.title }}">
+                    {% endif %}
+                {% endif %}
+                <div>{{ question.text }}</div>
+                <div>{{ question.module }}</div>
+            </div>
+        </div>
+
+    </div>
+    {% endfor %}
+</div>
+
+
+

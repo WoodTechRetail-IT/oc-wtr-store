@@ -1,0 +1,59 @@
+{% if products %}
+<div class="hpm-cat-box" {% if thumb and replace_image %}data-thumb="{{ thumb }}"{% endif %} data-change="hpm_cat_select">
+  {% for group_id, group in groups %}
+  <div class="hpm-group hpm-group-{{ group_id }}" data-id="{{ group_id }}" data-type="{{ group.type }}">
+    
+    {% if group.type == 'type_images' %}
+    <div class="hpm-type-images">
+      {% for key, value in group.value %}
+      <div class="hpm-item {% if value.active %}active{% endif %}" data-key="{{ key }}" data-id="{{ value.ids }}">
+        {% for col, col_value in value.view %}
+        <div class="hcol-{{ col }}">{{ col_value }}</div>
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+    
+    {% if group.type == 'type_select' %}
+    <div class="hpmodel-type-select text-left">
+      <select name="hpm_select" class="form-control">
+        <option value="">{{ text_select }}</option>
+        {% for key, value in group.value %}
+        <option class="hpm-item {% if value.active %}active{% endif %}" {% if value.active %}selected{% endif %} data-key="{{ key }}" data-id="{{ value.ids }}" value="{{ key }}">{{ value.view_text }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    {% endif %}
+    
+    {% if group.type == 'type_html_select' %}
+    <div class="hpm-type-html-select">
+      <div class="hpm-select">
+        <div class="selected" data-clean="<div class='hpm-select-item'><div class='hpm-col-none'>{{ text_select }}</div></div>">
+          <div class="hpm-select-item"><div class="hpm-col-none">{{ text_select }}</div></div>
+        </div>
+        <div class="drop-down" style="display:none;">
+          {% for key, value in group.value %}
+          <div class="hpm-select-item hpm-item {% if value.active %}active{% endif %}" data-key="{{ key }}" data-id="{{ value.ids }}">
+            {% for col, col_value in value.view %}
+            <div class="hcol-{{ col }}">{{ col_value }}</div>
+            {% endfor %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  
+    <div class="hpm-clearfix"></div>
+  </div>
+  {% endfor %}
+  <div class="hpm-clearfix"></div>
+  
+  <select class="form-control hpm-product" style="display:none;">
+    {% for product in products %}
+    <option {% if product.product_id == product_id %}selected="selected"{% endif %} value="{{ product.product_id }}" data-id="{{ product.product_id }}" data-href="{{ product.href }}" {% if replace_h1 %}data-name="{{ product.name }}"{% endif %} {% if product.thumb and replace_image %}data-thumb="{{ product.thumb}}"{% endif %} {% if product.price %}data-price="{{ product.price }}"{% endif %} {% if product.special %}data-special="{{ product.special }}"{% endif %} data-qty="{{ product.quantity }}" data-price-value="{{ product.price_value }}" {% if product.special_value %}data-special-value="{{ product.special_value }}"{% endif %}>{{ product.view_text }}</option>
+    {% endfor %}
+  </select>
+</div>
+{% endif %}

@@ -1,0 +1,63 @@
+{{ header }}
+<div id="account-forgotten">
+  <div class="bg-container">
+    <div class="container">
+      <div class="navigation-content">
+        <ul class="breadcrumb">
+          {% for i,breadcrumb in breadcrumbs %} 
+          {% if (i+1<breadcrumbs|length) %}
+          <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+          {% else %}
+          <li>{{ breadcrumb.text }}</li>
+          {% endif %} 
+          {% endfor %}	
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="content-wrapper">
+      <div class="row">
+        {{ column_left }}
+        {% if column_left and column_right %}
+        {% set class = 'col-sm-6' %}
+        {% elseif column_left or column_right %}
+        {% set class = 'col-sm-9' %}
+        {% else %}
+        {% set class = 'col-sm-12' %}
+        {% endif %}
+        <div id="content" class="{{ class }}">
+          {{ content_top }}
+          <h1>{{ heading_title }}</h1>
+          <div class="form-group">
+            <p>{{ text_email }}</p>
+          </div>
+          <form action="{{ action }}" method="post" enctype="multipart/form-data">
+            <div class="form-forgotten">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group required flex flex-wrap-media">
+                    <label class="control-label form-label" for="input-email">{{ entry_email }}</label>
+                    <div class="form-input">  
+                      <input type="email" name="email" value="{{ email }}" placeholder="{{ entry_email }}" id="input-email" class="form-control" />
+                      {% if error_warning %}
+                      <div class="text-danger"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}</div>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="buttons">
+              <a href="{{ back }}" class="btn btn-default">{{ button_back }}</a>
+              <input type="submit" value="{{ button_continue }}" class="btn btn-primary" />
+            </div>
+          </form>
+          {{ content_bottom }}
+        </div>
+        {{ column_right }}
+      </div>
+    </div>
+  </div>
+</div>
+{{ footer }}

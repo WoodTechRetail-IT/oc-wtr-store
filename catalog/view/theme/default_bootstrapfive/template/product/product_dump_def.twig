@@ -1,0 +1,469 @@
+{{ header }}
+<div id="product-product" class="container">
+  <ul class="breadcrumb">
+    {% for breadcrumb in breadcrumbs %}
+    <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+    {% endfor %}
+  </ul>
+  <div class="row">{{ column_left }}
+    {% if column_left and column_right %}
+    {% set class = 'col-sm-6' %}
+    {% elseif column_left or column_right %}
+    {% set class = 'col-sm-9' %}
+    {% else %}
+    {% set class = 'col-sm-12' %}
+    {% endif %}
+    <div id="content" class="{{ class }}">{{ content_top }}
+      <div class="row"> {% if column_left or column_right %}
+        {% set class = 'col-sm-6' %}
+        {% else %}
+        {% set class = 'col-sm-8' %}
+        {% endif %}
+{% if pmtemplate == 'productdver' %}
+   <div class="col-xl-5">
+{% else %}
+   <div class="col-xl-6">
+{% endif %}
+        
+        {% if thumb or images %}
+        
+{% if thumb or images %}
+<ul class="thumbnails">
+<!-- XD stickers start -->
+{% if xdstickers is not empty %}
+<li class="xdstickers_wrapper clearfix {{xdstickers_position}} xdstickers-leftprod">
+{% for xdsticker in xdstickers %}
+<div class="xdstickers {{xdsticker.id}}">
+<div class="xdstickerbackground xdstickid{{xdsticker.id}}" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title="{{xdsticker.tooooltip}}" style="background-image: url('/{{xdsticker.imagestick}}');" alt="{{xdsticker.tooooltip}}" datatyp="{{xdsticker.typet}}" datatwo="{{xdsticker.postiont}}"></div>
+</div>
+{% if xdsticker.postiont == 'left' %}
+<div class="xdstickers {{xdsticker.id}}">
+<div class="xdstickerbackground xdstickid{{xdsticker.id}}" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title="{{xdsticker.tooooltip}}" style="background-image: url('/{{xdsticker.imagestick}}');" alt="{{xdsticker.tooooltip}}" datatyp="{{xdsticker.typet}}" datatwo="{{xdsticker.postiont}}"></div>
+</div>
+{% endif %}
+{% endfor %}
+</li>
+{% endif %}
+<!-- XD stickers end -->
+<!-- XD stickers start -->
+{% if xdstickers is not empty %}
+<li class="xdstickers_wrapper clearfix xdstickers-rightprod {{xdstickers_position}}">
+{% for xdsticker in xdstickers %}
+{% if xdsticker.postiont == 'right' %}
+<div class="xdstickers {{xdsticker.id}}">
+<div class="xdstickerbackground xdstickid{{xdsticker.id}}" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title="{{xdsticker.tooooltip}}" style="background-image: url('/{{xdsticker.imagestick}}');" alt="{{xdsticker.tooooltip}}" datatyp="{{xdsticker.typet}}" datatwo="{{xdsticker.postiont}}"></div>
+</div>
+{% endif %}
+{% endfor %}
+</li>
+{% endif %}
+<!-- XD stickers end -->
+
+
+
+{% if thumb %}
+<li><a class="thumbnail" href="{{ popup }}" title="{{ heading_title }}"><img src="{{ thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}" /></a></li>
+{% endif %}
+{% if images %}
+{% for image in images %}
+<li class="image-additional"><a class="thumbnail" href="{{ image.popup }}" title="{{ heading_title }}"> <img src="{{ image.thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}" /></a></li>
+{% endfor %}
+{% endif %}
+</ul>
+{% endif %}
+          
+          
+          
+          
+          
+             <!-- fancy start -->
+    <section id="fancy">
+    <div class="row">
+      <div class="large-5 column">
+        <div class="xzoom-container">
+            
+            {% if thumb %}
+            <img class="xzoom4 main-image-product" id="xzoom-fancy" src="{{ popup }}" xoriginal="{{ popup }}" title="{{ heading_title }}">
+            {% endif %}
+          
+            {% if images %}
+          
+          <div class="xzoom-thumbs">
+          
+            {% for image in images %}
+            <a href="{{ image.popup }}"><img class="xzoom-gallery4" width="80" src="{{ image.thumb }}"  xpreview="{{ image.thumb }}" title="{{ image.heading_title }}"></a>
+            {% endfor %}
+            
+            
+          </div>
+            {% endif %}
+            
+{% if pmtemplate == 'productdver' %}
+
+<a href="#view-interior" class="view-interior-a"><div class="view-interior"><img src="/image/interior/view-interior.png" class="view-interior-img"></div></a>
+
+
+{% endif %}
+
+        </div>          
+      </div>
+      <div class="large-7 column"></div>
+    </div>
+    </section>   
+    <!-- fancy end -->
+          
+          
+          {% endif %}
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">>{{ tab_description }}</button>
+ {% if attribute_groups %}
+    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">{{ tab_attribute }}</button>
+ {% endif %}
+    <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Доставка</button>
+    <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Оплата</button>
+    <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Монтаж</button>
+  </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+  
+</div>
+ 
+  
+  </div>
+  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+  
+   {% if attribute_groups %}
+            <div class="tab-pane" id="tab-specification">
+              <table class="table table-bordered">
+                {% for attribute_group in attribute_groups %}
+                <tbody>
+                {% for attribute in attribute_group.attribute %}
+                <tr>
+                  <td>{{ attribute.name }}</td>
+                  <td>{{ attribute.text }}</td>
+                </tr>
+                {% endfor %}
+                  </tbody>
+                {% endfor %}
+              </table>
+            </div>
+            {% endif %}
+  
+  
+  </div>
+  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+  
+
+  
+  
+  
+  
+   
+  </div>
+
+
+
+
+
+
+
+
+          <div class="tab-content">
+            <div class="tab-pane active" id="tab-description">
+            
+            
+            
+            
+            
+            
+            {{ description }}</div>
+            
+        </div>
+</div>
+ 
+{% if pmtemplate == 'productdver' %}
+<div class="col-xl-7" id="product">
+{% else %}
+<div class="col-xl-6" id="product">
+
+{% endif %}
+        
+        {% if variantproducts %}
+{% for variantproduct in variantproducts %}
+<h3>{{ variantproduct.title }}</h3>
+{% for product in variantproduct.products %}
+<a href="{{ product.href }}" id="{{ product.product_id }}" class="product_variants"><img src="{{ product.image }}"  data-toggle="tooltip" class="img-thumbnail" title="{{ product.name }}" alt="{{product.name }}" /></a>
+{% endfor %}
+{% endfor %}
+{% endif %}
+
+<!--
+product variant
+//-->
+{% if attributes %}
+{% for attribute in attributes|slice(0, 8) %}
+<li class="list-li">
+<div class="list-col list-li__left">
+<span class="li-name">{{ attribute.name }}:</span>
+</div>
+<div class="list-col list-li__right">{{ attribute.text }}</div>
+</li>
+{% endfor %}
+<li class="all-tech"><a href="" onclick="$('a[href=\'#tab-specification\']').trigger('click');  $('html, body').animate({ scrollTop: $('a[href=\'#tab-specification\']').offset().top - 100}, 500); return false;">{{ text_all_attributes }}</a></li>
+{% endif %}
+          <div class="btn-group">
+            <button type="button" data-toggle="tooltip" class="btn btn-default" title="{{ button_wishlist }}" onclick="wishlist.add('{{ product_id }}');"><i class="fa fa-heart"></i></button>
+            <button type="button" data-toggle="tooltip" class="btn btn-default" title="{{ button_compare }}" onclick="compare.add('{{ product_id }}');"><i class="fa fa-exchange"></i></button>
+          </div>
+          <h1 class="product-h1sel">{{ heading_title }}</h1>
+          <ul class="list-unstyled">
+            {% if manufacturer %}
+            <li>{{ text_manufacturer }} <a href="{{ manufacturers }}">{{ manufacturer }}</a></li>
+            {% endif %}
+            <li>{{ text_model }} {{ model }}</li>
+            <li>{{ text_stock }} {{ stock }}</li>
+          </ul>
+      {% if pmtemplate == 'productpol' %}
+      <a href="#callback" class="zapas-podrezka zapas-podrezkastyle">Запас<br> на подрезку</a>
+      {% endif %}
+          {% if price %}
+          <ul class="list-unstyled">
+            {% if not special %}
+            <li>
+              <h2>{{ price }}</h2>
+            </li>
+            {% else %}
+            <li><span style="text-decoration: line-through;">{{ price }}</span></li>
+            <li>
+              <h2>{{ special }}</h2>
+            </li>
+            {% endif %}
+            {% if discounts %}
+            <li>
+              <hr>
+            </li>
+            {% for discount in discounts %}
+            <li>{{ discount.quantity }}{{ text_discount }}{{ discount.price }}</li>
+            {% endfor %}
+            {% endif %}
+          </ul>
+          {% endif %}
+          <div id="product"> {% if options %}
+            <hr>
+            <h3>{{ text_option }}</h3>
+            {% for option in options %}
+            {% if option.type == 'select' %}
+            <div class="form-group{% if option.required %} required {% endif %}">
+              <label class="control-label" for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
+              <select name="option[{{ option.product_option_id }}]" id="input-option{{ option.product_option_id }}" class="form-control">
+                <option value="">{{ text_select }}</option>
+                {% for option_value in option.product_option_value %}
+                <option value="{{ option_value.product_option_value_id }}">{{ option_value.name }}
+                {% if option_value.price %}
+                ({{ option_value.price_prefix }}{{ option_value.price }})
+                {% endif %} </option>
+                {% endfor %}
+              </select>
+            </div>
+            {% endif %}
+            {% if option.type == 'radio' %}
+            <div class="form-group{% if option.required %} required {% endif %}">
+              <label class="control-label">{{ option.name }}</label>
+              <div id="input-option{{ option.product_option_id }}"> {% for option_value in option.product_option_value %}
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="option[{{ option.product_option_id }}]" value="{{ option_value.product_option_value_id }}" />
+                    {% if option_value.image %} <img src="{{ option_value.image }}" alt="{{ option_value.name }} {% if option_value.price %} {{ option_value.price_prefix }} {{ option_value.price }} {% endif %}" class="img-thumbnail" /> {% endif %}                  
+                    {{ option_value.name }}
+                    {% if option_value.price %}
+                    ({{ option_value.price_prefix }}{{ option_value.price }})
+                    {% endif %} 
+                    </label>
+                </div>
+                {% endfor %} </div>
+            </div>
+            {% endif %}
+            {% if option.type == 'checkbox' %}
+            <div class="form-group{% if option.required %} required {% endif %}">
+              <label class="control-label">{{ option.name }}</label>
+              <div id="input-option{{ option.product_option_id }}"> {% for option_value in option.product_option_value %}
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="option[{{ option.product_option_id }}][]" value="{{ option_value.product_option_value_id }}" />
+                    {% if option_value.image %} <img src="{{ option_value.image }}" alt="{{ option_value.name }} {% if option_value.price %} {{ option_value.price_prefix }} {{ option_value.price }} {% endif %}" class="img-thumbnail" /> {% endif %}
+                    {{ option_value.name }}
+                    {% if option_value.price %}
+                    ({{ option_value.price_prefix }}{{ option_value.price }})
+                    {% endif %} </label>
+                </div>
+                {% endfor %} </div>
+            </div>
+            {% endif %}
+            {% if option.type == 'text' %}
+            <div class="form-group{% if option.required %} required {% endif %}">
+              <label class="control-label" for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
+              <input type="text" name="option[{{ option.product_option_id }}]" value="{{ option.value }}" placeholder="{{ option.name }}" id="input-option{{ option.product_option_id }}" class="form-control" />
+            </div>
+            {% endif %}
+            {% if option.type == 'textarea' %}
+            <div class="form-group{% if option.required %} required {% endif %}">
+              <label class="control-label" for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
+              <textarea name="option[{{ option.product_option_id }}]" rows="5" placeholder="{{ option.name }}" id="input-option{{ option.product_option_id }}" class="form-control">{{ option.value }}</textarea>
+            </div>
+            {% endif %}
+
+            {% endfor %}
+            {% endif %}
+
+            <div class="form_radio_group">
+            	<div class="form_radio_group-item">
+            		<input id="radio-1" type="radio" name="radio" value="1" checked>
+            		<label for="radio-1">Radio button 1</label>
+            	</div>
+            	<div class="form_radio_group-item">
+            		<input id="radio-2" type="radio" name="radio" value="2">
+            		<label for="radio-2">Radio button 2</label>
+            	</div>
+            	<div class="form_radio_group-item">
+            		<input id="radio-3" type="radio" name="radio" value="3">
+            		<label for="radio-3">Radio button 3</label>
+            	</div>
+            	<div class="form_radio_group-item">
+            		<input id="radio-4" type="radio" name="radio" value="4" disabled>
+            		<label for="radio-4">Disabled</label>
+            	</div>
+            </div>
+            <div class="form-group">
+              <label class="control-label" for="input-quantity">{{ entry_qty }}</label>
+              <input type="text" name="quantity" value="{{ minimum }}" size="2" id="input-quantity" class="form-control" />
+              <input type="hidden" name="product_id" value="{{ product_id }}" />
+              <br />
+              <button type="button" id="button-cart" data-loading-text="{{ text_loading }}" class="btn btn-primary btn-lg btn-block">{{ button_cart }}</button>
+            </div>
+            {% if minimum > 1 %}
+            <div class="alert alert-info"><i class="fa fa-info-circle"></i> {{ text_minimum }}</div>
+            {% endif %}</div>
+           </div>
+      </div>
+      {% if products %}
+      <h3>{{ text_related }}</h3>
+      <div class="row"> {% set i = 0 %}
+        {% for product in products %}
+        {% if column_left and column_right %}
+        {% set class = 'col-xs-8 col-sm-6' %}
+        {% elseif column_left or column_right %}
+        {% set class = 'col-xs-6 col-md-4' %}
+        {% else %}
+        {% set class = 'col-xs-6 col-sm-3' %}
+        {% endif %}
+        <div class="{{ class }}">
+          <div class="product-thumb transition">
+            <div class="image"><a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive" /></a></div>
+            <div class="caption">
+              <h4><a href="{{ product.href }}">{{ product.name }}</a></h4>
+
+              {% if product.price %}
+              <p class="price"> {% if not product.special %}
+                {{ product.price }}
+                {% else %} <span class="price-new">{{ product.special }}</span> <span class="price-old">{{ product.price }}</span> {% endif %}
+                </p>
+              {% endif %} </div>
+            <div class="button-group">
+              <button type="button" onclick="cart.add('{{ product.product_id }}', '{{ product.minimum }}');"><span class="hidden-xs hidden-sm hidden-md">{{ button_cart }}</span> <i class="fa fa-shopping-cart"></i></button>
+              <button type="button" data-toggle="tooltip" title="{{ button_wishlist }}" onclick="wishlist.add('{{ product.product_id }}');"><i class="fa fa-heart"></i></button>
+              <button type="button" data-toggle="tooltip" title="{{ button_compare }}" onclick="compare.add('{{ product.product_id }}');"><i class="fa fa-exchange"></i></button>
+            </div>
+          </div>
+        </div>
+        {% if column_left and column_right and (i + 1) % 2 == 0 %}
+        <div class="clearfix visible-md visible-sm"></div>
+        {% elseif column_left or column_right and (i + 1) % 3 == 0 %}
+        <div class="clearfix visible-md"></div>
+        {% elseif (i + 1) % 4 == 0 %}
+        <div class="clearfix visible-md"></div>
+        {% endif %}
+        {% set i = i + 1 %}
+        {% endfor %} </div>
+        {% endif %}
+        {% if tags %}
+        <p>{{ text_tags }}
+        {% for i in 0..tags|length - 1 %}
+        {% if i < (tags|length - 1) %} <a href="{{ tags[i].href }}">{{ tags[i].tag }}</a>,
+        {% else %} <a href="{{ tags[i].href }}">{{ tags[i].tag }}</a> {% endif %}
+        {% endfor %} </p>
+        {% endif %}
+      {{ content_bottom }}</div>
+    {{ column_right }}</div>
+</div>
+
+<script type="text/javascript"><!--
+$('#button-cart').on('click', function() {
+	$.ajax({
+		url: 'index.php?route=checkout/cart/add',
+		type: 'post',
+		data: $('#product input[type=\'text\'], #product input[type=\'hidden\'], #product input[type=\'radio\']:checked, #product input[type=\'checkbox\']:checked, #product select, #product textarea'),
+		dataType: 'json',
+		beforeSend: function() {
+			$('#button-cart').button('loading');
+		},
+		complete: function() {
+			$('#button-cart').button('reset');
+		},
+		success: function(json) {
+			$('.alert-dismissible, .text-danger').remove();
+			$('.form-group').removeClass('has-error');
+
+			if (json['error']) {
+				if (json['error']['option']) {
+					for (i in json['error']['option']) {
+						var element = $('#input-option' + i.replace('_', '-'));
+
+						if (element.parent().hasClass('input-group')) {
+							element.parent().after('<div class="text-danger">' + json['error']['option'][i] + '</div>');
+						} else {
+							element.after('<div class="text-danger">' + json['error']['option'][i] + '</div>');
+						}
+					}
+				}
+
+				if (json['error']['recurring']) {
+					$('select[name=\'recurring_id\']').after('<div class="text-danger">' + json['error']['recurring'] + '</div>');
+				}
+
+				// Highlight any found errors
+				$('.text-danger').parent().addClass('has-error');
+			}
+
+			if (json['success']) {
+				$('.breadcrumb').after('<div class="alert alert-success alert-dismissible">' + json['success'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+
+				$('#cart > button').html('<span id="cart-total"><i class="fa fa-shopping-cart"></i> ' + json['total'] + '</span>');
+
+				$('html, body').animate({ scrollTop: 0 }, 'slow');
+
+				$('#cart > ul').load('index.php?route=common/cart/info ul li');
+			}
+		},
+        error: function(xhr, ajaxOptions, thrownError) {
+            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+        }
+	});
+});
+//--></script> 
+
+<script type="text/javascript"><!--
+
+
+$(document).ready(function() {
+	$('.thumbnails').magnificPopup({
+		type:'image',
+		delegate: 'a',
+		gallery: {
+			enabled: true
+		}
+	});
+});
+//--></script> 
+{{ footer }} 

@@ -1,0 +1,1356 @@
+{{ header }}
+<div id="product-product">
+  <section class="catalog-product__block product-content">
+    <div class="container">
+      <div class="catalog-product__container">
+        <div class="navigation-content">
+          <ul class="breadcrumb">
+            {% for i,breadcrumb in breadcrumbs %} 
+            {% if (i+1<breadcrumbs|length) %}
+            <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+            {% else %}
+            <li>{{ breadcrumb.text }}</li>
+            {% endif %} 
+            {% endfor %}
+          </ul>
+        </div>
+        <div id="product" class="product">
+          {% if back_history %}
+          <div class="back-history"><a href="" class="button-back" onclick="window.history.back(); return false;">{{ text_back }}</a></div>
+          {% endif %}
+          {{ content_top }}
+          <h1 class="main-title">{{ heading_title }}</h1>
+          <div id="sectioncontent">
+            
+          </div>
+          <div class="row product-row-main-pr">
+            <div class="col-xxl-9 col-xl-9 col-md-7">
+              <div class="row">
+                          <div class="col-xl-6">
+                          {% if pmtemplate == "vhodnyjedveri" %}
+
+
+
+                      
+                                <div class="nakladki perednajanakl">
+                                  <a href="{{ popup }}" title="{{ heading_title }}"><img src="{{ thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}" class="img-responsive"  id="mainimagez" /></a>
+                                </div>
+                                <div class="nakladki zadnajanaklvhodn" id="zadnyjanakl">
+                                  <a href="{{ popup }}" title="{{ heading_title }}"><img src="{{ thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}" class="img-responsive"  id="mainimagezfdd" /></a>
+                                </div>
+                              {% else %}
+
+
+
+                                <div class="product-left">
+                                  <div class="product-left-block">
+                                    <div class="product-image">
+                                      {% if thumb or images %}
+                                      <div class="product-images">
+                                        <div class="product-image__thumb">
+                                          {% if images %}
+                                          {% for image in images %}
+                                          <div class="product-images__additional"><img src="{{ image.thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}" class="img-responsive" /></div>
+                                          {% endfor %}
+                                          {% endif %}
+                                        </div>
+                                      </div>
+                                      <div class="product-image__mains">
+                                                {% if thumb %}
+                                                    <div class="product-images__thumb">
+                                                      <a href="{{ popup }}" title="{{ heading_title }}"><img src="{{ thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}" class="img-responsive"  id="mainimagez" /></a>
+                                                    </div>
+                                                  {% endif %}
+                                        
+                                      </div>
+                                      {% endif %}
+                                    </div>
+                                    
+                                  </div>
+                                </div>
+                            {% endif %}
+                            
+                            {% if pmtemplate == "productdver" %}
+                              <a href="#view-in-interior" class="phone-link phone-link-callback popup-with-move-anim view-interior-a open-popup-link"><div class="view-interior"><img src="/image/catalog/woodtech_item/frontend/interior/view-interior.png" class="view-interior-img"></div></a>
+                            {% endif %}
+                          </div>
+                <div class="col-xl-6">
+                        {% if hpmwtrdata %}
+                        <div class="hpmwtrblock">
+                          {% for hpmwtritem in hpmwtrdata %}
+                          <div class="hpmwtrblock-item">
+                            <div class="hpmwtrblock-item-blpict">
+                              <img src="{{ hpmwtritem.image }}" mainimg="{{ hpmwtritem.image_main }}" idhhpm="{{ hpmwtritem.product_id }}" alt="{{ hpmwtritem.model }}" class="hpmwtrblock-item-blpict-img">
+                            </div>
+                            <div class="hpmwtrblock-item-price">{{ hpmwtritem.price }} руб.</div>
+                          </div>
+                          {% endfor %}
+                        </div>
+                        {% endif %}
+                  {% if options %}
+                  <div class="product-options">
+                    {% for option in options %}
+                    {% if option.type == 'select' %}
+                    <div class="form-group{% if option.required %} required {% endif %}">
+                      <label class="control-label" for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
+                      <select name="option[{{ option.product_option_id }}]" id="input-option{{ option.product_option_id }}" class="form-control form-control-select-wtr">
+                        <option value="">{{ text_select }}</option>
+                        {% for option_value in option.product_option_value %}
+                        <option value="{{ option_value.product_option_value_id }}">{{ option_value.name }}
+                          {% if option_value.price %}
+                          ({{ option_value.price_prefix }}{{ option_value.price }})
+                          {% endif %} 
+                        </option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                    {% endif %}
+                    {% if option.type == 'radio' %}
+                    <div class="radio-but-product form-group{% if option.required %} required {% endif %}">
+                      <label class="control-label">{{ option.name }}</label>
+                      <div id="input-option" class="input-option{{ option.option_id }} form-control-radio-wtr">
+                        {% for option_value in option.product_option_value %}
+                        
+
+                        <div class="radio fake-radio">                
+                          <input type="radio" id="{{ option_value.product_option_value_id }}" name="option[{{ option.product_option_id }}]" value="{{ option_value.product_option_value_id }}" />
+                          <label class="option-btn radio-btn {% if option_value.imageb %}vhodntrue{% endif %}" data-image-zoomchange="{{ option_value.imageprod }}" {% if option_value.imageb %}data-vhodnimg="{{ option_value.imageb }}"{% endif %} data-toggle="tooltip" for="{{ option_value.product_option_value_id }}">
+                            {% if not option_value.image %}
+                            <span class="option-name" data-toggle="tooltip" title="{% if option_value.price %} {{ option_value.price_prefix }} {{ option_value.price }} {% endif %}">{{ option_value.name }}</span>
+                            {% else %}
+                            <span class="option-image" data-toggle="tooltip" title="{{ option_value.name }} {% if option_value.price %} {{ option_value.price_prefix }} {{ option_value.price }} {% endif %}">
+                              <img src="{{ option_value.image }}" alt="{{ option_value.name }}" class="img-thumbnail" />
+                            </span>
+                            {% endif %} 
+                          </label>
+                        </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                    {% endif %}
+                    {% if option.type == 'checkbox' %}
+                    <div class="form-group{% if option.required %} required {% endif %}">
+                      <label class="control-label">{{ option.name }}</label>
+                      <div id="input-option" class="input-option{{ option.option_id }} option-grid form-control-wtr-checkbox">
+                        {% for option_value in option.product_option_value %}
+                        <div class="radio fake-checkbox">                
+                          <input type="checkbox" id="{{ option_value.product_option_value_id }}" name="option[{{ option.product_option_id }}][]" value="{{ option_value.product_option_value_id }}" />
+                          <label class="option-btn checkbox-btn" for="{{ option_value.product_option_value_id }}">
+                            {% if not option_value.image %}
+                            <span class="option-name" data-toggle="tooltip" title="{% if option_value.price %} {{ option_value.price_prefix }} {{ option_value.price }} {% endif %}">{{ option_value.name }}</span>
+                            {% else %}
+                            <span class="option-image" data-toggle="tooltip" title="{{ option_value.name }} {% if option_value.price %} {{ option_value.price_prefix }} {{ option_value.price }} {% endif %}">
+                              <img src="{{ option_value.image }}" alt="{{ option_value.name }}" class="img-thumbnail" />
+                            </span>
+                            {% endif %} 
+                          </label>
+                        </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                    {% endif %}
+
+
+                    {% endfor %}
+                  </div>
+                  {% endif %}
+
+                  <div class="list-attributes">
+                    <div class="list-attributes__title">{{ text_about_product }}</div>
+                    <ul class="list-informations">
+                      
+                      {% if attributes %}
+                      {% for attribute in attributes|slice(0, 5) %}
+                      <li class="list-li">
+                        <div class="list-col list-li__left">
+                          <span class="li-name">{{ attribute.name }}:</span>
+                        </div>
+                        <div class="list-col list-li__right">{{ attribute.text }}</div>
+                      </li>
+                      {% endfor %}
+                      <li class="all-tech"><a href="" onclick="$('a[href=\'#tab-specification\']').trigger('click');  $('html, body').animate({ scrollTop: $('a[href=\'#tab-specification\']').offset().top - 100}, 500); return false;">{{ text_all_attributes }}</a></li>
+                      {% endif %}
+                    </ul>
+                  </div>
+                  
+
+
+                  {% if pmtemplate == "productpol" %}
+                            {% if manufacturers_img %}
+                            <div class="product-twobl product-block-price">
+                                <div class="manufacturer-logo">
+                                  <div class="manufacturer-logo__img">
+                                    <img src="{{ manufacturers_img }}" alt="{{ manufacturer }}" title="{{ manufacturer }}" class="img-thumbnail" />
+                                  </div>
+                                  <a href="{{ manufacturers }}">Все товары {{ manufacturer }}</a>
+                                </div>
+                            </div>
+                          {% else %}
+                            <div class="product-twobl product-block-price">
+                                  {% if manufacturer %}
+                                      <div class="block-no-img-man">
+                                        <div class="list-col list-li__left">
+                                          <span class="li-name">{{ text_manufacturer }}</span>
+                                        </div>
+                                        <div class="list-col list-li__right">
+                                          <a href="{{ manufacturers }}">{{ manufacturer }}</a>
+                                        </div>
+                                      </div>
+                                  {% endif %}
+                            </div>
+                          {% endif %}
+                          
+
+                          {% if quantity == 0 %}
+                          <div class="product-offers product-stock not-available">
+                            <span><i class="fi fi-rr-cross-circle mr-2"></i>{{ stock }}</span>
+                          </div>
+                          {% else %}
+                          <div class="product-offers product-stock in-stock">
+                            <span><i class="fi fi-rr-badge-check mr-2"></i>{{ text_instock }} {% if stock_display %}{{ stock }} {{ text_pcs }}{% endif %}</span>
+                          </div>
+                          {% endif %}
+
+
+                          <div class="product-tools form-group">
+                          <div class="btn-addtools d-flex flex-wrap">
+                            <button type="button" class="product-compare tools-toggle clear-button" onclick="compare.add('{{ product_id }}');"><i class="fi fi-rr-balance-scale-right"></i> <span>{{ button_compare }}</span></button>
+                            <button type="button" class="product-wishlist tools-toggle clear-button" onclick="wishlist.add('{{ product_id }}');"><i class="fi fi-rr-heart"></i> <span>{{ button_wishlist }}</span></button>
+                            {% if product_share %}
+                            <div class="product-share">
+                              <span class="dropdown-toggle" data-toggle="dropdown"><i class="fi fi-rr-share"></i></span>
+                              <div class="product-share__block dropdown-menu dropdown-menu-right">
+          
+                              </div>
+                            </div>
+                            {% endif %}
+                          </div>
+                        </div>
+
+                    {% endif %}
+
+                </div>
+              </div>
+            </div>
+            
+
+            
+            {% if pmtemplate == "productpol" %}
+            <div class="col-xxl-3 col-xl-3 col-md-5">
+              <div class="product-right">
+                <div class="product-right-block">
+                      <input type="text" name="quantity" value="{{ minimum }}" data-min="{{ minimum }}" data-max="{{ quantity }}" class="counter-input-hidden" />
+                        <div class="product-counter-t">
+                          <div class="counter-pol-bloc">
+                            <div class="countblock-item countblock-item-control countblock-item-control-minus"><i class="fa fa-minus" aria-hidden="true"></i></div>
+                            <div class="countblock-item countblock-item-inpt"><input onkeypress='validate(event)' type="text" value="{{ minimum }}" data-min="{{ minimum }}" class="counter-input-w" id="mainquantmtwo"/></div>
+                            <div class="countblock-item countblock-item-control countblock-item-control-plus"><i class="fa fa-plus" aria-hidden="true"></i></div>
+                          </div>
+                          <div class="counter-pol-bloc">
+                            <div class="countblock-item countblock-item-control countblock-item-control-minus"><i class="fa fa-minus" aria-hidden="true"></i></div>
+                            <div class="countblock-item countblock-item-inpt"><input onkeypress='validate(event)' type="text" value="1" class="counter-input-w" id="mainquanupac"/></div>
+                            <div class="countblock-item countblock-item-control countblock-item-control-plus"><i class="fa fa-plus" aria-hidden="true"></i></div>
+                          </div>
+                        </div>
+                        <div class="blockinfopricecalcfloor">
+                          {% if pricem2 %}
+                            {% if not specialm2 %}
+                              <div class="blockrashetfloor" id="datafloor" classicprice="{{ pricem2 }}"></div>
+                              {% else %}
+                            <div class="blockrashetfloor" id="datafloor" classicprice="{{ pricem2 }}" specialprice="{{ specialm2 }}"></div>
+                            {% endif %}
+                          {% endif %}
+                        </div>
+                  <div class="product-buy add-cart-block">
+                    <div class="product-buy__btn">
+                        {% if buyoneclick_status_product %}
+                			<br />
+                			<button type="button" data-loading-text="{{ buyoneclick_text_loading }}" class="btn btn-primary btn-lg btn-block boc_order_btn" {% if (buyoneclick_ya_status and buyoneclick_ya_counter is defined and buyoneclick_ya_counter != '' and buyoneclick_ya_identificator is defined and buyoneclick_ya_identificator != '') or (buyoneclick_google_status and buyoneclick_google_category_btn is defined and buyoneclick_google_category_btn != '' and buyoneclick_google_action_btn is defined and buyoneclick_google_action_btn != '') %} onClick="clickAnalytics(); return true;" {% endif %} data-target="#boc_order" data-product="{{ heading_title }}" data-product_id="{{ product_id }}">{{ buyoneclick_name }}</button>
+                		{% endif %}
+                      {% if quantity > 0 or quantity == 0 and stock_checkout %}
+                      <button type="button" id="button-cart" data-loading-text="{{ text_loading }}" class="btn btn-primary btn-lg btn-block"><i class="fi fi-rr-shopping-cart-add"></i><span class="btn-cart__text">{{ button_cart }}</span></button>
+                      {% else %}
+                      <button type="button" class="btn btn-primary btn-lg btn-block btn-disabled" disabled><span class="btn-cart__text">{{ button_cart }}</span></button>
+                      {% endif %}
+                      <input type="hidden" name="product_id" value="{{ product_id }}" />
+                      <div class="whatsapp-prod"><a href="https://api.whatsapp.com/send/?phone=74993481116&amp;text=Добрый+день%2C+вышлите+предложение+по+">Перейти в чат<svg height="13pt" viewBox="-1 0 512 512" width="13pt" xmlns="http://www.w3.org/2000/svg"><path d="m10.894531 512c-2.875 0-5.671875-1.136719-7.746093-3.234375-2.734376-2.765625-3.789063-6.78125-2.761719-10.535156l33.285156-121.546875c-20.722656-37.472656-31.648437-79.863282-31.632813-122.894532.058594-139.941406 113.941407-253.789062 253.871094-253.789062 67.871094.0273438 131.644532 26.464844 179.578125 74.433594 47.925781 47.972656 74.308594 111.742187 74.289063 179.558594-.0625 139.945312-113.945313 253.800781-253.867188 253.800781 0 0-.105468 0-.109375 0-40.871093-.015625-81.390625-9.976563-117.46875-28.84375l-124.675781 32.695312c-.914062.238281-1.84375.355469-2.761719.355469zm0 0" fill="#01e675"></path><path d="m10.894531 501.105469 34.46875-125.871094c-21.261719-36.839844-32.445312-78.628906-32.429687-121.441406.054687-133.933594 109.046875-242.898438 242.976562-242.898438 64.992188.027344 125.996094 25.324219 171.871094 71.238281 45.871094 45.914063 71.125 106.945313 71.101562 171.855469-.058593 133.929688-109.066406 242.910157-242.972656 242.910157-.007812 0 .003906 0 0 0h-.105468c-40.664063-.015626-80.617188-10.214844-116.105469-29.570313zm134.769531-77.75 7.378907 4.371093c31 18.398438 66.542969 28.128907 102.789062 28.148438h.078125c111.304688 0 201.898438-90.578125 201.945313-201.902344.019531-53.949218-20.964844-104.679687-59.09375-142.839844-38.132813-38.160156-88.832031-59.1875-142.777344-59.210937-111.394531 0-201.984375 90.566406-202.027344 201.886719-.015625 38.148437 10.65625 75.296875 30.875 107.445312l4.804688 7.640625-20.40625 74.5zm0 0" fill="#fff"></path><path d="m19.34375 492.625 33.277344-121.519531c-20.53125-35.5625-31.324219-75.910157-31.3125-117.234375.050781-129.296875 105.273437-234.488282 234.558594-234.488282 62.75.027344 121.644531 24.449219 165.921874 68.773438 44.289063 44.324219 68.664063 103.242188 68.640626 165.898438-.054688 129.300781-105.28125 234.503906-234.550782 234.503906-.011718 0 .003906 0 0 0h-.105468c-39.253907-.015625-77.828126-9.867188-112.085938-28.539063zm0 0" fill="#01e675"></path><g fill="#fff"><path d="m10.894531 501.105469 34.46875-125.871094c-21.261719-36.839844-32.445312-78.628906-32.429687-121.441406.054687-133.933594 109.046875-242.898438 242.976562-242.898438 64.992188.027344 125.996094 25.324219 171.871094 71.238281 45.871094 45.914063 71.125 106.945313 71.101562 171.855469-.058593 133.929688-109.066406 242.910157-242.972656 242.910157-.007812 0 .003906 0 0 0h-.105468c-40.664063-.015626-80.617188-10.214844-116.105469-29.570313zm134.769531-77.75 7.378907 4.371093c31 18.398438 66.542969 28.128907 102.789062 28.148438h.078125c111.304688 0 201.898438-90.578125 201.945313-201.902344.019531-53.949218-20.964844-104.679687-59.09375-142.839844-38.132813-38.160156-88.832031-59.1875-142.777344-59.210937-111.394531 0-201.984375 90.566406-202.027344 201.886719-.015625 38.148437 10.65625 75.296875 30.875 107.445312l4.804688 7.640625-20.40625 74.5zm0 0"></path><path d="m195.183594 152.246094c-4.546875-10.109375-9.335938-10.3125-13.664063-10.488282-3.539062-.152343-7.589843-.144531-11.632812-.144531-4.046875 0-10.625 1.523438-16.1875 7.597657-5.566407 6.074218-21.253907 20.761718-21.253907 50.632812 0 29.875 21.757813 58.738281 24.792969 62.792969 3.035157 4.050781 42 67.308593 103.707031 91.644531 51.285157 20.226562 61.71875 16.203125 72.851563 15.191406 11.132813-1.011718 35.917969-14.6875 40.976563-28.863281 5.0625-14.175781 5.0625-26.324219 3.542968-28.867187-1.519531-2.527344-5.566406-4.046876-11.636718-7.082032-6.070313-3.035156-35.917969-17.726562-41.484376-19.75-5.566406-2.027344-9.613281-3.035156-13.660156 3.042969-4.050781 6.070313-15.675781 19.742187-19.21875 23.789063-3.542968 4.058593-7.085937 4.566406-13.15625 1.527343-6.070312-3.042969-25.625-9.449219-48.820312-30.132812-18.046875-16.089844-30.234375-35.964844-33.777344-42.042969-3.539062-6.070312-.058594-9.070312 2.667969-12.386719 4.910156-5.972656 13.148437-16.710937 15.171875-20.757812 2.023437-4.054688 1.011718-7.597657-.503906-10.636719-1.519532-3.035156-13.320313-33.058594-18.714844-45.066406zm0 0" fill-rule="evenodd"></path></g></svg></a></div>
+                    </div>
+                    <div class="offser"><a href="#callback" class="found-cheaper2"><b class="b-desh">Нашли дешевле или у Вас большой объем?</b><br>Оставьте заявку и мы сделаем индивидуальную скидку</a></div>
+                    <div class="dostavka"><div class="info-dostavka"><ul class="info-dostavka-ul"><li class="info-dostavka-li"><span>Доставка по Москве и МО (1500р. + 20р за км от МКАД)</span></li><li class="info-dostavka-li"><span>Доставка в регионы осуществляется транспортными компаниями</span></li></ul><span class="head-dost">Оплата</span><ul class="info-dostavka-ul"><li class="info-dostavka-li"><span>Наличными в салоне-магазине</span></li><li class="info-dostavka-li"><span>Оплата через сайт</span></li><li class="info-dostavka-li"><span>Банковским переводом</span></li></ul></div></div>
+                    <div id="buyoneclick"></div>
+                  </div>
+              </div>
+            </div>
+
+            {% else %}
+
+            <div class="col-xxl-3 col-xl-3 col-md-5">
+              <div class="product-tools form-group">
+                <div class="btn-addtools d-flex flex-wrap">
+                  <button type="button" class="product-compare tools-toggle clear-button" onclick="compare.add('{{ product_id }}');"><i class="fi fi-rr-balance-scale-right"></i> <span>{{ button_compare }}</span></button>
+                  <button type="button" class="product-wishlist tools-toggle clear-button" onclick="wishlist.add('{{ product_id }}');"><i class="fi fi-rr-heart"></i> <span>{{ button_wishlist }}</span></button>
+                  {% if product_share %}
+                  <div class="product-share">
+                    <span class="dropdown-toggle" data-toggle="dropdown"><i class="fi fi-rr-share"></i></span>
+                    <div class="product-share__block dropdown-menu dropdown-menu-right">
+
+                    </div>
+                  </div>
+                  {% endif %}
+                </div>
+              </div>
+              
+              <div class="product-right">
+                <div class="product-right-block">
+                  {% if price %}
+                  <div class="product-prices">
+                    <div class="product-twobl price">
+                      {% if not special %}
+                      <div class="main-price">{{ price }}</div>
+                      {% else %}
+                      <div class="product-item-price-stock">
+                        <div class="old-price product-item-price-old">{{ price }}</div>
+                        {% if economy %}
+                        <div class="product-item-price-economy"> - {{ economy }}</div>
+                        {% endif %}
+                      </div>
+                      <div class="main-price price-special price-new">{{ special }}</div>
+                      {% if percent %}
+                      <div class="card-percent"><span>{{ "-" ~ percent ~ "%" }}</span></div>
+                      {% endif %}
+                      {% endif %}
+                      {% if discounts %}
+                      <div class="discount-prices">
+                        <div class="discount-title">{{ text_table_price }}</div>
+                        <div class="discount">
+                          {% for discount in discounts %}
+                          <div class="price-discount">
+                            <span class="discount-item">{{ discount.quantity }} {{ text_discount }}</span>
+                            <span class="discount-item-value">
+                              <span class="discount-item-bg">{{ discount.price }}</span>
+                            </span>
+                          </div>
+                          {% endfor %}
+                        </div>
+                      </div>
+                      {% endif %}
+                          {% if quantity == 0 %}
+                          <div class="product-offers product-stock not-available">
+                            <span><i class="fi fi-rr-cross-circle mr-2"></i>{{ stock }}</span>
+                          </div>
+                          {% else %}
+                          <div class="product-offers product-stock in-stock">
+                            <span><i class="fi fi-rr-badge-check mr-2"></i>{{ text_instock }} {% if stock_display %}{{ stock }} {{ text_pcs }}{% endif %}</span>
+                          </div>
+                          {% endif %}
+                    </div>
+                              {% if manufacturers_img %}
+                              <div class="product-twobl product-block-price">
+                                  <div class="manufacturer-logo">
+                                    <div class="manufacturer-logo__img">
+                                      <img src="{{ manufacturers_img }}" alt="{{ manufacturer }}" title="{{ manufacturer }}" class="img-thumbnail" />
+                                    </div>
+                                    <a href="{{ manufacturers }}">Все товары {{ manufacturer }}</a>
+                                  </div>
+                              </div>
+                            {% else %}
+                              <div class="product-twobl product-block-price">
+                                    {% if manufacturer %}
+                                        <div class="block-no-img-man">
+                                          <div class="list-col list-li__left">
+                                            <span class="li-name">{{ text_manufacturer }}</span>
+                                          </div>
+                                          <div class="list-col list-li__right">
+                                            <a href="{{ manufacturers }}">{{ manufacturer }}</a>
+                                          </div>
+                                        </div>
+                                    {% endif %}
+                              </div>
+                            {% endif %}
+                  </div>
+                  {% endif %}
+                  <div class="product-buy add-cart-block">
+                    <div class="product-buy__btn">
+                        {% if buyoneclick_status_product %}
+                			<br />
+                			<button type="button" data-loading-text="{{ buyoneclick_text_loading }}" class="btn btn-primary btn-lg btn-block boc_order_btn" {% if (buyoneclick_ya_status and buyoneclick_ya_counter is defined and buyoneclick_ya_counter != '' and buyoneclick_ya_identificator is defined and buyoneclick_ya_identificator != '') or (buyoneclick_google_status and buyoneclick_google_category_btn is defined and buyoneclick_google_category_btn != '' and buyoneclick_google_action_btn is defined and buyoneclick_google_action_btn != '') %} onClick="clickAnalytics(); return true;" {% endif %} data-target="#boc_order" data-product="{{ heading_title }}" data-product_id="{{ product_id }}">{{ buyoneclick_name }}</button>
+                		{% endif %}
+                      {% if quantity > 0 or quantity == 0 and stock_checkout %}
+                      <button type="button" id="button-cart" data-loading-text="{{ text_loading }}" class="btn btn-primary btn-lg btn-block"><i class="fi fi-rr-shopping-cart-add"></i><span class="btn-cart__text">{{ button_cart }}</span></button>
+                      {% else %}
+                      <button type="button" class="btn btn-primary btn-lg btn-block btn-disabled" disabled><span class="btn-cart__text">{{ button_cart }}</span></button>
+                      {% endif %}
+                      <input type="hidden" name="product_id" value="{{ product_id }}" />
+                      <div class="whatsapp-prod"><a href="https://api.whatsapp.com/send/?phone=74993481116&amp;text=Добрый+день%2C+вышлите+предложение+по+">Перейти в чат<svg height="13pt" viewBox="-1 0 512 512" width="13pt" xmlns="http://www.w3.org/2000/svg"><path d="m10.894531 512c-2.875 0-5.671875-1.136719-7.746093-3.234375-2.734376-2.765625-3.789063-6.78125-2.761719-10.535156l33.285156-121.546875c-20.722656-37.472656-31.648437-79.863282-31.632813-122.894532.058594-139.941406 113.941407-253.789062 253.871094-253.789062 67.871094.0273438 131.644532 26.464844 179.578125 74.433594 47.925781 47.972656 74.308594 111.742187 74.289063 179.558594-.0625 139.945312-113.945313 253.800781-253.867188 253.800781 0 0-.105468 0-.109375 0-40.871093-.015625-81.390625-9.976563-117.46875-28.84375l-124.675781 32.695312c-.914062.238281-1.84375.355469-2.761719.355469zm0 0" fill="#01e675"></path><path d="m10.894531 501.105469 34.46875-125.871094c-21.261719-36.839844-32.445312-78.628906-32.429687-121.441406.054687-133.933594 109.046875-242.898438 242.976562-242.898438 64.992188.027344 125.996094 25.324219 171.871094 71.238281 45.871094 45.914063 71.125 106.945313 71.101562 171.855469-.058593 133.929688-109.066406 242.910157-242.972656 242.910157-.007812 0 .003906 0 0 0h-.105468c-40.664063-.015626-80.617188-10.214844-116.105469-29.570313zm134.769531-77.75 7.378907 4.371093c31 18.398438 66.542969 28.128907 102.789062 28.148438h.078125c111.304688 0 201.898438-90.578125 201.945313-201.902344.019531-53.949218-20.964844-104.679687-59.09375-142.839844-38.132813-38.160156-88.832031-59.1875-142.777344-59.210937-111.394531 0-201.984375 90.566406-202.027344 201.886719-.015625 38.148437 10.65625 75.296875 30.875 107.445312l4.804688 7.640625-20.40625 74.5zm0 0" fill="#fff"></path><path d="m19.34375 492.625 33.277344-121.519531c-20.53125-35.5625-31.324219-75.910157-31.3125-117.234375.050781-129.296875 105.273437-234.488282 234.558594-234.488282 62.75.027344 121.644531 24.449219 165.921874 68.773438 44.289063 44.324219 68.664063 103.242188 68.640626 165.898438-.054688 129.300781-105.28125 234.503906-234.550782 234.503906-.011718 0 .003906 0 0 0h-.105468c-39.253907-.015625-77.828126-9.867188-112.085938-28.539063zm0 0" fill="#01e675"></path><g fill="#fff"><path d="m10.894531 501.105469 34.46875-125.871094c-21.261719-36.839844-32.445312-78.628906-32.429687-121.441406.054687-133.933594 109.046875-242.898438 242.976562-242.898438 64.992188.027344 125.996094 25.324219 171.871094 71.238281 45.871094 45.914063 71.125 106.945313 71.101562 171.855469-.058593 133.929688-109.066406 242.910157-242.972656 242.910157-.007812 0 .003906 0 0 0h-.105468c-40.664063-.015626-80.617188-10.214844-116.105469-29.570313zm134.769531-77.75 7.378907 4.371093c31 18.398438 66.542969 28.128907 102.789062 28.148438h.078125c111.304688 0 201.898438-90.578125 201.945313-201.902344.019531-53.949218-20.964844-104.679687-59.09375-142.839844-38.132813-38.160156-88.832031-59.1875-142.777344-59.210937-111.394531 0-201.984375 90.566406-202.027344 201.886719-.015625 38.148437 10.65625 75.296875 30.875 107.445312l4.804688 7.640625-20.40625 74.5zm0 0"></path><path d="m195.183594 152.246094c-4.546875-10.109375-9.335938-10.3125-13.664063-10.488282-3.539062-.152343-7.589843-.144531-11.632812-.144531-4.046875 0-10.625 1.523438-16.1875 7.597657-5.566407 6.074218-21.253907 20.761718-21.253907 50.632812 0 29.875 21.757813 58.738281 24.792969 62.792969 3.035157 4.050781 42 67.308593 103.707031 91.644531 51.285157 20.226562 61.71875 16.203125 72.851563 15.191406 11.132813-1.011718 35.917969-14.6875 40.976563-28.863281 5.0625-14.175781 5.0625-26.324219 3.542968-28.867187-1.519531-2.527344-5.566406-4.046876-11.636718-7.082032-6.070313-3.035156-35.917969-17.726562-41.484376-19.75-5.566406-2.027344-9.613281-3.035156-13.660156 3.042969-4.050781 6.070313-15.675781 19.742187-19.21875 23.789063-3.542968 4.058593-7.085937 4.566406-13.15625 1.527343-6.070312-3.042969-25.625-9.449219-48.820312-30.132812-18.046875-16.089844-30.234375-35.964844-33.777344-42.042969-3.539062-6.070312-.058594-9.070312 2.667969-12.386719 4.910156-5.972656 13.148437-16.710937 15.171875-20.757812 2.023437-4.054688 1.011718-7.597657-.503906-10.636719-1.519532-3.035156-13.320313-33.058594-18.714844-45.066406zm0 0" fill-rule="evenodd"></path></g></svg></a></div>
+                    </div>
+                    <div class="offser"><a href="#callback" class="found-cheaper2"><b class="b-desh">Нашли дешевле или у Вас много дверей?</b><br>Оставьте заявку и мы сделаем индивидуальную скидку</a></div>
+                    <div class="dostavka"><div class="info-dostavka"><ul class="info-dostavka-ul"><li class="info-dostavka-li"><span>Доставка по Москве и МО (1500р. + 20р за км от МКАД)</span></li><li class="info-dostavka-li"><span>Доставка в регионы осуществляется транспортными компаниями</span></li></ul><span class="head-dost">Оплата</span><ul class="info-dostavka-ul"><li class="info-dostavka-li"><span>Наличными в салоне-магазине</span></li><li class="info-dostavka-li"><span>Оплата через сайт</span></li><li class="info-dostavka-li"><span>Банковским переводом</span></li></ul></div></div>
+                    <div id="buyoneclick"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+            
+          {% endif %}
+
+
+
+
+
+
+
+
+
+
+            
+          </div>
+          <div id="prodvar"></div>
+        </div>
+
+
+
+
+        <div class="menuprem-feat menuprem-just menuprem-dark menuprem-inline menuprem-feattop">
+                        <ul>
+                           <li><a> <i class="icon-prem icon-dostavka">&nbsp;</i> </a>
+                              <div><a>Бесплатная доставка по Москве </a></div>
+                              <span class="menuprem-dropdown"
+                                 data-text="Мы привезём любой заказ от 50000р, сделанный в нашем магазине бесплатно в пределах МКАД.">
+                                 <!--noindex-->Мы привезём любой заказ от 50000р, сделанный в нашем магазине бесплатно в пределах МКАД.
+                                 <!--/noindex-->
+                              </span>
+                           </li>
+                           <li><a> <i class="icon-prem icon-vozvrat">&nbsp;</i> </a>
+                              <div><a>Возврат-обмен товара </a></div>
+                              <span class="menuprem-dropdown"
+                                 data-text="Возврат товаров осуществляется в соответствии с законом о Защите прав потребителей.">
+                                 <!--noindex-->Возврат товаров осуществляется в соответствии с законом о Защите прав потребителей.
+                                 <!--/noindex-->
+                              </span>
+                           </li>
+                           <li><a> <i class="icon-prem icon-sklad">&nbsp; </i> </a>
+                              <div><a>Бесплатное хранение товара </a></div>
+                              <span class="menuprem-dropdown"
+                                 data-text="При необходимости, мы готовы бесплатно хранить любую вашу покупку на нашем складе в течении 2-х месяцев. Более длительное хранение возможно и является предметом взаимовыгодных соглашений.">
+                                 При необходимости, мы готовы бесплатно хранить любую вашу покупку на нашем складе в течении
+                                 2-х месяцев. Более длительное хранение возможно и является предметом взаимовыгодных соглашений.
+                              </span>
+                           </li>
+                           <li><a> <i class="icon-prem icon-garant">&nbsp;</i> </a>
+                              <div><a>Расширенная гарантия </a></div>
+                              <span class="menuprem-dropdown"
+                                 data-text="При условии, что приобретённые у нас напольные покрытия будут смонтированы нашими специалистами, мы предоставляем расширенную до 3 лет гарантию от нашей компании.">
+                                 При условии, что приобретённые у нас напольные покрытия будут смонтированы нашими
+                                 специалистами, мы предоставляем расширенную до 3 лет гарантию от нашей компании.
+                              </span>
+                           </li>
+                           {% if pmtemplate == 'productdver' %}
+                           <li><a> <i class="icon-prem icon-plintus">&nbsp;</i> </a>
+                              <div><a>Любые аксессуары в цвет дверей </a></div>
+                              <span class="menuprem-dropdown" data-text="У нас можно заказать любой аксессуар в цвет межкомнатных дверей.">У
+                                 нас можно заказать любой аксессуар в цвет межкомнатных дверей.</span>
+                           </li>
+                           {% else %}
+                           <li><a> <i class="icon-prem icon-plintus">&nbsp;</i> </a>
+                              <div><a>Любые аксессуары в цвет пола </a></div>
+                              <span class="menuprem-dropdown"
+                                 data-text="У нас можно заказать любой аксессуар в цвет напольного покрытия. Плинтуса, переходные порожки">
+                                 У нас можно заказать любой аксессуар в цвет напольного покрытия. Плинтуса, переходные порожки и другое.
+                                 Собственное производство.
+                              </span>
+                           </li>
+                           {% endif %}
+                        </ul>
+                     </div>
+
+
+
+        <div class="product-tabs">
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#tab-description" data-toggle="tab">{{ tab_description }}</a></li>
+            {% if attribute_groups %}
+            <li><a href="#tab-specification" data-toggle="tab">{{ tab_attribute }}</a></li>
+            {% endif %}
+            <!--{% if review_status %}
+            <li><a href="#tab-review" data-toggle="tab">{{ tab_review }}</a></li>
+            {% endif %}-->
+
+            {% if pmtemplate == 'productdver' %}
+            <li><a href="#sistemopen-dvery" data-toggle="tab">Системы открывания</a></li>
+            <li><a href="#pay-deliverydver" data-toggle="tab">Доставка и оплата</a></li>
+            <li><a href="#montag-dvery" data-toggle="tab">Монтаж</a></li>
+            {% endif %}
+            {% if pmtemplate == 'productpol' %}
+            <li><a href="#tab-podlojka" data-toggle="tab" aria-expanded="true">Подложка</a></li>
+            {% endif %}
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="tab-description">
+            
+            
+        
+            
+            {{ description }}
+            
+            <div class="proddescrakc">
+
+         </div>
+            
+            
+            </div>
+
+
+
+
+
+            {% if attribute_groups %}
+            <div class="tab-pane" id="tab-specification">
+              <div class="table-list">
+                <div class="table-list__tabs">
+                {% for attribute_group in attribute_groups %}
+                  {% for attribute in attribute_group.attribute %}
+                  <div class="table-list__item">
+                    <div>{{ attribute.name }}</div>
+                    <div>{{ attribute.text }}</div>
+                  </div>
+                  {% endfor %}
+                {% endfor %}
+                </div>
+              </div>
+            </div>
+            {% endif %}
+
+            {% if pmtemplate == 'productdver' %}
+                              <div class="tab-pane" id="sistemopen-dvery">
+                                 <div class="row sistem-opendver">
+                                    <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
+                                       <a href="/sistema-otkryvaniya-kupe">
+                                          <img src="image/catalog/sistem-open/1452952820-1681649530.jpg">
+                                          <p>Купе</p>
+                                       </a>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
+                                       <a href="/sistema-compack">
+                                          <img src="image/catalog/sistem-open/1452952800-621121661.jpg">
+                                          <p>Compack</p>
+                                       </a>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
+                                       <a href="/sistema-otkryvaniya-knizhka">
+                                          <img src="image/catalog/sistem-open/1452952858-1164568791.jpg">
+                                          <p>Книжка</p>
+                                       </a>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
+                                       <a href="/sistema-otkryvaniya-magic">
+                                          <img src="image/catalog/sistem-open/1452952879-1693125004.jpg">
+                                          <p>Magic</p>
+                                       </a>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
+                                       <a href="/povorotnaya-sistema-otkryvaniya">
+                                          <img src="image/catalog/sistem-open/1452952900-506942101.jpg">
+                                          <p>Поворотная</p>
+                                       </a>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
+                                       <a href="/sistema-skrytyh-dverej-invisible">
+                                          <img src="image/catalog/sistem-open/1452952926-1005964045.jpg">
+                                          <p>Invisible</p>
+                                       </a>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
+                                       <a href="/sistema-otkryvaniya-izyda">
+                                          <img src="image/catalog/sistem-open/1.jpg">
+                                          <p>Izyda</p>
+                                       </a>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
+                                       <a href="/sistem-skrytyh-dverej-invisible-reverse">
+                                          <img src="image/catalog/sistem-open/232020.jpg">
+                                          <p>Invisible Reverse</p>
+                                       </a>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
+                                       <a href="/sistema-otkryvaniya-magic2-uniq">
+                                          <img src="image/catalog/sistem-open/10032020.jpg">
+                                          <p>Magic2 Uniq</p>
+                                       </a>
+                                    </div>
+                                 </div>
+                              </div>
+                              {% endif %}
+                              {% if pmtemplate == 'productdver' %}
+                              <div class="tab-pane" id="pay-deliverydver">
+                                 <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                       <img class="deliveryprofil-img" src="image/catalog/home-img/truck-mock-updostavka.jpg">
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                       <div>
+                                          <h3>Доставка</h3>
+                                          <div>Москва и Московская область</div>
+                                          <div>
+                                             <b>Заказ от 30 000 руб. – БЕСПЛАТНО</b>
+                                             + 30 руб./км за МКАД<br>
+                                          </div>
+                                          <div>
+                                             Заказ до 30 000 руб. – стоимость доставки на объект или
+                                             перемещение заказа в ШоуРум для самовывоза 3000р + 30 руб/км за МКАД
+                                          </div>
+                                          <p>Регионы РФ</p>
+                                          <div>
+                                             Заказ до 200 000 руб. – 2000 руб. до любой транспортной
+                                             компании в Москве с экспедированием
+                                          </div>
+                                          <div>
+                                             Заказ от 200 000 руб. – БЕСПЛАТНО до любой транспортной
+                                             компании в Москве с экспедированием
+                                          </div>
+                                       </div>
+                                       <div>
+                                          <h3>Оплата</h3>
+                                          <div>Оплата банковскими картами или наличными при получении.</div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              {% endif %}
+                              {% if pmtemplate == 'productdver' %}
+                              <div class="tab-pane" id="montag-dvery">
+                                 <p><strong>Стоимость замера по Москве: межкомнатных дверей 500 рублей, входной двери 700 рублей. За МКАД (за 1 км) 35 руб.</strong></p>
+                                 <p>Что входит в стандартную установку межкомнатных дверей</p>
+                                 <ul>
+                                    <li>сборка коробки</li>
+                                    <li>врезка петель</li>
+                                    <li>врезка обычной ручки-защелки</li>
+                                    <li>навешивание полотна</li>
+                                    <li>установка наличников с обеих сторон</li>
+                                    <li>комплект расходных материалов на одну дверь (строительная пена, саморезы, гвозди)</li>
+                                 </ul>
+                                 <p><strong>В стоимость не входит:</strong></p>
+                                 <ul>
+                                    <li>демонтаж</li>
+                                    <li>врезка сложного или сантехнического замка</li>
+                                    <li>установка доборов</li>
+                                 </ul>
+                                 <p>Цены на установку стандартных межкомнатных дверей</p>
+                                 <ul>
+                                    <li>Установка одной двери (минимальный выезд) 3 600 руб.</li>
+                                    <li>Установка двери (от 2-х шт.) стоимостью более 2000 руб. - 2 000 руб.</li>
+                                    <li><strong>Установка двери (от 2-х шт.) телескоп, шпон и стоимостью более 2000 руб. - 2 200 руб.</strong></li>
+                                    <li><strong>Установка двери (от 2-х шт.) эмаль, телескоп и стоимостью от 8000 руб. - 2 500 руб.</strong></li>
+                                    <li>Установка двери с Компланарной коробкой (от 2-х шт.) "Silvia" на клей - 3 500 руб.</li>
+                                    <li>Установка двустворчатой двери - 4 000 руб.</li>
+                                    <li>Установка двустворчатой двери эмаль, телескоп и от 8000 руб. - 4 500 руб.</li>
+                                    <li>Установка двери купе (без портала) ДЛЯ МОНТАЖА НУЖЕН БРУС 50Х50 - 2 500 руб.</li>
+                                    <li>Установка стеклянной двери - 2 500 руб.</li>
+                                    <li><strong>Установка двери из массива ценных пород дерева - 3 500 руб.</strong></li>
+                                    <li>Установка двери книжка - 3 000 руб.</li>
+                                    <li>Установка двери INVISIBLE - 2 800 руб.</li>
+                                    <li>Установка арки - 2 500 руб.</li>
+                                 </ul>
+                              </div>
+
+
+
+
+                              <div id="view-in-interior" class="white-popup mfp-hide formdesignwtr">
+                                      <div class="formoneclickprod-title">
+                                      <h3>{{ heading_title }} в интерьере</h3>
+                                      </div>
+                                      <div class="interior-background interior-form interior-form-six" id="bg-inter-change">
+                                        <a class="mainimg-prod transparent-interior" href="{{ thumb }}" title="{{ heading_title }}"><img src="{{ thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}"></a>
+                                      </div>
+                                        <div class="interiors-carousel">
+                                          <div class="interiors-carousel-item" id="interior-first">
+                                            <img src="/image/catalog/woodtech_item/frontend/interior/first.jpg" class="interiors-img-item">
+                                          </div>
+                                          <div class="interiors-carousel-item" id="interior-second">
+                                            <img src="/image/catalog/woodtech_item/frontend/interior/second.jpg" class="interiors-img-item">
+                                          </div>
+                                          <div class="interiors-carousel-item" id="interior-three">
+                                            <img src="/image/catalog/woodtech_item/frontend/interior/three.jpg" class="interiors-img-item">
+                                          </div>
+                                          <div class="interiors-carousel-item" id="interior-four">
+                                            <img src="/image/catalog/woodtech_item/frontend/interior/four.jpg" class="interiors-img-item">
+                                          </div>
+                                          <div class="interiors-carousel-item" id="interior-five">
+                                            <img src="/image/catalog/woodtech_item/frontend/interior/five.jpg" class="interiors-img-item">
+                                          </div>
+                                          <div class="interiors-carousel-item" id="interior-six">
+                                            <img src="/image/catalog/woodtech_item/frontend/interior/six.jpg" class="interiors-img-item">
+                                          </div>
+                                        </div>
+                                        <script>
+                                          $(document).ready(function(){
+                                              $('#interior-first').click(function () {
+                                                $('#bg-inter-change').addClass('interior-form-bg-first');
+                                                $('#bg-inter-change').removeClass('interior-form-bg-second');
+                                                $('#bg-inter-change').removeClass('interior-form-bg-three');
+                                                $('#bg-inter-change').removeClass('interior-form-four');
+                                                $('#bg-inter-change').removeClass('interior-form-five');
+                                                $('#bg-inter-change').removeClass('interior-form-six');
+                                              });
+                                              $('#interior-second').click(function () {
+                                                $('#bg-inter-change').removeClass('interior-form-bg-first');
+                                                $('#bg-inter-change').addClass('interior-form-bg-second');
+                                                $('#bg-inter-change').removeClass('interior-form-bg-three');
+                                                $('#bg-inter-change').removeClass('interior-form-four');
+                                                $('#bg-inter-change').removeClass('interior-form-five');
+                                                $('#bg-inter-change').removeClass('interior-form-six');
+                                              });
+                                              $('#interior-three').click(function () {
+                                                $('#bg-inter-change').removeClass('interior-form-bg-first');
+                                                $('#bg-inter-change').removeClass('interior-form-bg-second');
+                                                $('#bg-inter-change').addClass('interior-form-bg-three');
+                                                $('#bg-inter-change').removeClass('interior-form-four');
+                                                $('#bg-inter-change').removeClass('interior-form-five');
+                                                $('#bg-inter-change').removeClass('interior-form-six');
+                                              });
+                                              $('#interior-four').click(function () {
+                                                $('#bg-inter-change').removeClass('interior-form-bg-first');
+                                                $('#bg-inter-change').removeClass('interior-form-bg-second');
+                                                $('#bg-inter-change').removeClass('interior-form-bg-three');
+                                                $('#bg-inter-change').addClass('interior-form-four');
+                                                $('#bg-inter-change').removeClass('interior-form-five');
+                                                $('#bg-inter-change').removeClass('interior-form-six');
+                                              });
+                                              $('#interior-five').click(function () {
+                                                $('#bg-inter-change').removeClass('interior-form-bg-first');
+                                                $('#bg-inter-change').removeClass('interior-form-bg-second');
+                                                $('#bg-inter-change').removeClass('interior-form-bg-three');
+                                                $('#bg-inter-change').removeClass('interior-form-four');
+                                                $('#bg-inter-change').addClass('interior-form-five');
+                                                $('#bg-inter-change').removeClass('interior-form-six');
+                                              });
+                                              $('#interior-six').click(function () {
+                                                $('#bg-inter-change').removeClass('interior-form-bg-first');
+                                                $('#bg-inter-change').removeClass('interior-form-bg-second');
+                                                $('#bg-inter-change').removeClass('interior-form-bg-three');
+                                                $('#bg-inter-change').removeClass('interior-form-four');
+                                                $('#bg-inter-change').removeClass('interior-form-five');
+                                                $('#bg-inter-change').addClass('interior-form-six');
+                                              });
+                                            });
+                                        </script>
+                                    <button title="Close (Esc)" type="button" class="mfp-close">×</button>
+                                    
+
+
+
+                                  </div>
+
+
+
+                              {% endif %}
+
+          </div>
+        </div>
+        <div id="insertdopphoto"></div>
+      </div>
+      
+      {% if products %}
+      <div class="container-push">
+        <div class="related-products">
+          <div class="text-title">
+            <div class="content-title">{{ text_related }}</div>
+          </div>
+          <div class="catalog-section">
+            <div class="row">
+            <div class="no-gutters catalog-section-row">
+              {% for product in products %}
+              <div class="catalog-section-item">
+                <div class="catsect-product-item__container">
+                  <div class="catsect-product-item">
+                    <div class="catsect-product-item__image">
+                      <a href="{{ product.href }}">
+                        <img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="catsect-img img-responsive" />
+                      </a>
+                    </div>
+                    <div class="product-item__title">
+                      <h3 class="product-item__heading">
+                        <a href="{{ product.href }}"><span>{{ product.name }}</span></a>
+                      </h3>
+                    </div>
+                    <div class="product-item__info">
+                      <div class="product-item__caption-block">
+                        <div class="product-item__caption">
+                          <div class="product-item__blocks">
+                            {% if product.price %}
+                            <div class="product-item__price">
+                              {% if not product.special %}
+                              <div class="product-price__main">
+                                <span class="product-price__current">{{ product.price }}</span>
+                              </div>
+                              {% else %}
+                              <div class="product-price__main">
+                                <span class="product-price__current price-new">{{ product.special }}</span>
+                              </div>
+                              <div class="product-item-price-stock">
+                                <div class="product-item-price-old">{{ product.price }}</div>
+                                {% if product.economy %}
+                                <div class="product-item-price-economy"> - {{ product.economy }}</div>
+                                {% endif %}
+                              </div>
+                              {% endif %}
+                            </div>
+                            {% endif %}
+                            {% if product.price == false %}
+                            <div class="alert-price">{{ product.attention }}</div>
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {{ content_bottom }}
+    </div>
+  </section>
+</div>
+
+
+
+
+
+
+{% if pmtemplate == 'productdver' %}
+         <div id="zamer-categ-bottom">
+            <div class="container" id="zamer-categ-bottom1">
+               <div>
+                  <div class="zamer-main">
+                     <h3 class="zamer-maintitle">
+                        <span>Записаться на бесплатный замер</span>
+                     </h3>
+                     <form id="form-zamerdver" class="ajax-form ajax-form-mail form-zamer" action="" method="post"
+                        enctype="multipart/form-data">
+                        <input type="hidden" name="form_subject" value="Форма Замер Двери">
+                        <div class="form-dann">
+                           <div class="hiclass-form">
+                              <input type="text" name="Name" placeholder="Ваше имя...">
+                           </div>
+                           <div class="forms-inputheadcall form-object-right">
+                              <input type="text" name="NameTwo" placeholder="Ваше имя...">
+                           </div>
+                           <div class="form-object-right">
+                              <input class="form-control raz phone_masckcom" type="tel" id="phone1" name="Телефон" placeholder="Ваш телефон..." required="">
+                           </div>
+                          <div class="button-form-zamer">
+                            <button class="button-zakaz">Отправить</button>
+                          </div>
+                        </div>
+                        <div class="form-object_recv">
+                           <p>Введите номер телефона и наш менеджер перезвонит вам в течение <strong>15 минут</strong>.</p>
+                           <span class="label">Нажимая кнопку "Отправить", вы даёте согласие на обработку ваших персональных данных</span>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <section class="contbot">
+            <div class="container contbotdiv">
+               {{ content_bottom }}
+            </div>
+         </section>
+<div id="individual-offerprofil">
+   <div class="container" id="individual-offerprofil1">
+      <div>
+         <div class="individual-offerblockmain">
+            <div class="individual-offerblocktitle">
+               <h3><span>Получить индивидуальное предложение</span></h3>
+            </div>
+            <form id="individual-offerprofiltext" class="ajax-form form-individualblock ajax-form-mail" action=""
+               method="post" enctype="multipart/form-data">
+               <input type="hidden" name="form_subject" value="Индивидуальное предложение Двери">
+               <div class="form-individdann">
+                  <div class="hiclass-form">
+                     <input type="text" name="Name" placeholder="Ваше имя...">
+                  </div>
+                  <div class="finputheadcall">
+                     <input class="form-control form-control-individobject" type="text" name="NameTwo"
+                        placeholder="Ваше имя...">
+                  </div>
+                  <div class="individobject">
+                     <input class="form-control form-control-individobject raz phone_masckcom" type="tel" id="phone1"
+                        name="Телефон" placeholder="Ваш телефон..." required="">
+                  </div>
+                  <div class="findividobject findividobject-select fcontrol-individobject">
+                     <select class="individual-select">
+                        <option>Нужна максимальная % скидка %</option>
+                        <option>Надо сравнить цены, есть расчёт</option>
+                        <option>Лучше подарок от Профиль Дорс</option>
+                        <option>Срочно! Нужны двери ещё вчера</option>
+                     </select>
+                     <input class="form-control" type="hidden" name="Предложение" id="individual-inputsel">
+                  </div>
+                  
+                <div class="button-individual-ofset">
+                    <button class="button-individual">Отправить</button>
+                </div>
+               </div>
+               <div class="form-object_recv">
+                  <p>Введите номер телефона и наш менеджер перезвонит вам в течение <strong>15 минут</strong>.</p>
+                  <span class="label">Нажимая кнопку "Отправить", вы даёте согласие на обработку ваших персональных
+                     данных</span>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>
+   <script>
+      var $carsList = $('#individual-inputsel'),
+         carObj = {};
+      carObj.length = 0;
+      $('.individual-select').change(function () {
+         carObj[$(this).index()] = $(this).val();
+         carObj.length = Object.keys(carObj).length - 1;
+         $carsList.val(Array.prototype.join.call(carObj, ', '));
+      })
+   </script>
+   <script>
+      $('.toclick, .byeoneclick1, .view-interior-a').magnificPopup({
+         mainClass: 'mfp-zoom-in',
+         removalDelay: 400
+      });
+   </script>
+<div class="hidden">
+  <div class="container" style="top: -70px;">
+    <div id="view-interior" class=" callback-form product-popup">
+      <div class="formoneclickprod-title">
+      <h3>{{ heading_title }} в интерьере</h3>
+      </div>
+      <div class="interior-background interior-form interior-form-bg-first" id="bg-inter-change">
+        <a class="thumbnail mainimg-prod transparent-interior" href="{{ thumb }}" title="{{ heading_title }}"><img src="{{ thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}" /></a>
+        
+      </div>
+        <div class="interiors-carousel">
+          <div class="interiors-carousel-item" id="interior-first">
+            <img src="/image/interior/first.jpg" class="interiors-img-item">
+          </div>
+          <div class="interiors-carousel-item" id="interior-second">
+            <img src="/image/interior/second.jpg" class="interiors-img-item">
+          </div>
+          <div class="interiors-carousel-item" id="interior-three">
+            <img src="/image/interior/three.jpg" class="interiors-img-item">
+          </div>
+          <div class="interiors-carousel-item" id="interior-four">
+            <img src="/image/interior/four.jpg" class="interiors-img-item">
+          </div>
+          <div class="interiors-carousel-item" id="interior-five">
+            <img src="/image/interior/five.jpg" class="interiors-img-item">
+          </div>
+          <div class="interiors-carousel-item" id="interior-six">
+            <img src="/image/interior/six.jpg" class="interiors-img-item">
+          </div>
+          
+        </div>
+    </div>
+  </div>
+</div>
+<div class="hidden">
+   <div class="container">
+      <div id="found-cheaper" class="callback-form product-popup">
+         <div class="formoneclickprod-title">
+            <h3>Нашли этот товар дешевле?</h3>
+         </div>
+         <div class="formoneclickprod-main">
+            <form id="found-cheaperform" class="forma-qwest forms-sfloor-popu">
+               <input type="hidden" name="project_name" value="Polmetra">
+               <input type="hidden" name="admin_email" value="zakaz@polmetra.ru">
+               <input type="hidden" name="form_subject" value="Форма - Нашли дешевле (Polmetra)">
+               <input type="hidden" name="Name-product" value="{{ heading_title }}">
+               <div class="hiclass-form">
+                  <input type="text" name="Name" placeholder="Ваше имя...">
+               </div>
+               <div class="forms-inputheadcall">
+                  <input type="text" name="NameTwo" placeholder="Ваше имя...">
+               </div>
+               <div class="forms-inputbyeoneclick">
+                  <input class="phone_masckcom" type="text" name="Phone" placeholder="Ваш телефон..." required>
+               </div>
+               <div class="forms-inputbyeoneclick">
+                  Ссылка на товар в другом магазине
+                  <input type="text" name="Link" placeholder="Ссылка...">
+               </div>
+               <div class="forms-byeoneclickbutton">
+               <button class="popup-a-button-form">Применить</button>
+               </div>
+            </form>
+         </div>
+         <div class="success">Сообщение отправлено</div>
+      </div>
+   </div>
+</div>
+
+            {% endif %}
+            {% if pmtemplate == 'productpol' %}
+            <section class="forma-productpred">
+               <div class="form-prodpredcall">
+                  <div class="container containeradapt">
+                     <div class="row">
+                        <form id="forma-podpred" class="forma-qwest forms-sfloor-popu">
+                           <!-- Hidden Required Fields -->
+                           <input type="hidden" name="project_name" value="Polmetra">
+                           <input type="hidden" name="admin_email" value="zakaz@polmetra.ru">
+                           <input type="hidden" name="form_subject" value="Форма - Подбор покрытия (Polmetra)">
+                           <input type="hidden" name="Name-product" value="{{ heading_title }}">
+                           <!-- END Hidden Required Fields -->
+                           <div class="forms-inputprod">
+                              <input type="text" name="Name" placeholder="Ваше имя...">
+                           </div>
+                           <div class="forms-inputprod">
+                              <input class="phone_masckcom" type="text" name="Phone" placeholder="Ваш телефон..." required="">
+                           </div>
+                           <div class="forms-inputprod">
+                              <button class="popup-a-button-form button-formprod"><span>Отправить</span></button>
+                           </div>
+                        </form>
+                        <div class="form-prodsec-text">
+                           <p>Мы прекрасно понимаем, что выбор отделочных материалов зачастую занимает много времени на поиск лучшего предложения по цене и качеству, предлагаем Вам получить действительно выгодное предложения и от нашей компании, т.к. мы являемся дилерами более чем от 50 брендов и можем предложить лучшие цены на продукцию, представленных на сайте производителей.</p><span>Нажимая кнопку "Отправить", вы даёте согласие на обработку ваших персональных данных</span>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </section>
+            {% endif %}
+      
+
+
+
+
+<script>
+$("select[name='recurring_id'], input[name=\"quantity\"]").change(function () {
+	$.ajax({
+		url: "index.php?route=product/product/getRecurringDescription",
+		type: "post",
+		data: $("input[name='product_id'], input[name='quantity'], select[name='recurring_id']"),
+		dataType: "json",
+		beforeSend: function () {
+			$("#recurring-description").html("")
+		},
+		success: function (a) {
+			$(".alert-dismissible, .text-danger").remove();
+			if (a.success) {
+				$("#recurring-description").html(a.success)
+			}
+		}
+	})
+});
+</script> 
+<script>
+
+  $(document).on('click', '.vhodntrue', function() {
+    var getvaluimgaz = $(this).attr('data-vhodnimg');
+    $('#mainimagezfdd').attr('src',getvaluimgaz);
+  });
+
+
+
+  $(document).on('click', '.hpmwtrblock-item-blpict-img', function() {
+      var getvaluimg = $(this).attr('mainimg');
+      var getvaluid = $(this).attr('idhhpm');
+      $('#mainimagez').attr('src',getvaluimg);
+      $('.boc_order_btn').attr('data-product_id', getvaluid);
+  });
+  $(document).on('click', '.radio-btn', function() {
+      var getvaluimgo = $(this).attr('data-image-zoomchange');
+      if (getvaluimgo == '') {
+        console.log('Пусто');
+      } else {
+        $('#mainimagez').attr('src',getvaluimgo);
+      }
+  });
+  
+  $(document).on('click', '.countblock-item-control-plus', function() {
+    var getminimummtwo = parseFloat($('#mainquantmtwo').attr('data-min')); // Парсим кол-во в уп.
+    var getactualquant = parseFloat($('#mainquantmtwo').val()); // Парсим кол-во метров
+    var checkmaximum = checkquantfirstmetr(getactualquant, getminimummtwo); // Убираем отрицательный вариант и более 10 тыс ед.
+    var gerherh = getplussumquant(checkmaximum, getminimummtwo).toFixed(2); // Прибавляем одну упаковку
+    var kolvoupakovok = parseInt(getupakovki(gerherh, getminimummtwo)); // 1-е кол-во метров
+    setinputquantpol(gerherh, kolvoupakovok);
+  });
+  $(document).on('click', '.countblock-item-control-minus', function() {
+    var getminimummtwo = parseFloat($('#mainquantmtwo').attr('data-min')); // Парсим кол-во в уп.
+    var getactualquant = parseFloat($('#mainquantmtwo').val()); // Парсим кол-во метров
+    var checkmaximum = checkquantfirstmetr(getactualquant, getminimummtwo); // Убираем отрицательный вариант и более 10 тыс ед.
+    var gerherh = getminussumquant(checkmaximum, getminimummtwo).toFixed(2); // Прибавляем одну упаковку
+    var kolvoupakovok = parseInt(getupakovki(gerherh, getminimummtwo)); // 1-е кол-во метров
+    setinputquantpol(gerherh, kolvoupakovok);
+  });
+  $(document).on('change', '#mainquantmtwo', function() {
+    var getminimummtwo = parseFloat($('#mainquantmtwo').attr('data-min')); // Парсим кол-во в уп.
+    var getactualquant = parseFloat($('#mainquantmtwo').val()); // Парсим кол-во метров
+    var checkmaximum = checkquantfirstmetr(getactualquant, getminimummtwo); // Убираем отрицательный вариант и более 10 тыс ед.
+    var gerherh = getkrglsumquant(checkmaximum, getminimummtwo).toFixed(2); // Округляем
+    var kolvoupakovok = parseInt(getupakovki(gerherh, getminimummtwo)); // 1-е кол-во метров
+    setinputquantpol(gerherh, kolvoupakovok);
+  });
+  $(document).on('change', '#mainquanupac', function() {
+    var getminimummtwo = parseFloat($('#mainquantmtwo').attr('data-min')); // Парсим кол-во в уп.
+    var getactualquantz = parseFloat($('#mainquanupac').val()); // Парсим кол-во уп.
+    var gerherh = getkrglsumupak(getactualquantz, getminimummtwo).toFixed(2); // Округляем
+    var kolvoupakovok = parseInt(getupakovki(gerherh, getminimummtwo)); // 1-е кол-во метров
+    setinputquantpol(gerherh, kolvoupakovok);
+  });
+
+  function getplussumquant(firstch, secondch) {
+    var plussumquant = firstch + secondch;
+    return plussumquant;
+  };
+  function getkrglsumquant(firstch, secondch) {
+    var plussumquant = firstch / secondch;
+    var plussumquantkgrl = plussumquant.toFixed();
+    var plussumquantkgrlh = plussumquantkgrl * secondch;
+    return plussumquantkgrlh;
+  };
+  function getkrglsumupak(firstch, secondch) {
+    var plussumquant = firstch * secondch;
+    return plussumquant;
+  };
+  function getupakovki(quantmoreone, minimaldatqquan) {
+    // Получение кол-ва упаковок из кол-ва м2
+    var rtr = quantmoreone / minimaldatqquan;
+    return rtr.toFixed();
+  };
+  function getminussumquant(firstch, secondch) {
+    var minussumquant = firstch - secondch;
+    return minussumquant;
+  };
+  function setinputquantpol(metrovkvadr, upakovochki) {
+    $('#mainquantmtwo').val(metrovkvadr);
+    $('#mainquanupac').val(upakovochki);
+  };
+  function checkquantfirstmetr(quantmoreone, minimaldatqquan) {
+    if (quantmoreone < minimaldatqquan) {
+      var minimumqutr = minimaldatqquan;
+      return minimumqutr;
+    };
+    if (quantmoreone > 10000) {
+      var maximumqutr = 10000 / minimaldatqquan;
+      var sokresh = maximumqutr.toFixed() * minimaldatqquan;
+      return sokresh;
+    } else {
+      return quantmoreone;
+    };
+  };
+  	
+  function validate(evt) {
+  var theEvent = evt || window.event;
+  // Handle paste
+  if (theEvent.type === 'paste') {
+      key = event.clipboardData.getData('text/plain');
+  } else {
+  // Handle key press
+      var key = theEvent.keyCode || theEvent.which;
+      key = String.fromCharCode(key);
+  }
+  var regex = /[0-9]|\./;
+  if( !regex.test(key) ) {
+    theEvent.returnValue = false;
+    if(theEvent.preventDefault) theEvent.preventDefault();
+  }
+}
+$(document).on('click', '#button-cart', function() {
+	$.ajax({
+		url: "index.php?route=checkout/cart/add",
+		type: "post",
+		data: $("#product input[type='text'], #product input[type='hidden'], #product input[type='radio']:checked, #product input[type='checkbox']:checked, #product select, #product textarea"),
+		dataType: "json",
+		success: function (b) {
+			$(".alert-dismissible, .text-danger").remove();
+			$(".form-group").removeClass("has-error");
+			if (b.error) {
+				if (b.error["option"]) {
+					for (i in b.error["option"]) {
+						var a = $("#input-option" + i.replace("_", "-"));
+						if (a.parent().hasClass("input-group")) {
+							a.parent().after('<div class="text-danger">' + b.error["option"][i] + "</div>")
+						} else {
+							a.after('<div class="text-danger">' + b.error["option"][i] + "</div>")
+						}
+					}
+					var options = $('.product-options').offset().top - 300;				
+					$('html, body').animate({ scrollTop: options }, 'slow');
+				}
+				if (b.error["recurring"]) {
+					$("select[name='recurring_id']").after('<div class="text-danger">' + b.error["recurring"] + "</div>")
+				}
+				$(".text-danger").parent().addClass("has-error")
+			}
+			if (b.success) {
+				setTimeout(function () {
+					$("body").append('<div class="alert alert-top alert-cart alert-dismissible"><i class="fi fi-rr-check"></i>' + b.success + '<button type="button" class="close" data-dismiss="alert">×</button></div>');
+					if (window.innerWidth >= 992) {
+						$(".alert-top").animate({
+							top: 44
+						}, 500)
+					} else {
+						$(".alert-top").animate({
+							top: 0
+						}, 500)
+					}
+				}, 500);
+				setTimeout(function () {
+          $(".cart-count").html(b.cart_total);
+          $('.panel-cart').removeClass('cart-empty');
+				}, 100);
+				$("#button-cart").addClass("add");
+				setTimeout(function () {
+					$("#button-cart").removeClass("add")
+				}, 8000);
+				$(".cart-panel").load("index.php?route=common/cart/info .cart-panel > *")
+			}
+		},
+		error: function (c, a, b) {
+			alert(b + "\r\n" + c.statusText + "\r\n" + c.responseText)
+		}
+	})
+});
+</script>
+<script>
+
+$(document).ready(function() {
+  var getvaluimgazf = $(".vhodntrue:first").attr('data-vhodnimg');
+  $('#mainimagezfdd').attr('src',getvaluimgazf);
+
+
+  $(document).on('click', '.vhodntrue', function() {
+    var getvaluimgaz = $(this).attr('data-vhodnimg');
+    $('#mainimagezfdd').attr('src',getvaluimgaz);
+  });
+
+
+
+	$('.product-image').magnificPopup({
+		type:'image',
+		delegate: 'a',
+		gallery: {
+			enabled: true
+		}
+  });
+  
+});
+
+
+</script>
+<script>
+$(".product-image__thumb").slick({
+	vertical: true,
+	infinite: false,
+	slidesToShow: 5,
+	slidesToScroll: 1,
+	prevArrow: '<button type="button" class="btn-sliders btn-previous" aria-label="previous"><span>‹</span></button>',
+	nextArrow: '<button type="button" class="btn-sliders btn-next" aria-label="next"><span>›</span></button>',
+	focusOnSelect: true,
+	asNavFor: ".product-image__mains",
+	responsive: [{
+		breakpoint: 1200,
+		settings: {
+			slidesToShow: 3,
+			slidesToScroll: 1
+		}
+	}, {
+		breakpoint: 1024,
+		settings: {
+			slidesToShow: 3,
+			slidesToScroll: 1
+		}
+	}, {
+		breakpoint: 992,
+		settings: {
+			slidesToShow: 3,
+			slidesToScroll: 1
+		}
+	}, {
+		breakpoint: 768,
+		settings: {
+			slidesToShow: 2,
+			slidesToScroll: 1
+		}
+	}, {
+		breakpoint: 576,
+		settings: {
+			slidesToShow: 2,
+			slidesToScroll: 1
+		}
+	}]
+});
+$(".product-image__mains").slick({
+	slidesToShow: 1,
+	slidesToScroll: 1,
+	infinite: false,
+	arrows: false,
+	swipe: false,
+	asNavFor: ".product-image__thumb",
+	fade: true,
+	dots: false,
+	responsive: [{
+		breakpoint: 1200,
+		settings: {
+      fade: false,
+			arrows: false
+		}
+	}, {
+		breakpoint: 1024,
+		settings: {
+      fade: false,
+			arrows: false
+		}
+	}, {
+		breakpoint: 992,
+		settings: {
+      fade: false,
+			arrows: false
+		}
+	}, {
+		breakpoint: 768,
+		settings: {
+      fade: false,
+      swipe: true,
+			arrows: false,
+      dots: true
+		}
+	}, {
+		breakpoint: 576,
+		settings: {
+      fade: false,
+      swipe: true,
+			arrows: false,
+      dots: true
+		}
+	}]
+});
+
+
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  		$('.qpo-table').readmore({
+			maxHeight: 280,
+			moreLink: '<a href="#" class="viev-all-prod"><span class="viev-block-prod">Показать все</span></a>',
+			lessLink: '<a href="#" class="viev-all-prod"><span class="viev-block-prod">Скрыть</span></a>'
+		});
+});
+
+</script>
+
+
+
+
+
+{{ footer }}

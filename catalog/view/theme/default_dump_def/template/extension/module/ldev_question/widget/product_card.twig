@@ -1,0 +1,29 @@
+<div class="ldev-card-product">
+        <div class="ldev-card-product-thumb">
+            <div class="ldev-card-product-image"><a href="{{ product['href'] }}"><img src="{{ product['thumb'] }}" alt="{{ product['name'] }}" title="{{ product['name'] }}" class="img-responsive" /></a></div>
+            <div class="ldev-card-product-caption">
+                <h4><a href="{{ product['href'] }}">{{ product['name'] }}</a></h4>
+                {% if product.rating %}
+                <div class="ldev-card-product-rating rating">
+                    {% for i in 5 %}
+                        {% if product.rating < i %}
+                            <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                        {% else %}
+                            <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {% if product.price %}
+                <p class="ldev-card-product-price">
+                    {% if not product.special %}
+                        {{ product.price }}
+                    {% else %}
+                        <span class="price-new">{{ product.special }}</span> <span class="price-old">{{ product.price }}</span>
+                    {% endif %}
+                </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+

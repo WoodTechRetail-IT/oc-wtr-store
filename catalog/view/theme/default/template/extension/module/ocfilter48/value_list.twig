@@ -1,0 +1,48 @@
+{% if (has_loaded_values is defined and not filter.dropdown and layout == 'vertical') or (has_loaded_values is not defined and (filter.dropdown or layout == 'horizontal')) %}
+{% set class_scroll = 'ocf-scroll-y' %}
+{% else %}
+{% set class_scroll = '' %}
+{% endif %}
+
+{% if filter.columns > 1 %}
+{% set class_value_list_body = 'ocf-value-list-body ocf-auto-column ocf-column-' ~ filter.columns %}
+{% else %}
+{% set class_value_list_body = 'ocf-value-list-body' %}
+{% endif %}
+
+<div class="ocf-value-list">
+  {% if class_scroll %}
+  <div class="{{ class_scroll }}">  
+  {% endif %}   
+    <div class="{{ class_value_list_body }}">
+      {% for value in filter.values %}
+      {% include('default/template/extension/module/ocfilter48/value_item.twig') %}
+      {% endfor %}
+    </div>
+
+    {% if filter.button_show_more_values %}
+    <div class="ocf-collapse ocf-collapse-value" id="ocf-hidden-values-{{ filter.id }}" data-ocf-load="values" data-filter-key="{{ filter.filter_key }}"> 
+      {% if filter.hidden_values|length > 0 %}
+      <div class="ocf-value-list">
+        <div class="ocf-scroll-y">
+          <div class="{{ class_value_list_body }}">
+            {% for value in filter.hidden_values %}
+            {% include('default/template/extension/module/ocfilter48/value_item.twig') %}
+            {% endfor %}    
+          </div>        
+        </div>
+      </div>      
+      {% endif %}
+    </div>
+    {% endif %}
+  {% if class_scroll %}
+  </div>
+  {% endif %}      
+  
+  {% if filter.button_show_more_values %}
+  <button type="button" class="ocf-btn ocf-btn-link ocf-btn-show-values" data-ocf="collapse" data-target="#ocf-hidden-values-{{ filter.id }}" data-loading-text="{{ text_loading }}" aria-expanded="false">
+    <span class="ocf-hide-expand-1">{{ filter.button_show_more_values }} <i class="ocf-icon ocf-angle ocf-angle-down"></i></span>
+    <span class="ocf-hide-expand-0">{{ button_hide }} <i class="ocf-icon ocf-angle ocf-angle-up"></i></span>
+  </button>  
+  {% endif %}
+</div>

@@ -1,0 +1,551 @@
+{{ header }}
+<div id="product-category">
+
+ 
+  
+
+                  
+    {% if category_doptype %}
+        {% if category_dopcontblocksecond %}
+            <div class="categ114 categimg-seriaagkprofil" style="background-image:url({{ category_dopcontblocksecond }})">
+        {% else %}
+            <div class="categ114 categimg-seriaagkprofil" style="background-image:url(/image/catalog/categor-profilback/section/agk.jpg)">
+        {% endif %}
+        
+            
+                    <div class="container container-headwer-block-c">
+          
+                      <div class="mainbrandsectionagt-row row">
+                      <div class="navigation-content col-md-12 col-sm-12 navigation-content-on-bg">
+                        <ul class="breadcrumb">
+                          {% for i,breadcrumb in breadcrumbs %} 
+                          {% if (i+1<breadcrumbs|length) %}
+                          <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+                          {% else %}
+                          <li>{{ breadcrumb.text }}</li>
+                          {% endif %} 
+                          {% endfor %}	
+                        </ul>
+                        </div>
+
+
+
+                      {% if category_doptype =='productgallerytop' %}
+                      <div class="mainbrandsectionagt col-lg-6 col-sm-6 col-md-6 col-xs-12">
+                        <div class="s-menu-name collectionname-agt"><h1>{{ heading_title }}</h1></div>
+								
+								{% if category_dopsku %}
+									{{ category_dopsku }}
+								{% endif %} 
+                      </div>
+                      <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12 galleryblockagtmarg"> 
+                                {{ category_dopcontblock }}
+                      </div>
+                    </div>
+                    {% else %}
+
+
+                      
+                        <div class="text-category">
+                            <div class="s-menu-name collectionname-agt"><h1>{{ heading_title }}</h1></div>
+                          {{ category_dopcontblock }}
+                        </div>
+                    
+                      {% endif %}
+                    </div>
+
+            
+                    </div>
+              </div>
+    
+    {% endif %}
+      
+
+
+  <div class="bg-container">
+    <div class="container">
+
+      
+      {% if category_doptype %}
+
+      {% else %}
+        <div class="navigation-content">
+          <ul class="breadcrumb">
+            {% for i,breadcrumb in breadcrumbs %} 
+            {% if (i+1<breadcrumbs|length) %}
+            <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+            {% else %}
+            <li>{{ breadcrumb.text }}</li>
+            {% endif %} 
+            {% endfor %}	
+          </ul>
+        </div>
+      {% endif %}
+      <div class="navigation-title">
+        {% if category_doptype %}
+
+        {% else %}
+          <h1>{{ heading_title }}</h1>
+        {% endif %}
+        
+        
+        
+        <div>{{ categorytopblocktwo }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="catalog-product__block catalog-section__products">
+    <div class="container">
+      <div class="catalog-section">
+        <div class="row">
+          {{ column_left }}
+          {% if column_left and column_right %}
+          {% set class = 'col-sm-6' %}
+          {% elseif column_left or column_right %}
+          {% set class = 'col-sm-9' %}
+          {% else %}
+          {% set class = 'col-sm-12' %}
+          {% endif %}
+          <div id="content" class="{{ class }}">
+            <div class="catalog-section__container">
+              {{ content_top }}		    
+              {% if categories %}
+                <div class="container catalog-items-block">
+                    <div class="row catalog-items-block-row">
+                        {% for category in categories %}
+                            <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3 col-xxl-3 ogranichitel-dve oght-th">
+
+                                
+                          
+                                {% if category.thumbtwo %}
+                                    <a class="catalog-section__item catalog-section__item-tre catalog-mainbrend_aitem" href="{{ category.href }}" style="background-image:url(image/{{ category.thumbtwo }})!important;">
+                                {% else %}
+                                    <a class="catalog-section__item catalog-section__item-tre catalog-mainbrend_aitem" href="{{ category.href }}">
+                                {% endif %} 
+                                     <div class="categ-block-group">
+                                        <div class="mainbrandblock mainbrandblock1 catalog-mainbrend_block">
+                                            <span class="catalog-mainbrend_titlespan">{{ category.name }}</span>
+                                            <span class="catalog-mainbrend_textspan"></span>
+                                        </div>
+                                        <div class="mainbrandblock mainbrandblock2 catalog-mainbrend_block">
+                                            {% if category.config_count %}
+                                                <span class="catalog-mainbrend_textspan">{{ category.count }} моделей
+                                            {% endif %}
+                                                <span class="catalog-mainbrend_ahref">Перейти</span>
+                                            </span>
+                                        </div>
+
+                                     </div>   
+                                </a>
+                            </div>
+                    {% endfor %}
+                    </div>
+                </div>
+              {% endif %}
+
+              {% if products %}
+              <div class="catalog-toolbar__sort">
+                <div class="catalog-toolbar__panel d-flex align-items-center">
+                  <div class="toolbar-form__input">
+                    <div class="toolbar-form__sort">
+                      <span class="toolbar-form__input__title">{{ text_sort }}</span>
+                      <select id="input-sort" class="form-control form-control-sm" onchange="location = this.value;">
+                        {% for sorts in sorts %}
+                        {% if sorts.value == '%s-%s'|format(sort, order) %}
+                        <option value="{{ sorts.href }}" selected="selected">{{ sorts.text }}</option>
+                        {% else %}
+                        <option value="{{ sorts.href }}">{{ sorts.text }}</option>
+                        {% endif %}
+                        {% endfor %}
+                      </select>
+                    </div>
+                  </div>
+                  <div class="toolbar-form__input">
+                    <div class="toolbar-form__limit">
+                      <span class="toolbar-form__input__title">{{ text_limit }}</span>
+                      <select id="input-limit" class="form-control form-control-sm" onchange="location = this.value;">
+                        {% for limits in limits %}
+                        {% if limits.value == limit %}
+                        <option value="{{ limits.href }}" selected="selected">{{ limits.text }}</option>
+                        {% else %}
+                        <option value="{{ limits.href }}">{{ limits.text }}</option>
+                        {% endif %}
+                        {% endfor %}
+                      </select>
+                    </div>
+                  </div>
+                  <div class="toolbar-form__toggle hidden-xs hidden-sm text-right ml-auto">
+                    <div class="toolbar-toggle d-flex align-items-center">
+                      <button type="button" id="grid-view" class="grid-view clear-button" title="{{ button_grid }}"></button>
+                      <button type="button" id="list-view" class="list-view clear-button" title="{{ button_list }}"></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="catalog-section">
+                <div class="catalog-grid catalog-row-gap catalog-grid-column-gap">
+                  {% for product in products %}
+                  
+                  
+                {% if product.pmtemplate == 'productdver' %}
+                    <div class="product-layout product-grid wtemp-dver">
+                {% elseif product.pmtemplate == 'productpol' %}
+                    <div class="product-layout product-grid wtemp-pol">
+                {% else %}
+                    <div class="product-layout product-grid wtemp-def">
+                {% endif %}
+                  
+                    <div class="product-item__container">
+                      <div class="product-item product-thumb">
+                        <div class="product-item__image">
+                                {% if product.product_xdstickers is not empty %}
+                					<div class="xdstickers_wrapper clearfix {{xdstickers_position}}">
+                						{% for xdsticker in product.product_xdstickers|slice(0, 2) %}
+                					        {% if xdsticker.postiont == 'left' %}
+                							<div class="xdstickers {{xdsticker.id}}">
+                								<div class="xdstickerbackground xdstickid{{xdsticker.id}}" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title="{{xdsticker.tooooltip}}" style="background-image: url('/{{xdsticker.imagestick}}');" alt="{{xdsticker.tooooltip}}" datatyp="{{xdsticker.typet}}" datatwo="{{xdsticker.postiont}}"></div>
+                							</div>
+                                              {% endif %}
+                						{% endfor %}
+                					</div>
+                					<div class="xdstickers_wrapper clearfix xdright-two {{xdstickers_position}}">
+                						{% for xdsticker in product.product_xdstickers|slice(0, 4) %}
+                					        {% if xdsticker.postiont == 'right' %}
+                							<div class="xdstickers {{xdsticker.id}}">
+                								<div class="xdstickerbackground xdstickid{{xdsticker.id}}" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title="{{xdsticker.tooooltip}}" style="background-image: url('/{{xdsticker.imagestick}}');" alt="{{xdsticker.tooooltip}}" datatyp="{{xdsticker.typet}}" datatwo="{{xdsticker.postiont}}"></div>
+                							</div>
+                                              {% endif %}
+                						{% endfor %}
+                					</div>
+                					{% endif %}
+                          <a href="{{ product.href }}" class="image" data-hpm-href="1">
+                            <img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive" />		
+                            {% if product.percent %}
+                            <div class="product-item-markers product-item-markers-icons">
+                              <span class="product-item-marker product-item-marker-discount product-item-marker-14px"><span>{{ "-" ~ product.percent ~ "%" }}</span></span>
+                            </div>
+                            {% endif %}
+                          </a>
+                          <div class="product-item__icons">
+                            <div class="product-item__delay" data-toggle="tooltip" title="{{ button_wishlist }}" onclick="wishlist.add('{{ product.product_id }}');">
+                              <i class="fi fi-rr-heart"></i>
+                            </div>
+                            {% if buyoneclick_status_category %}
+                                  <div class="product-item__delay boc_order_category_btn" {% if (buyoneclick_ya_status and buyoneclick_ya_counter is defined and buyoneclick_ya_counter != '' and buyoneclick_ya_identificator is defined and buyoneclick_ya_identificator != '') or (buyoneclick_google_status and buyoneclick_google_category_btn is defined and buyoneclick_google_category_btn != '' and buyoneclick_google_action_btn is defined and buyoneclick_google_action_btn != '') %} onClick="clickAnalytics(); return true;" {% endif %} data-target="#boc_order" data-product="{{ product['name'] }}" data-product_id="{{ product['product_id'] }}"><i class="fa fa-eye" aria-hidden="true"></i></div>
+                                
+            				{% endif %}
+                          </div>
+                          {% if product.manufacturer_image %}
+                          <div class="product-item__brand">
+                            <img src="{{ product.manufacturer_image }}" alt="{{ product.manufacturer }}" title="{{ product.manufacturer }}" class="img-thumbnail">
+                          </div>
+                          {% endif %}
+                        </div>
+                        <div class="product-item__basket">
+                          <div class="product-item__title caption">
+                            <h4 class="product-item__heading">
+                                {% if product.shortname %}
+                                    <a data-hpm-href="1" class="prodname" href="{{ product.href }}">{{ product.shortname }}</a>
+                                {% else %}
+                                    <a data-hpm-href="1" class="prodname" href="{{ product.href }}">{{ product.name }}</a>
+                                {% endif %}
+                            </h4>
+                          </div>
+                          {% if product.hpm_block %}
+                          <div class="hpmodelblock">
+                            {{ product.hpm_block }}
+                          </div>
+                          {% else %}
+                          
+                          
+                                {% if product.attribute_groups %}
+                                <div class="attrblock">
+                                {% for attribute_group in product.attribute_groups %}
+                                {% for attribute in attribute_group.attribute %}
+                                {% if attribute.attribute_id in [2509, 167, 2242, 2163, 2160, 2164, 2163, 2161,	2779, 2825, 2850] %}
+                                <span class="attrdelll">{{ attribute.text }}</span>
+                                {% endif %}
+                                {% endfor %}
+                                {% endfor %}
+                                </div>
+                                {% endif %}  
+                          
+                          {% endif %}
+
+                          <div class="product-item__info">
+                            <div class="product-item__caption-block">
+                              <div class="product-item__caption">
+                                <div class="product-item__blocks">
+                                  {% if product.price %}
+                                  <div class="product-item__price">
+                                    {% if not product.special %}
+                                    <div class="product-price__main">
+                                      <span class="product-price__current">{{ product.price }}</span>
+                                    </div>
+                                    {% else %}
+                                    <div class="product-price__main">
+                                      <span class="product-price__current price-new">{{ product.special }}</span>
+                                    </div>
+                                    <div class="product-item-price-stock">
+                                      <div class="product-item-price-old">{{ product.price }}</div>
+                                      {% if product.economy %}
+                                      <div class="product-item-price-economy"> - {{ product.economy }}</div>
+                                      {% endif %}
+                                    </div>
+                                    {% endif %}
+                                  </div>
+                                  {% endif %}
+                                  {% if product.price == false %}
+                                  <div class="alert-price">{{ product.attention }}</div>
+                                  {% endif %}
+                                  {% if product.price %}
+                                  {% if product.quantity <= 0 %}
+                                  <div class="product-item__hidden">
+                                    <div class="product-item__quantity">
+                                      <i class="product-item__quantity-icon icon-danger"></i>
+                                      <span class="product-item__quantity-val">{{ product.stock }}</span>
+                                    </div>
+                                  </div>
+                                  {% else %}
+                                  <div class="product-item__hidden">
+                                    <div class="product-item__quantity">
+                                      <i class="product-item__quantity-icon icon-success"></i>
+                                      <span class="product-item__quantity-val">{{ text_instock }}</span>
+                                    </div>
+                                  </div>
+                                  {% endif %}
+                                  {% if quantity_btn %}
+                                  <div class="product-item__amount">
+                                    <button type="button" aria-label="Button minus" class="minus product-item__amount-btn-minus">-</button>
+                                    <input type="text" name="quantity" class="product-item__amount-input" size="2" value="{{ product.minimum }}" data-maximum="{{ product.quantity }}" />	  
+                                    <button type="button" aria-label="Button plus" class="plus product-item__amount-btn-plus">+</button>
+                                  </div>
+                                  {% endif %}
+                                  {% endif %}
+                                </div>
+                                <div class="product-button__container">
+                                  {% if product.quantity > 0 or product.quantity == 0 and stock_checkout %}
+                                  <button type="button" class="btn btn-buy" onclick="cart.add('{{ product.product_id }}', $(this).parent().parent().find('.product-item__amount-input').val());" aria-label="{{ button_cart }}"><i class="fi fi-rr-shopping-cart-add"></i></button>
+                                  {% else %}
+                                  <button type="button" class="btn btn-buy disabled" disabled aria-label="{{ button_cart }}"><i class="fi fi-rr-shopping-cart-add"></i></button>
+                                  {% endif %}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+              <div class="catalog-section-pagination">{{ pagination }}</div>
+              {% if description %}
+              <div class="product-description">
+                <div class="form-group">{{ description }}</div>
+              </div>
+              {% endif %}
+              {% endif %}
+              {% if not categories and not products %}
+              <div class="text-empty">
+                <p>{{ text_empty }}</p>
+                <div class="buttons clearfix">
+                  <div class="pull-right"><a href="{{ continue }}" class="btn btn-primary">{{ button_continue }}</a></div>
+                </div>
+              </div>
+              {% endif %}
+              {{ content_bottom }}
+            </div>
+          </div>
+          {{ column_right }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $('.additional-сategories').swiper({
+  	mode: 'horizontal',
+  	slidesPerView: 5,
+    spaceBetween: 10,
+    paginationClickable: true,
+	  breakpoints: {
+        640: {
+          slidesPerView: 2,
+          spaceBetween: 10,
+          pagination: '.swiper-pagination'
+        },
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 10
+        },
+        1024: {
+          slidesPerView: 2,
+          spaceBetween: 10
+        },
+        1200: {
+          slidesPerView: 3,
+          spaceBetween: 10
+        },
+        1440: {
+          slidesPerView: 4,
+          spaceBetween: 10
+        },
+    },
+  	nextButton: '.swiper-nav-next',
+    prevButton: '.swiper-nav-prev'
+  });
+
+  
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  		
+		  $('#carouselheadercategory').swiper({
+            slidesPerView: "auto",
+            spaceBetween: 10,
+          	mode: 'horizontal',
+            breakpoints: {
+                640: {
+                  slidesPerView: 2,
+                },
+                768: {
+                  slidesPerView: "auto",
+                },
+                1024: {
+                  slidesPerView: "auto",
+                },
+            },
+            nextButton: '.swiper-next',
+            prevButton: '.swiper-prev',
+          	autoplay: 9500,
+            loop: true,
+            effect: "coverflow",
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: "auto",
+            coverflowEffect: {
+              rotate: 50,
+              stretch: 0,
+              depth: 100,
+              modifier: 1,
+              slideShadows: true,
+            },
+            pagination: {
+              el: ".swiper-pagination",
+              clickable: true,
+            },
+          	
+          });
+
+
+          $('.hpmodelblock').readmore({
+			maxHeight: 72,
+			moreLink: '<a href="#" class="catalog-read-more-but header-slider-catalog-httt"><span class="catalog-read-more-span">Показать все</span></a>',
+			lessLink: '<a href="#" class="catalog-read-more-but header-slider-catalog-httt"><span class="catalog-read-more-span">Скрыть</span></a>'
+		});
+		$('.header-slider-catalog').readmore({
+			maxHeight: 220,
+			moreLink: '<a href="#" class="header-slider-catalog-ld catalog-read-more-but"><span class="catalog-read-more-span">Показать все</span></a>',
+			lessLink: '<a href="#" class="header-slider-catalog-ld catalog-read-more-but"><span class="catalog-read-more-span">Скрыть</span></a>'
+		});
+		$('.tab-block-shr').readmore({
+			maxHeight: 220,
+			moreLink: '<a href="#" class="catalog-read-more-but header-slider-catalog-ldddd"><span class="catalog-read-more-span">Показать все</span></a>',
+			lessLink: '<a href="#" class="catalog-read-more-but header-slider-catalog-ldddd"><span class="catalog-read-more-span">Скрыть</span></a>'
+		});
+		$('.poip_img').readmore({
+			maxHeight: 78,
+			moreLink: '<a href="#" class="catalog-read-more-but header-slider-catalog-greghtr"><span class="catalog-read-more-span"><i class="fi fi-rr-angle-down"></i></span></a>',
+			lessLink: '<a href="#" class="catalog-read-more-but header-slider-catalog-greghtr"><span class="catalog-read-more-span"><i class="fi fi-rr-angle-up"></i></span></a>'
+		});
+		
+		$('.catalog-items-block').readmore({
+			maxHeight: 176,
+			moreLink: '<a href="#" class="catalog-read-more-but header-slider-catalog-gre"><span class="catalog-read-more-span">Показать все</span></a>',
+			lessLink: '<a href="#" class="catalog-read-more-but header-slider-catalog-gre"><span class="catalog-read-more-span">Скрыть</span></a>'
+		});
+          
+		
+});
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+  $('#carouselcatalogmod').swiper({
+  	mode: 'horizontal',
+  	slidesPerView: 8,
+	  breakpoints: {
+        640: {
+          slidesPerView: 2,
+          spaceBetween: 20,
+        },
+        768: {
+          slidesPerView: 4,
+          spaceBetween: 40,
+        },
+        1024: {
+          slidesPerView: 5,
+          spaceBetween: 50,
+        },
+    },
+  	pagination: false,
+  	paginationClickable: true,
+  	nextButton: '.swiper-next',
+    prevButton: '.swiper-prev',
+  	autoplay: 2500,
+  	loop: true,
+  });
+  $(document).ready(function() {
+	$('.zoom-gallery').magnificPopup({
+		delegate: 'a',
+		type: 'image',
+		closeOnContentClick: false,
+		closeBtnInside: false,
+		mainClass: 'mfp-with-zoom mfp-img-mobile',
+		image: {
+			verticalFit: true,
+			titleSrc: function(item) {
+				return item.el.attr('title') + ' &middot; <a class="image-source-link" href="'+item.el.attr('data-source')+'" target="_blank">image source</a>';
+			}
+		},
+		gallery: {
+			enabled: true
+		},
+		zoom: {
+			enabled: true,
+			duration: 300,
+			opener: function(element) {
+				return element.find('img');
+			}
+		}
+		
+	});
+});
+</script>
+
+
+
+
+
+
+
+
+
+{{ footer }}

@@ -1,0 +1,68 @@
+#smartsearch {
+    position: absolute;
+    width: 100%;
+    top: 100%;
+    margin-top: -1px;
+    z-index: 1010;
+    background: #fff;
+    border-top: none;
+    display: none;
+}
+@media only screen and (min-width: 992px) {
+    #smartsearch {
+        border: 1px solid #f1f6f7;
+    }
+}
+#smartsearch ul.items {
+	margin: 0px;
+    padding: 0px;
+}
+#smartsearch li.item {
+	list-style-type: none;
+	border-top: 1px solid #f1f6f7;
+}
+#smartsearch li.item.current {
+    background: #fcfeab;
+}
+#smartsearch li.item .item_block {
+	display: flex;
+    align-items: center;
+}
+#smartsearch li.item .item_block .image {
+	display: flex;
+    padding: 5px 10px;
+}
+#smartsearch li.item .item_block .image img {
+	
+}
+#smartsearch li.item .item_block .title {
+    padding: 10px 10px;
+    width: 100%;
+}
+#smartsearch li.item .item_block .title a:hover {
+    text-decoration: underline;
+}
+#smartsearch li.item .item_block .price {
+	display: flex;
+    padding: 10px 10px;
+    white-space: nowrap;
+    color: #444;
+}
+#smartsearch li.item .item_block .oldprice {
+	margin-right: 5px;
+    text-decoration: line-through;
+    font-size: 11px;
+	color: #cd0000;
+}
+#smartsearch li.item .item_block a {
+	width: 100%;
+    color:#333;
+}
+#smartsearch li.item .item_block a b {
+    color: #000;
+}
+#smartsearch .button {
+    text-align: center;
+    background: #eee;
+    padding: 10px 10px;
+}

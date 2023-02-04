@@ -1,0 +1,211 @@
+<div id="digitcart-edit-cart-options">
+	{% if options %}
+		{% for option in options %}
+			{% if option['type'] == 'select' %}
+				<div class="form-group{{ option['required'] ? ' required' : '' }}">
+					<label class="control-label" for="input-option{{ option['product_option_id'] }}">{{ option['name'] }}</label>
+					<select name="option[{{ option['product_option_id'] }}]" id="input-option{{ option['product_option_id'] }}" class="form-control">
+						<option value="">{{ text_select }}</option>
+						{% for option_value in option['product_option_value'] %}
+							{% set break = false %}
+							{% set selected = '' %}
+							{% for cart_option_value in cart_option_values if not break %}
+								{% if cart_option_value['product_option_id'] == option['product_option_id'] and cart_option_value['product_option_value_id'] == option_value['product_option_value_id'] %}
+									{% set selected = true %}
+									{% set break = true %}
+								{% else %}
+									{% set selected = false %}
+								{% endif %}
+							{% endfor %}
+							<option value="{{ option_value['product_option_value_id'] }}" {{ selected ? 'selected="selected"' : '' }}>{{ option_value['name'] }}
+							{% if option_value['price'] %}
+							({{ option_value['price_prefix'] }}{{ option_value['price'] }})
+							{% endif %}
+							</option>
+						{% endfor %}
+					</select>
+				</div>
+			{% endif %}
+			{% if option['type'] == 'radio' %}
+				<div class="form-group{{ option['required'] ? ' required' : '' }}">
+					<label class="control-label">{{ option['name'] }}</label>
+					<div id="input-option{{ option['product_option_id'] }}">
+						{% for option_value in option['product_option_value'] %}
+							{% set break = false %}
+							{% set checked = '' %}
+							{% for cart_option_value in cart_option_values if not break %}
+								{% if cart_option_value['product_option_id'] == option['product_option_id'] and cart_option_value['product_option_value_id'] == option_value['product_option_value_id'] %}
+									{% set checked = true %}
+									{% set break = true %}
+								{% else %}
+									{% set checked = false %}
+								{% endif %}
+							{% endfor %}
+							<div class="radio">
+								<label>
+									<input type="radio" name="option[{{ option['product_option_id'] }}]" value="{{ option_value['product_option_value_id'] }}" {{ checked ? 'checked="checked"' : '' }} />
+									{% if option_value['image'] %}
+									<img src="{{ option_value.image }}" alt="{{ option_value.name }} {% if option_value.price %} {{ option_value.price_prefix }} {{ option_value.price }} {% endif %}" class="img-thumbnail" /> 
+									{% endif %}                                        
+									{{ option_value['name'] }}
+									{% if option_value['price'] %}
+									({{ option_value['price_prefix'] }}{{ option_value['price'] }})
+									{% endif %}
+								</label>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			{% endif %}
+			{% if option['type'] == 'checkbox' %}
+				<div class="form-group{{ option['required'] ? ' required' : '' }}">
+					<label class="control-label">{{ option['name'] }}</label>
+					<div id="input-option{{ option['product_option_id'] }}">
+						{% for option_value in option['product_option_value'] %}
+							{% set break = false %}
+							{% set checked = '' %}
+							{% for cart_option_value in cart_option_values if not break %}
+								{% if cart_option_value['product_option_id'] == option['product_option_id'] and cart_option_value['product_option_value_id'] == option_value['product_option_value_id'] %}
+									{% set checked = true %}
+									{% set break = true %}
+								{% else %}
+									{% set checked = false %}
+								{% endif %}
+							{% endfor %}
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" name="option[{{ option['product_option_id'] }}][]" value="{{ option_value['product_option_value_id'] }}" {{ checked ? 'checked="checked"' : '' }} />
+									{% if option_value['image'] %}
+									<img src="{{ option_value.image }}" alt="{{ option_value.name }} {% if option_value.price %} {{ option_value.price_prefix }} {{ option_value.price }} {% endif %}" class="img-thumbnail" /> 
+									{% endif %}
+									{{ option_value['name'] }}
+									{% if option_value['price'] %}
+									({{ option_value['price_prefix'] }}{{ option_value['price'] }})
+									{% endif %}
+								</label>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			{% endif %}
+			{% if option['type'] == 'text' %}
+				{% set break = false %}
+				{% set value = '' %}
+				{% for cart_option_value in cart_option_values if not break %}
+					{% if cart_option_value['product_option_id'] == option['product_option_id'] %}
+						{% set value = cart_option_value['value'] %}
+						{% set break = true %}
+					{% else %}
+						{% set value = option['value'] %}
+					{% endif %}
+				{% endfor %}
+				<div class="form-group{{ option['required'] ? ' required' : '' }}">
+					<label class="control-label" for="input-option{{ option['product_option_id'] }}">{{ option['name'] }}</label>
+					<input type="text" name="option[{{ option['product_option_id'] }}]" value="{{ value }}" placeholder="{{ option['name'] }}" id="input-option{{ option['product_option_id'] }}" class="form-control" />
+				</div>
+			{% endif %}
+			{% if option['type'] == 'textarea' %}
+				{% set break = false %}
+				{% set value = '' %}
+				{% for cart_option_value in cart_option_values if not break %}
+					{% if cart_option_value['product_option_id'] == option['product_option_id'] %}
+						{% set value = cart_option_value['value'] %}
+						{% set break = true %}
+					{% else %}
+						{% set value = option['value'] %}
+					{% endif %}
+				{% endfor %}
+				<div class="form-group{{ option['required'] ? ' required' : '' }}">
+					<label class="control-label" for="input-option{{ option['product_option_id'] }}">{{ option['name'] }}</label>
+					<textarea name="option[{{ option['product_option_id'] }}]" rows="5" placeholder="{{ option['name'] }}" id="input-option{{ option['product_option_id'] }}" class="form-control">{{ value }}</textarea>
+				</div>
+			{% endif %}
+			{% if option['type'] == 'file' %}
+				{% set break = false %}
+				{% set value = '' %}
+				{% set upload_name = '' %}
+				{% for cart_option_value in cart_option_values if not break %}
+					{% if cart_option_value['product_option_id'] == option['product_option_id'] %}
+						{% set value = cart_option_value['value'] %}
+						{% set upload_name = cart_option_value['upload_name'] %}
+						{% set break = true %}
+					{% else %}
+						{% set value = option['value'] %}
+					{% endif %}
+				{% endfor %}
+				<div class="form-group{{ option['required'] ? ' required' : '' }}">
+					<label class="control-label">{{ option['name'] }}</label>
+					<button type="button" data-loading-text="{{ text_loading }}" class="btn btn-default btn-block dc-upload-new-file"><i class="fa fa-upload"></i> {{ button_upload }}</button>
+					<input type="hidden" name="option[{{ option['product_option_id'] }}]" value="{{ value }}" id="input-option{{ option['product_option_id'] }}" />
+					<div class="dc-uploaded-file">{{ upload_name ? upload_name : '' }}</div>
+				</div>
+			{% endif %}
+			{% if option['type'] == 'date' %}
+				{% set break = false %}
+				{% set value = '' %}
+				{% for cart_option_value in cart_option_values if not break %}
+					{% if cart_option_value['product_option_id'] == option['product_option_id'] %}
+						{% set value = cart_option_value['value'] %}
+						{% set break = true %}
+					{% else %}
+						{% set value = option['value'] %}
+					{% endif %}
+				{% endfor %}
+				<div class="form-group{{ option['required'] ? ' required' : '' }}">
+					<label class="control-label" for="input-option{{ option['product_option_id'] }}">{{ option['name'] }}</label>
+					<div class="input-group date">
+						<input type="text" name="option[{{ option['product_option_id'] }}]" value="{{ value }}" data-date-format="YYYY-MM-DD" id="input-option{{ option['product_option_id'] }}" class="form-control" />
+						<span class="input-group-btn">
+						<button class="btn btn-default" type="button"><i class="fa fa-calendar"></i></button>
+						</span>
+					</div>
+				</div>
+			{% endif %}
+			{% if option['type'] == 'datetime' %}
+				{% set break = false %}
+				{% set value = '' %}
+				{% for cart_option_value in cart_option_values if not break %}
+					{% if cart_option_value['product_option_id'] == option['product_option_id'] %}
+						{% set value = cart_option_value['value'] %}
+						{% set break = true %}
+					{% else %}
+						{% set value = option['value'] %}
+					{% endif %}
+				{% endfor %}
+				<div class="form-group{{ option['required'] ? ' required' : '' }}">
+					<label class="control-label" for="input-option{{ option['product_option_id'] }}">{{ option['name'] }}</label>
+					<div class="input-group datetime">
+						<input type="text" name="option[{{ option['product_option_id'] }}]" value="{{ value }}" data-date-format="YYYY-MM-DD HH:mm" id="input-option{{ option['product_option_id'] }}" class="form-control" />
+						<span class="input-group-btn">
+						<button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+						</span>
+					</div>
+				</div>
+			{% endif %}
+			{% if option['type'] == 'time' %}
+				{% set break = false %}
+				{% set value = '' %}
+				{% for cart_option_value in cart_option_values if not break %}
+					{% if cart_option_value['product_option_id'] == option['product_option_id'] %}
+						{% set value = cart_option_value['value'] %}
+						{% set break = true %}
+					{% else %}
+						{% set value = option['value'] %}
+					{% endif %}
+				{% endfor %}
+				<div class="form-group{{ option['required'] ? ' required' : '' }}">
+					<label class="control-label" for="input-option{{ option['product_option_id'] }}">{{ option['name'] }}</label>
+					<div class="input-group time">
+						<input type="text" name="option[{{ option['product_option_id'] }}]" value="{{ value }}" data-date-format="HH:mm" id="input-option{{ option['product_option_id'] }}" class="form-control" />
+						<span class="input-group-btn">
+						<button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+						</span>
+					</div>
+				</div>
+			{% endif %}
+		{% endfor %}
+	{% endif %}
+	<input type="hidden" name="product_id" value="{{ product_id }}" />
+	<input type="hidden" name="cart_id" value="{{ cart_id }}" />
+	<button class="btn btn-success btn-lg btn-block" id="editCartOptionsButton" type="button" data-loading-text="{{ text_loading }}"><i class="fa fa-refresh"></i> {{ button_update }}</button>
+</div>

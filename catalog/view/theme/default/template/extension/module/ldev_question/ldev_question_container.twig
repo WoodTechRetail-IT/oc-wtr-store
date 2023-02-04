@@ -1,0 +1,14 @@
+{% if heading_status %} <h4>{{ name }}</h4> {% endif %}
+<div class="ldev-question-parent">
+{{ about }}
+    {% for k, question in list  %}
+    <div class="ldev-question-child-module">
+        {% if question.text %}
+            {{ question.text }}
+        {% endif %}
+        {% if question.module %}
+            {{ question.module }}
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>

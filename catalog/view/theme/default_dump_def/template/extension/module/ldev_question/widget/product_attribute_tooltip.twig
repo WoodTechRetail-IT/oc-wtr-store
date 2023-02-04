@@ -1,0 +1,11 @@
+{% if attribute_groups %}
+<div class="ldev-tooltip">
+    <ul class="list-group nav nav-pills">
+        {% for attribute_group in attribute_groups %}
+        {% for attribute in attribute_group['attribute'] %}
+            <button type="button" class="btn btn-default"  data-toggle="tooltip"  data-html="true" title="{{ attribute['text'] }}">{{ attribute['name'] }}</button>
+        {% endfor %}
+    {% endfor %}
+    </ul>
+</div>
+{% endif %}

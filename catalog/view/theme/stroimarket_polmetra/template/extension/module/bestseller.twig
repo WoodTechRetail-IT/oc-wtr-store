@@ -1,0 +1,122 @@
+<div class="container-push">
+  <div class="text-title">
+    {% if shadow_title %}
+    <div class="shadow-title">{{ text_popular_goods }}</div>
+    {% endif %}
+    <div class="content-title">{{ heading_title }}</div>
+  </div>
+  <div class="row no-gutters">
+    {% for product in products %}
+    <div class="product-layout product-grid col-xxl-20 col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6">
+      <div class="product-item__container">
+        <div class="product-item">
+          <div class="product-item__image">
+            <a href="{{ product.href }}" class="product-image">
+              <img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive" />		
+            </a>
+            {% if product.percent %}
+            <div class="product-item-markers product-item-markers-icons">
+              <span class="product-item-marker-container product-item-marker-container-hidden">
+              <span class="product-item-marker product-item-marker-discount product-item-marker-14px"><span>{{ "-" ~ product.percent ~ "%" }}</span></span>
+              </span>
+            </div>
+            {% endif %}
+            <div class="product-item__icons">
+              <div class="product-item__delay" data-toggle="tooltip" title="{{ button_wishlist }}" onclick="wishlist.add('{{ product.product_id }}');">
+                <i class="fi fi-rr-heart"></i>
+              </div>
+            </div>
+            {% if product.manufacturer_image %}
+            <div class="product-item__brand">
+              <img src="{{ product.manufacturer_image }}" alt="{{ product.manufacturer }}" title="{{ product.manufacturer }}">
+            </div>
+            {% endif %}
+          </div>
+          {% if product.sku %}
+          <div class="product-item__sku">
+            <span class="product-item__text_sku">{{ text_sku }} {{ product.sku }}</span>
+          </div>
+          {% endif %}
+          <div class="product-item__title">
+            <h3 class="product-item__heading">
+              <a href="{{ product.href }}"><span>{{ product.name }}</span></a>
+            </h3>
+          </div>
+          {% if review_status %}
+          <div class="rating product-item__rating">		    
+            {% for i in 1..5 %}
+            {% if product.rating < i %}
+            <span class="star-empty"><i class="fa fa-star"></i></span>
+            {% else %}
+            <span class="star"><i class="fa fa-star"></i></span>
+            {% endif %}
+            {% endfor %}
+            <div class="reviews-count">{{ product.reviews }}</div>
+          </div>
+          {% endif %}
+          <div class="product-item__info">
+            <div class="product-item__caption-block">
+              <div class="product-item__caption">
+                <div class="product-item__blocks">
+                  {% if product.price %}
+                  <div class="product-item__price">
+                    {% if not product.special %}
+                    <div class="product-price__main">
+                      <span class="product-price__current">{{ product.price }}</span>
+                    </div>
+                    {% else %}
+                    <div class="product-price__main">
+                      <span class="product-price__current price-new">{{ product.special }}</span>
+                    </div>
+                    <div class="product-item-price-stock">
+                      <div class="product-item-price-old">{{ product.price }}</div>
+                      {% if product.economy %}
+                      <div class="product-item-price-economy"> - {{ product.economy }}</div>
+                      {% endif %}
+                    </div>
+                    {% endif %}
+                    {% if product.tax %}
+                    <div class="product-price-tax">{{ text_tax }} {{ product.tax }}</div>
+                    {% endif %}
+                  </div>
+                  {% endif %}
+                  {% if product.price == false %}
+                  <div class="alert-price">{{ product.attention }}</div>
+                  {% endif %}
+                  {% if product.price %}
+                  {% if product.quantity <= 0 %}
+                  <div class="product-item__hidden">
+                    <div class="product-item__quantity">
+                      <i class="product-item__quantity-icon icon-danger"></i>
+                      <span class="product-item__quantity-val">{{ product.stock }}</span>
+                    </div>
+                  </div>
+                  {% else %}
+                  <div class="product-item__hidden">
+                    <div class="product-item__quantity">
+                      <i class="product-item__quantity-icon icon-success"></i>
+                      <span class="product-item__quantity-val">{{ text_instock }}</span>
+                    </div>
+                  </div>
+                  {% endif %}
+                  {% if quantity_btn %}
+                  <div class="product-item__amount">
+                    <button type="button" aria-label="Button minus" class="minus product-item__amount-btn-minus">-</button>
+                    <input type="text" name="quantity" class="product-item__amount-input" size="2" value="{{ product.minimum }}" data-maximum="{{ product.quantity }}" />	  
+                    <button type="button" aria-label="Button plus" class="plus product-item__amount-btn-plus">+</button>
+                  </div>
+                  {% endif %}
+                  {% endif %}
+                </div>
+                <div class="product-button__container">
+                  <button type="button" class="btn btn-buy" onclick="cart.add('{{ product.product_id }}', $(this).parent().parent().find('.product-item__amount-input').val());"><span>{{ button_cart }}</span></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>

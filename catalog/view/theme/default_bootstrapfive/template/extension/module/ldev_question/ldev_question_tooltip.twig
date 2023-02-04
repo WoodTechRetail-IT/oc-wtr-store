@@ -1,0 +1,20 @@
+<div class="ldev-tooltip">
+    {% if heading_status %} <h4>{{ name }}</h4> {% endif %}
+    {{ about }}
+
+    <ul class="list-group nav nav-pills">
+        {% for k, question in list  %}
+        <button type="button" class="btn btn-default" {% if question.text %} data-toggle="tooltip" {% endif %} data-placement="{{ tooltip_position }}" data-html="true" title="
+        {{ question['text'] }}
+        ">
+            {% if question.marker %}
+                <span class="accordion-item-icon">{{ question.marker }}</span>
+            {% endif %}
+            {{ question.title }}
+        </button>
+        {% endfor %}
+    </ul>
+
+</div>
+
+

@@ -1,0 +1,215 @@
+{% if gifts or gift_count_all or count_specific_product %} 
+    <div class="fc-wrap-gift">   
+        {% if gifts %}
+            {% for gift in gifts %} 
+                <div class="gift">
+                    <div class="wrap-gift">
+                        {% if gift.text %}
+                        <div class="gift-text">
+                            <span class="wrap-svg"> <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="2em" height="2em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16"><g fill="red" fill-rule="evenodd"><path d="M0 4h16v3H0z"/><path d="M12.66 9.777a.681.681 0 0 1 0 1.029a.87.87 0 0 1-1.14 0L8.485 8.064h-.996l-3.035 2.742a.87.87 0 0 1-1.14 0a.683.683 0 0 1 0-1.029l1.898-1.713L1 8v8h14V8l-4.238.064l1.898 1.713z"/><path d="M11.928.097c-1.159 0-2.623.838-3.96 2.253C6.634.935 5.17.097 4.014.097c-.592 0-1.098.221-1.46.637c-.599.684-.678 2.021-.293 3.304h1.96s-.59-1.007-.428-1.884c.015-.018.078-.051.22-.051c.573 0 1.905.678 3.057 1.935h1.845c1.157-1.264 2.42-1.935 3.013-1.935c.176 0 .22.049.22.049c.124 1.138-.432 1.886-.432 1.886h2.038c.387-1.283.23-2.62-.365-3.304c-.364-.416-.868-.637-1.46-.637z"/></g></svg></span>
+                            <p>{{ gift.text }}</p>
+                        </div>
+                        {% endif %}
+                        {% if gift.products %}
+                            <div class="wrap-gift_products">
+                            {% for p in gift.products %}
+                                <div class="gift-product">
+                                    <div class="gift-product-image">
+                                        <a href="{{ p.href }}"><img src="{{ p.image }}" class="gift-img-responsive" /></a>
+                                    </div>
+                                    <div class="gift-caption" style="min-height:70px !important;">
+                                        <h4><a href="{{ p.href }}">{{ p.name }}</a></h4>
+                                        <p class="price">
+                                            <span class="price-old">{{ p.price }}</span>
+                                        </p>
+                                    </div>
+                                    {% if p.button %}
+                                        <div class="gift-button-group">
+                                            <button type="button" title="{{ button_cart_add }}" onclick="this.setAttribute('disabled', 'disabled'); prevOptionInProduct('{{ p.product_id }}', '{{ p.name }}', '{{ p.gift_id }}', '{{ p.summa }}', '{{ p.gift_type }}');">
+                                            <image id="fc-image{{ p.product_id }}-{{ p.gift_id }}-{{ p.summa }}-{{ p.gift_type }}" class="img-load" src="/image/load.gif" style="width:30px; height:30px; opacity:0.5;">
+                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="30" height="30" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 512 496"><path d="M469 155H252L151 16q-6-10-17-11t-21 7q-15 16-2 32l79 111H43q-18 0-30.5 12.5T0 197v22q0 28 26 38l59 181q4 14 16 25.5t27 11.5h256q15 0 27-11.5t16-25.5l59-179q26-10 26-38v-22q0-19-12.5-31.5T469 155zM43 197h179l15 20q2 0 2 2H43v-22zm343 229v2q0 1-1 2t-1 2H130q-2 0-2-4L73 261h366zM275 219q7-12 7-22h187v22H275zM149 394q1 7 8 12t14 5h4q8-2 13-10t2-16l-21-85q-2-8-10-13t-16-2q-8 2-13 10t-2 15zm188 17h4q7 0 14-5t8-12l21-86q2-8-2.5-16t-12.5-9q-21-4-26 15l-21 85q-6 20 15 28zm-81 0q21 0 21-22v-85q0-21-21-21t-21 21v85q0 22 21 22z" fill="#1F93BF"/></svg>
+                                            </button>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% if gift_count_all %}
+            <div class="gift">
+                {% for gift in gift_count_all %}
+                    <div class="wrap-gift">
+                        {% if gift.text %}
+                         <div class="gift-text">
+                            <span class="wrap-svg"> <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="2em" height="2em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16"><g fill="red" fill-rule="evenodd"><path d="M0 4h16v3H0z"/><path d="M12.66 9.777a.681.681 0 0 1 0 1.029a.87.87 0 0 1-1.14 0L8.485 8.064h-.996l-3.035 2.742a.87.87 0 0 1-1.14 0a.683.683 0 0 1 0-1.029l1.898-1.713L1 8v8h14V8l-4.238.064l1.898 1.713z"/><path d="M11.928.097c-1.159 0-2.623.838-3.96 2.253C6.634.935 5.17.097 4.014.097c-.592 0-1.098.221-1.46.637c-.599.684-.678 2.021-.293 3.304h1.96s-.59-1.007-.428-1.884c.015-.018.078-.051.22-.051c.573 0 1.905.678 3.057 1.935h1.845c1.157-1.264 2.42-1.935 3.013-1.935c.176 0 .22.049.22.049c.124 1.138-.432 1.886-.432 1.886h2.038c.387-1.283.23-2.62-.365-3.304c-.364-.416-.868-.637-1.46-.637z"/></g></svg></span>
+                            <p>{{ gift.text }}</p>
+                        </div>
+                        {% endif %}
+                        {% if gift.products %}
+                            <div class="wrap-gift_products">
+                            {% for p in gift.products %}
+                                <div class="gift-product">
+                                    <div class="gift-product-image">
+                                        <a href="{{ p.href }}"><img src="{{ p.image }}" class="gift-img-responsive" /></a>
+                                    </div>
+                                    <div class="gift-caption" style="min-height:70px !important;">
+                                        <h4><a href="{{ p.href }}">{{ p.name }}</a></h4>
+                                        <p class="price">
+                                            <span class="price-old">{{ p.price }}</span>
+                                        </p>
+                                    </div>
+                                    {% if p.button %}
+                                        <div class="gift-button-group">
+                                            <button type="button" title="{{ button_cart_add }}" onclick="this.setAttribute('disabled', 'disabled'); prevOptionInProduct('{{ p.product_id }}', '{{ p.name }}', '{{ p.gift_id }}', '{{ p.summa }}', '{{ p.gift_type }}');">
+                                            <image id="fc-image{{ p.product_id }}-{{ p.gift_id }}-{{ p.summa }}-{{ p.gift_type }}" class="img-load" src="/image/load.gif" style="width:30px; height:30px; opacity:0.5;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="30" height="30" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 512 496"><path d="M469 155H252L151 16q-6-10-17-11t-21 7q-15 16-2 32l79 111H43q-18 0-30.5 12.5T0 197v22q0 28 26 38l59 181q4 14 16 25.5t27 11.5h256q15 0 27-11.5t16-25.5l59-179q26-10 26-38v-22q0-19-12.5-31.5T469 155zM43 197h179l15 20q2 0 2 2H43v-22zm343 229v2q0 1-1 2t-1 2H130q-2 0-2-4L73 261h366zM275 219q7-12 7-22h187v22H275zM149 394q1 7 8 12t14 5h4q8-2 13-10t2-16l-21-85q-2-8-10-13t-16-2q-8 2-13 10t-2 15zm188 17h4q7 0 14-5t8-12l21-86q2-8-2.5-16t-12.5-9q-21-4-26 15l-21 85q-6 20 15 28zm-81 0q21 0 21-22v-85q0-21-21-21t-21 21v85q0 22 21 22z" fill="#1F93BF"/></svg>
+                                            </button>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+            </div>
+        {% endif %}
+
+        {% if count_specific_product %}
+            {% for k,gift in count_specific_product %}
+                <div class="gift">
+                    <div class="wrap-gift">
+                        {% if gift.text %}
+                         <div class="gift-text">
+                            <span class="wrap-svg"> <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="2em" height="2em" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16"><g fill="red" fill-rule="evenodd"><path d="M0 4h16v3H0z"/><path d="M12.66 9.777a.681.681 0 0 1 0 1.029a.87.87 0 0 1-1.14 0L8.485 8.064h-.996l-3.035 2.742a.87.87 0 0 1-1.14 0a.683.683 0 0 1 0-1.029l1.898-1.713L1 8v8h14V8l-4.238.064l1.898 1.713z"/><path d="M11.928.097c-1.159 0-2.623.838-3.96 2.253C6.634.935 5.17.097 4.014.097c-.592 0-1.098.221-1.46.637c-.599.684-.678 2.021-.293 3.304h1.96s-.59-1.007-.428-1.884c.015-.018.078-.051.22-.051c.573 0 1.905.678 3.057 1.935h1.845c1.157-1.264 2.42-1.935 3.013-1.935c.176 0 .22.049.22.049c.124 1.138-.432 1.886-.432 1.886h2.038c.387-1.283.23-2.62-.365-3.304c-.364-.416-.868-.637-1.46-.637z"/></g></svg></span>
+                            <p>{{ gift.text }}</p>
+                        </div>
+                        {% endif %}
+                        {% if gift.products %}
+                            <div class="wrap-gift_products">
+                            {% for p in gift.products %}
+                                <div class="gift-product">
+                                    <div class="gift-product-image">
+                                        <a href="{{ p.href }}"><img src="{{ p.image }}" class="gift-img-responsive" /></a>
+                                    </div>
+                                    <div class="gift-caption" style="min-height:70px !important;">
+                                        <h4><a href="{{ p.href }}">{{ p.name }}</a></h4>
+                                        <p class="price">
+                                            <span class="price-old">{{ p.price }}</span>
+                                        </p>
+                                    </div>
+                                    {% if p.button %}
+                                        <div class="gift-button-group">
+                                            <button type="button" title="{{ button_cart_add }}" onclick="this.setAttribute('disabled', 'disabled'); prevOptionInProduct('{{ p.product_id }}', '{{ p.name }}', '{{ p.gift_id }}', '{{ p.summa }}', '{{ p.gift_type }}');">
+                                            <image id="fc-image{{ p.product_id }}-{{ p.gift_id }}-{{ p.summa }}-{{ p.gift_type }}" class="img-load" src="/image/load.gif" style="width:30px; height:30px; opacity:0.5;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="30" height="30" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 512 496"><path d="M469 155H252L151 16q-6-10-17-11t-21 7q-15 16-2 32l79 111H43q-18 0-30.5 12.5T0 197v22q0 28 26 38l59 181q4 14 16 25.5t27 11.5h256q15 0 27-11.5t16-25.5l59-179q26-10 26-38v-22q0-19-12.5-31.5T469 155zM43 197h179l15 20q2 0 2 2H43v-22zm343 229v2q0 1-1 2t-1 2H130q-2 0-2-4L73 261h366zM275 219q7-12 7-22h187v22H275zM149 394q1 7 8 12t14 5h4q8-2 13-10t2-16l-21-85q-2-8-10-13t-16-2q-8 2-13 10t-2 15zm188 17h4q7 0 14-5t8-12l21-86q2-8-2.5-16t-12.5-9q-21-4-26 15l-21 85q-6 20 15 28zm-81 0q21 0 21-22v-85q0-21-21-21t-21 21v85q0 22 21 22z" fill="#1F93BF"/></svg>
+                                            </button>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <script>
+
+        function prevOptionInProduct(product_id, product_name, gift_id, summa, gift_type) {
+            var img = $('#fc-image' + product_id + '-' + gift_id + '-' + summa + '-' + gift_type);
+            $.ajax({
+                url: 'index.php?route=product/product/getOptions',
+                type: 'post',
+                data: 'product_id=' + product_id + '&product_name=' + product_name + '&summa=' + summa + '&gift_id=' + gift_id + '&gift_type=' + gift_type,
+                beforeSend: function(){
+                    img.show();
+                    img.next().hide();
+                },
+                success: function (html) {
+                    if (html == 0) {
+                        addGift(product_id, gift_id, summa, gift_type);
+                    } else {
+                        $('#options_in_product').html(html);
+                        $('#wrap_options_in_product').modal('show');
+                    }
+                }
+            })
+        }
+        ;
+
+        $(document).on('click', "#button_add_cart", function (e) {
+            var options = true;
+            var product_id = $('#popap_product').find('input[name=\'product_id\']').val();
+            var summa = $('#popap_product').find('input[name=\'summa\']').val();
+            var gift_id = $('#popap_product').find('input[name=\'gift_id\']').val();
+            var gift_type = $('#popap_product').find('input[name=\'gift_type\']').val();
+            addGift(product_id, gift_id, summa, options, gift_type);
+        });
+
+        function addGift(product_id, gift_id, summa, gift_type, options = false) {
+            if (options) {
+                var d = $('#popap_product input[type=\'text\'], #popap_product input[type=\'hidden\'], #popap_product input[type=\'radio\']:checked, #popap_product input[type=\'checkbox\']:checked, #popap_product select, #popap_product textarea');
+            } else {
+                var d = 'product_id=' + product_id + '&quantity=1&gift_id=' + gift_id + '&summa=' + summa + '&gift_type=' + gift_type;
+            }
+            $.ajax({
+                url: 'index.php?route=checkout/cart/add',
+                type: 'post',
+                data: d,
+                dataType: 'json',
+                beforeSend: function () {
+
+                },
+                complete: function () {
+
+                },
+                success: function (json) {
+                    $('.alert-dismissible, .text-danger').remove();
+
+                    if (json['error']) {
+
+                        if (json['error']['option']) {
+                            for (i in json['error']['option']) {
+                                var element = $('#input-option' + i.replace('_', '-'));
+
+                                if (element.parent().hasClass('input-group')) {
+                                    element.parent().after('<div class="text-danger">' + json['error']['option'][i] + '</div>');
+                                } else {
+                                    element.after('<div class="text-danger">' + json['error']['option'][i] + '</div>');
+                                }
+                            }
+                        }
+                    }
+
+                    // Highlight any found errors
+                    $('.text-danger').parent().addClass('has-error');
+
+                    if (json['success']) {
+                        $('#wrap_options_in_product').modal('hide');
+                        switch (flag_page) {
+                            case 'cart':
+                                location = '{{ redirect }}';
+                                break;
+                            case 'simplecart':
+                                reloadAll();
+                                break;
+                        }
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                }
+            });
+        }
+
+    </script>
+
+{% endif %}

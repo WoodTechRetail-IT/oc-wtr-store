@@ -1,0 +1,59 @@
+{% if show_minibasket %}
+<div id="mini-cart">
+  <div class="cart-panel">
+    {% if products or vouchers %}
+	<div class="mini has-scrollbar has-top__menu">
+	  <div class="mini-content">	    
+		<ul class="mini-list">		  
+		  {% for product in products %}
+		  <li>
+		    <i class="delete" onclick="cart.remove('{{ product.cart_id }}');" title="{{ button_remove }}"></i>
+			{% if product.thumb %}
+			<div class="minicart-img">
+			  <img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive" />
+			</div>
+			{% endif %}
+			<div class="minicart-info">
+			  {% if product.sku %}
+			  <p class="minicart-article">{{ product.sku }}</p>
+			  {% endif %}
+			  <h4 class="minicart-name">{{ product.name }}</h4>
+			  {% if product.option %}
+			  {% for option in product.option %}
+			  - <small>{{ option.name }} {{ option.value }}</small>
+			  {% endfor %}			
+			  {% endif %}
+			  {% if product.recurring %}
+			  - <small>{{ text_recurring }} {{ product.recurring }}</small>
+			  {% endif %}
+			</div>
+			<div class="minicart-price">
+			  <p>{{ product.total }}</p>
+			  <div class="minicart-quantity">{{ product.quantity }} шт</div>
+			</div>
+		  </li>
+          {% endfor %}		  
+		</ul>		
+	  </div>	
+	</div>
+	<div class="minicart-total">
+	  <div class="minicart-totals">
+	    {% for total in totals %}
+		<div class="minicart-totals__container">
+	      <div class="minicart-summ minicart-title">{{ total.title }}</div>
+          <div class="minicart-summ minicart-text">{{ total.text }}</div>
+		</div>
+        {% endfor %}
+	  </div>
+	  <a href="{{ checkout }}" class="btn btn-primary minicart-button"><i class="fi fi-rr-wallet mr-2"></i>{{ text_checkout }}</a>
+    </div>
+	{% else %}
+    <div class="minicart-empty empty-message">
+	  {{ text_empty }}
+	  <div class="empty-icon__cart"><i class="fi fi-rr-shopping-cart"></i></div>
+	</div>
+	{% endif %}
+  </div>
+</div>
+<script>if(window.matchMedia("(min-width: 992px)").matches){var n;function t(){$(".cart-panel").stop(!1,!1).fadeIn(300)}function i(){$(".cart-panel").stop(!1,!1).fadeOut(300)}$(".top-panel__mini-cart").hover(function(){n||(n=window.setTimeout(function(){n=null,t()},200))},function(){n?(window.clearTimeout(n),n=null):i()}),$("#mini-cart").hover(function(){t()},function(){i()})}</script>
+{% endif %}

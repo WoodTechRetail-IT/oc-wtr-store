@@ -1,0 +1,55 @@
+<div data-steps="steps-{{ item_id }}" id="steps-{{ item_id }}">
+    <div class="steps-top">
+        {% if heading_status %} <h4>{{ name }}</h4> {% endif %}
+        {{ about }}
+    </div>
+
+
+    <ul class="steps-panel">
+        {% for k, question in list  %}
+            <li style="width:{{ 100/list|length }}%" {% if k == 0 %} class="active" {% endif %}>
+                <a {% if k == 0 %} class="active" {% endif %} href="#"  data-toggle="step" data-step="{{ k }}">
+                    <span class="step-name">{{ question.marker }} {{ question.title }}</span>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+
+
+
+    <div class="step-content">
+        {% for k, question in list  %}
+        <div class="step-pane {% if k == 0 %} active {% endif %}" id="step-{{ item_id~'-'~k }}" data-step-content="{{ k }}">
+            <div class="step-stats">
+                <b>{{ k+1 }}</b> {{ lang.text_step_of }} <b>{{ list | length }}</b>
+            </div>
+            <h4>{{ question.title }}</h4>
+            {% if question.thumb %}
+                {% if question.link %}
+                    <a href="{{ question.link }}"><img src="{{ question.thumb }}" alt="{{ question.title }}" title="{{ question.title }}"></a>
+                {% else %}
+                    <img src="{{ question.thumb }}" alt="{{ question.title }}" title="{{ question.title }}">
+                {% endif %}
+            {% endif %}
+            {{ question.text }}
+            {% if question.module %}
+            <div>{{ question.module }}</div>
+            {% endif %}
+        </div>
+        {% endfor %}
+</div>
+
+    <div class="step-buttons">
+        <button data-control="step" data-direction="prev" class="btn btn-primary disabled">{{ btn_prev }}</button>
+        <button data-control="step" data-direction="next" class="btn btn-primary">{{ btn_next }}</button>
+    </div>
+
+<script>
+    $(function () {
+        new Stepper("#ldev-question-block-id-{{ item_id }}");
+    });
+</script>
+</div>
+
+

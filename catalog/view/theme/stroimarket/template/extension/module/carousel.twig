@@ -1,0 +1,46 @@
+<div class="swiper-viewport swiper-carousel">
+  <div id="carousel{{ module }}" class="swiper-container">
+    <div class="swiper-wrapper">
+      {% for banner in banners %}
+      <div class="swiper-slide text-center">
+        {% if banner.link %}
+        <a href="{{ banner.link }}"><img src="{{ banner.image }}" alt="{{ banner.title }}" class="img-responsive" /></a>
+        {% else %}
+        <img src="{{ banner.image }}" alt="{{ banner.title }}" class="img-responsive" />
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    <div class="swiper-pagination carousel{{ module }}"></div>
+    <div class="swiper-pager">
+      <div class="swiper-next"></div>
+      <div class="swiper-prev"></div>
+    </div>
+  </div>
+</div>
+<script>
+  $('#carousel{{ module }}').swiper({
+  	mode: 'horizontal',
+  	slidesPerView: 8,
+	  breakpoints: {
+        640: {
+          slidesPerView: 2,
+          spaceBetween: 20,
+        },
+        768: {
+          slidesPerView: 4,
+          spaceBetween: 40,
+        },
+        1024: {
+          slidesPerView: 5,
+          spaceBetween: 50,
+        },
+    },
+  	pagination: false,
+  	paginationClickable: true,
+  	nextButton: '.swiper-next',
+    prevButton: '.swiper-prev',
+  	autoplay: 2500,
+  	loop: true
+  });
+</script>

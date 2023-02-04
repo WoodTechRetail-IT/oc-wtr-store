@@ -1,0 +1,23 @@
+{% set class = 'ocf-value ocf-' ~ filter.type %}
+{% if value.selected %}
+{% set class = class ~ ' ocf-selected' %}
+{% elseif not value.count %}
+{% set class = class ~ ' ocf-disabled' %}
+{% endif %}
+
+<button type="button" id="ocf-v-{{ value.id }}-{{ index }}" class="{{ class }}" data-filter-key="{{ filter.filter_key }}" data-value-id="{{ value.value_id }}">
+  {% if not value.color and not value.image %}
+  <span class="ocf-value-input ocf-value-input-{{ filter.type }}"></span>
+  {% elseif value.color %}
+  <span class="ocf-value-color" style="background-color: #{{ value.color }};"></span>
+  {% elseif value.image %}
+  <span class="ocf-value-image" style="background-image: url({{ value.image }});"></span>
+  {% endif %}
+    
+  <span class="ocf-value-name">{{ value.name }}</span>
+  {% if show_counter %}
+  <span class="ocf-value-append">   
+    <span class="ocf-value-count">{{ value.count }}</span>
+  </span>
+  {% endif %}
+</button>

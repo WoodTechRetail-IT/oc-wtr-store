@@ -1,0 +1,64 @@
+/*
+    zuck.js
+    https://github.com/ramon82/zuck.js
+    MIT License
+*/
+.stories.snapgram .story > .item-link {
+    text-decoration: none;
+    color: #333;
+}
+.stories.snapgram .story > .item-link > .item-preview {
+    border-radius: 50%;
+    padding: 2px;
+    background: radial-gradient(ellipse at 70% 70%, #ee583f 8%, #d92d77 42%, #bd3381 58%);
+}
+.stories.snapgram .story > .item-link > .item-preview img {
+    border-radius: 50%;
+    border: 3px solid #fff;
+}
+
+.stories.snapgram .story.seen {
+    opacity: 0.75;
+}
+.stories.snapgram .story.seen > a > .item-preview {
+    background: #999;
+}
+.stories.snapgram .story.seen > a {
+    color: #999 !important;
+}
+
+/*old*/
+
+
+.storiesWrapper .owl-wrapper-outer {
+    box-shadow: unset;
+}
+
+.storiesWrapper .owl-pagination {
+    display: none;
+}
+
+.story-item {
+    color: white;
+    border-radius: 1em;
+    box-shadow: inset 0 -200px 200px -100px rgba(0,0,0,.9);
+
+    /*width: 200px;*/
+    margin-right: 15px;
+
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+}
+
+.story-text {
+    font-size: 1.9rem;
+    padding: 20px;
+}
+
+.close, .close:active, .close:hover,.close:focus {
+    color:white!important;
+    opacity:unset;
+}

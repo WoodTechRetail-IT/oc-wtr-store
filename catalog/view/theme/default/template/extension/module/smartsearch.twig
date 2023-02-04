@@ -1,0 +1,42 @@
+<ul class="items">
+	{% for product in products %}
+	<li class="item" search_name="{{ product['search_name'] }}">
+		<div class="item_block">				
+				{% if module_smartsearch_image %}
+					<div class="image"><a href="{{ product['href'] }}"><img src="{{ product['thumb'] }}"></a></div>
+				{% endif %}
+				<div class="title">
+					<a href="{{ product['href'] }}">{{ product['name'] }}</a>
+					{% if module_smartsearch_model %}
+					<br><span>{{ text_model }} {{ product['model'] }}</span>
+					{% endif %}
+
+				</div>
+				{% if module_smartsearch_price %}
+					{% if module_smartsearch_oldprice %}
+						<div class="price">	
+							{% if product['special'] %}
+								<span class="oldprice">{{ product['price'] }}</span> {{ product['special'] }}					
+							{% else %}	
+								{{ product['price'] }}
+							{% endif %}				
+						</div>
+					{% else %}
+						<div class="price">		
+							{% if product['special'] %}	
+								{{ product['special'] }}
+							{% else %}	
+								{{ product['price'] }}
+							{% endif %}						
+						</div>
+					{% endif %}					
+				{% endif %}
+			</a>
+		</div>
+	</li>
+	{% endfor %}	
+</ul>
+{% if module_smartsearch_button_all %}
+	<div class="button"><a href="{{ button_all_href }}">{{ button_all }}</a></div>
+{% endif %}
+

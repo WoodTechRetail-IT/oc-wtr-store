@@ -1,0 +1,64 @@
+
+	{% set qpo_dt = qpo_data[option.product_option_id] %}
+	{% set option_has_images = false %}
+	{% for option_value in option.product_option_value %}
+		{% if option_value.image %}
+			{% set option_has_images = true %}
+		{% endif %}	
+	{% endfor %}
+	
+	<div class="form-group{{ option.required ? ' required' : '' }}">
+		<label class="control-label">{{ option.name }}</label>
+		<div id="input-option{{ option.product_option_id }}" data-product-option-id="{{ option.product_option_id }}" data-quantity-per-option="true">
+		
+			<table class="table table-responsive table-condensed table-hover qpo-table">
+				<tbody>
+					{% for option_value in option.product_option_value %}
+						{% set qpo_input_name = 'quantity_per_option['~option.product_option_id~']['~option_value.product_option_value_id~']' %}
+						<tr>
+							{% if option_has_images %}
+								<td>
+									{% if option_value.image %}
+										<img src="{{ option_value.image }}" alt="{{ option_value.name ~ (option_value.price ? ' ' ~ option_value.price_prefix ~ option_value.price : '' )}}" class="img-thumbnail" />
+									{% endif %}	
+								</td>
+							{% endif %}	
+							
+							<td>
+								{{ option_value.name }}
+							</td>
+							
+							<td data-qpo="price" class="text-right">
+								{% if option_value.price %}
+									{{ option_value.price_prefix~option_value.price }}
+								{% endif %}
+							</td>
+
+              {% if ((qpo_dt.default_quantities ?? false) and (qpo_dt.default_quantities[option_value.product_option_value_id] ?? false)) %}
+                {% set defaut_qpo = qpo_dt.default_quantities[option_value.product_option_value_id] %}
+              {% else %}
+                {% set defaut_qpo = 0 %}
+              {% endif %}
+							
+							<td class="col-xs-3">
+								<div class="input-group qpo-input-group">
+									<span class="input-group-btn">
+										<button type="button" class="btn btn-default qpo-btn-minus" data-type="qpo-minus" data-field="{{ qpo_input_name }}">
+											<span class="glyphicon glyphicon-minus"></span>
+										</button>
+									</span>
+									<input type="text" name="{{ qpo_input_name }}" class="form-control qpo-quantity-input" value="{{ defaut_qpo }}" size="2" data-default-value="{{ defaut_qpo }}">
+									<span class="input-group-btn">
+										<button type="button" class="btn btn-default qpo-btn-plus" data-type="qpo-plus" data-field="{{ qpo_input_name }}">
+											<span class="glyphicon glyphicon-plus"></span>
+										</button>
+									</span>
+								</div>
+							</td>
+							
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>

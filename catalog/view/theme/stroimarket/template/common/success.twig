@@ -1,0 +1,43 @@
+{{ header }}
+<div id="common-success">
+  <div class="bg-container">
+    <div class="container">
+      <div class="navigation-content">
+        <ul class="breadcrumb">
+          {% for i,breadcrumb in breadcrumbs %} 
+          {% if (i+1<breadcrumbs|length) %}
+          <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+          {% else %}
+          <li>{{ breadcrumb.text }}</li>
+          {% endif %} 
+          {% endfor %}	
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="content-wrapper">
+      <div class="row">
+        {{ column_left }}
+        {% if column_left and column_right %}
+        {% set class = 'col-sm-6' %}
+        {% elseif column_left or column_right %}
+        {% set class = 'col-sm-9' %}
+        {% else %}
+        {% set class = 'col-sm-12' %}
+        {% endif %}
+        <div id="content" class="{{ class }}">
+          {{ content_top }}
+          <h1>{{ heading_title }}</h1>
+          {{ text_message }}
+          <div class="buttons">
+            <div class="pull-right"><a href="{{ continue }}" class="btn btn-primary">{{ button_continue }}</a></div>
+          </div>
+          {{ content_bottom }}
+        </div>
+        {{ column_right }}
+      </div>
+    </div>
+  </div>
+</div>
+{{ footer }}

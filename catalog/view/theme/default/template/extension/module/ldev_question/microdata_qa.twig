@@ -1,0 +1,18 @@
+<!--Microdata Question/Answer (single question)-->
+<script type="application/ld+json">
+{% set break = false %}
+{% for k,question in list if not break %}
+       {
+        "@context": "https://schema.org",
+        "@type": "Question",
+        "name": "{{ question['marker_microdata'] }} {{ question['title_microdata'] }}",
+        "answerCount" : 1,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "{{ question['text_microdata'] }}"
+         }
+       }
+
+      {% set break = true %}
+ {% endfor %}
+</script>

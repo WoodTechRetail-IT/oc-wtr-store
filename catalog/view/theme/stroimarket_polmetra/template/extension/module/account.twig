@@ -1,0 +1,27 @@
+<div class="account-module">
+  <div class="title-module">Личный кабинет</div>
+  <ul class="list-unstyled">
+    {% if not logged %}
+    <li><a href="{{ login }}" class="list-module-item">{{ text_login }}</a></li>
+    <li><a href="{{ register }}" class="list-module-item">{{ text_register }}</a></li>
+    <li><a href="{{ forgotten }}" class="list-module-item">{{ text_forgotten }}</a></li>
+    {% endif %}
+    <li><a href="{{ account }}" class="list-module-item">{{ text_account }}</a></li>
+    {% if logged %}
+    <li><a href="{{ edit }}" class="list-module-item">{{ text_edit }}</a></li>
+    <li><a href="{{ password }}" class="list-module-item">{{ text_password }}</a></li>
+    {% endif %}
+    <li><a href="{{ address }}" class="list-module-item">{{ text_address }}</a></li>
+    <li><a href="{{ wishlist }}" class="list-module-item">{{ text_wishlist }}</a></li>
+    <li><a href="{{ order }}" class="list-module-item">{{ text_order }}</a></li>
+    <li><a href="{{ download }}" class="list-module-item">{{ text_download }}</a></li>
+    <li><a href="{{ recurring }}" class="list-module-item">{{ text_recurring }}</a></li>
+    <li><a href="{{ reward }}" class="list-module-item">{{ text_reward }}</a></li>
+    <li><a href="{{ return }}" class="list-module-item">{{ text_return }}</a></li>
+    <li><a href="{{ transaction }}" class="list-module-item">{{ text_transaction }}</a></li>
+    <li><a href="{{ newsletter }}" class="list-module-item">{{ text_newsletter }}</a></li>
+    {% if logged %}
+    <li><a href="{{ logout }}" class="list-module-item">{{ text_logout }}</a></li>
+  {% endif %}
+  </ul>
+</div>

@@ -1,0 +1,167 @@
+<div class="container-push">
+  <div class="content-title">{{ heading_title }}</div>
+  <div class="swiper">
+    <div id="latest{{ module }}" class="swiper-container swiper-extension">
+      <div class="swiper-wrapper">
+        {% for product in products %}
+        <div class="product-layout product-grid swiper-slide">
+          <div class="product-item__container">
+            <div class="product-item">
+              <div class="product-item__image">
+                <a href="{{ product.href }}">
+                  <img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive" />
+                  {% if product.percent %}
+                  <div class="product-item-markers product-item-markers-icons">
+                    <span class="product-item-marker product-item-marker-discount product-item-marker-14px"><span>{{ "-" ~ product.percent ~ "%" }}</span></span>
+                  </div>
+                  {% endif %}
+                </a>
+                <div class="product-item__icons">
+                  <div class="product-item__delay" data-toggle="tooltip" title="{{ button_wishlist }}" onclick="wishlist.add('{{ product.product_id }}');">
+                    <i class="fi fi-rr-heart"></i>
+                  </div>
+                </div>
+                {% if product.manufacturer_image %}
+                <div class="product-item__brand">
+                  <img src="{{ product.manufacturer_image }}" alt="{{ product.manufacturer }}" title="{{ product.manufacturer }}" class="img-thumbnail">
+                </div>
+                {% endif %}
+              </div>
+              {% if product.sku %}
+              <div class="product-item__sku">
+                <span class="product-item__text_sku">{{ text_sku }} {{ product.sku }}</span>
+              </div>
+              {% endif %}
+              <div class="product-item__title">
+                <h3 class="product-item__heading">
+                  <a href="{{ product.href }}"><span>{{ product.name }}</span></a>
+                </h3>
+              </div>
+              {% if review_status %}
+              <div class="rating product-item__rating">		    
+                {% for i in 1..5 %}
+                {% if product.rating < i %}
+                <span class="star-empty"><i class="fa fa-star"></i></span>
+                {% else %}
+                <span class="star"><i class="fa fa-star"></i></span>
+                {% endif %}
+                {% endfor %}
+                <div class="reviews-count">{{ product.reviews }}</div>
+              </div>
+              {% endif %}
+              <div class="product-item__info">
+                <div class="product-item__caption-block">
+                  <div class="product-item__caption">
+                    <div class="product-item__blocks">
+                      {% if product.price %}
+                      <div class="product-item__price">
+                        {% if not product.special %}
+                        <div class="product-price__main">
+                          <span class="product-price__current">{{ product.price }}</span>
+                        </div>
+                        {% else %}
+                        <div class="product-price__main">
+                          <span class="product-price__current price-new">{{ product.special }}</span>
+                        </div>
+                        <div class="product-item-price-stock">
+                          <div class="product-item-price-old">{{ product.price }}</div>
+                          {% if product.economy %}
+                          <div class="product-item-price-economy"> - {{ product.economy }}</div>
+                          {% endif %}
+                        </div>
+                        {% endif %}
+                        {% if product.tax %}
+                        <div class="product-price-tax">{{ text_tax }} {{ product.tax }}</div>
+                        {% endif %}
+                      </div>
+                      {% endif %}
+                      {% if product.price == false %}
+                      <div class="alert-price">{{ product.attention }}</div>
+                      {% endif %}
+                      {% if product.price %}
+                      {% if product.quantity <= 0 %}
+                      <div class="product-item__hidden">
+                        <div class="product-item__quantity">
+                          <i class="product-item__quantity-icon icon-danger"></i>
+                          <span class="product-item__quantity-val">{{ product.stock }}</span>
+                        </div>
+                      </div>
+                      {% else %}
+                      <div class="product-item__hidden">
+                        <div class="product-item__quantity">
+                          <i class="product-item__quantity-icon icon-success"></i>
+                          <span class="product-item__quantity-val">{{ text_instock }}</span>
+                        </div>
+                      </div>
+                      {% endif %}
+                      {% if quantity_btn %}
+                      <div class="product-item__amount">
+                        <button type="button" aria-label="Button minus" class="minus product-item__amount-btn-minus">-</button>
+                        <input type="text" name="quantity" class="product-item__amount-input" size="2" value="{{ product.minimum }}" data-maximum="{{ product.quantity }}" />	  
+                        <button type="button" aria-label="Button plus" class="plus product-item__amount-btn-plus">+</button>
+                      </div>
+                      {% endif %}
+                      {% endif %}
+                    </div>
+                    <div class="product-button__container">
+                      {% if product.quantity > 0 or product.quantity == 0 and stock_checkout %}
+                      <button type="button" class="btn btn-buy" onclick="cart.add('{{ product.product_id }}', $(this).parent().parent().find('.product-item__amount-input').val());" aria-label="{{ button_cart }}"><i class="fi fi-rr-shopping-cart-add"></i></button>
+                      {% else %}
+                      <button type="button" class="btn btn-buy disabled" disabled aria-label="{{ button_cart }}"><i class="fi fi-rr-shopping-cart-add"></i></button>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="swiper-pagination latest{{ module }}"></div>
+    <div class="swiper-buttons">
+      <div class="swiper-nav-next swiper-nav-latest-next">
+        <div class="navigation-button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="chevron-right" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg></div>
+      </div>
+      <div class="swiper-nav-prev swiper-nav-latest-prev">
+        <div class="navigation-button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="chevron-left" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/></svg></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $('#latest{{ module }}').swiper({
+  	mode: 'horizontal',
+  	slidesPerView: 5,
+    slidesPerGroup: 5,
+    speed: 1000,
+    paginationClickable: true,
+    nextButton: '.swiper-nav-latest-next',
+    prevButton: '.swiper-nav-latest-prev',
+	  breakpoints: {
+        640: {
+          slidesPerView: 2,
+          slidesPerGroup: 2,
+          spaceBetween: 10,
+          pagination: '.latest{{ module }}'
+        },
+        768: {
+          slidesPerView: 3,
+          slidesPerGroup: 3
+        },
+        1024: {
+          slidesPerView: 4,
+          slidesPerGroup: 4
+        },
+        1200: {
+          slidesPerView: 5,
+          slidesPerGroup: 5
+        },
+        1440: {
+          slidesPerView: 5,
+          slidesPerGroup: 5
+        },
+    }
+  });
+</script>

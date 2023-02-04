@@ -1,0 +1,32 @@
+<div class="account-module">
+  <div class="title-module">
+    <i class="fi fi-rr-menu-burger mr-3"></i>
+    <div class="title-module__name">Личный кабинет</div>
+  </div>
+  <div class="list-module__wrap">
+    <ul class="list-module__list list-unstyled">
+      {% if not logged %}
+      <li class="list-module__item"><a href="{{ login }}" class="list-module__link list-module-item"><i class="fi fi-rr-sign-in-alt mr-3"></i>{{ text_login }}</a></li>
+      <li class="list-module__item"><a href="{{ register }}" class="list-module__link list-module-item"><i class="fi fi-rr-edit mr-3"></i>{{ text_register }}</a></li>
+      <li class="list-module__item"><a href="{{ forgotten }}" class="list-module__link list-module-item"><i class="fi fi-rr-unlock mr-3"></i>{{ text_forgotten }}</a></li>
+      {% endif %}
+      <li class="list-module__item"><a href="{{ account }}" class="list-module__link list-module-item"><i class="fi fi-rr-document mr-3"></i>{{ text_account }}</a></li>
+      {% if logged %}
+      <li class="list-module__item"><a href="{{ edit }}" class="list-module__link list-module-item"><i class="fi fi-rr-document mr-3"></i>{{ text_edit }}</a></li>
+      <li class="list-module__item"><a href="{{ password }}" class="list-module__link list-module-item"><i class="fi fi-rr-lock mr-3"></i>{{ text_password }}</a></li>
+      {% endif %}
+      <li class="list-module__item"><a href="{{ address }}" class="list-module__link list-module-item"><i class="fi fi-rr-address-book mr-3"></i>{{ text_address }}</a></li>
+      <li class="list-module__item"><a href="{{ wishlist }}" class="list-module__link list-module-item"><i class="fi fi-rr-heart mr-3"></i>{{ text_wishlist }}</a></li>
+      <li class="list-module__item"><a href="{{ order }}" class="list-module__link list-module-item"><i class="fi fi fi-rr-shopping-cart mr-3"></i>{{ text_order }}</a></li>
+      <li class="list-module__item"><a href="{{ download }}" class="list-module__link list-module-item"><i class="fi fi-rr-download mr-3"></i>{{ text_download }}</a></li>
+      <li class="list-module__item"><a href="{{ recurring }}" class="list-module__link list-module-item"><i class="fi fi-rr-ruble-sign mr-3"></i>{{ text_recurring }}</a></li>
+      <li class="list-module__item"><a href="{{ reward }}" class="list-module__link list-module-item"><i class="fi fi-rr-star mr-3"></i>{{ text_reward }}</a></li>
+      <li class="list-module__item"><a href="{{ return }}" class="list-module__link list-module-item"><i class="fi fi-rr-undo mr-3"></i>{{ text_return }}</a></li>
+      <li class="list-module__item"><a href="{{ transaction }}" class="list-module__link list-module-item"><i class="fi fi-rr-credit-card mr-3"></i>{{ text_transaction }}</a></li>
+      <li class="list-module__item"><a href="{{ newsletter }}" class="list-module__link list-module-item"><i class="fi fi-rr-mailbox mr-3"></i>{{ text_newsletter }}</a></li>
+      {% if logged %}
+      <li class="list-module__item"><a href="{{ logout }}" class="list-module__link list-module-item"><i class="fi fi-rr-sign-out-alt mr-3"></i>{{ text_logout }}</a></li>
+      {% endif %}
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+{% if modules %}
+<aside id="column-left" class="col-sm-3 hidden-xs">
+  {% for module in modules %}
+  {{ module }}
+  {% endfor %}
+  <div class="right-form">
+        <div class="div-quest">Остались вопросы?</div><div class="text-form-qw">Свяжитесь с нами и мы ответим на них.</div><div class="phone-form-qw">+7 (499) 348-11-16</div>
+        
+       
+            	<form id="forma-quest" class="forma-quest">
+
+                <!-- Hidden Required Fields -->
+                <input type="hidden" name="form_subject" value="Форма - Заказ звонка (Polmetra.ru)">
+                <input type="hidden" name="aurl" value="{{ aurl }}">
+                <input type="hidden" name="project_name" value="Polmetra.ru">
+                <input type="hidden" name="form_subject" value="Заказ звонка (Polmetra.ru)">
+                <!-- END Hidden Required Fields -->
+                <div class="forms-inputheadcall inputs-forma">
+                    <input type="text" name="name" class="chcksp" placeholder="Ваше имя..." maxlength="25">
+                    <input type="text" name="text" class="chcksp" placeholder="Ваше имя..." maxlength="25">
+                    <input type="text" name="tname" placeholder="Ваше имя..." maxlength="25">
+                </div>
+            		<!-- END Hidden Required Fields -->
+            		<div class="forms-inputheadcall inputs-forma">
+            		<input class="phone_masckcom" type="text" name="Phone" placeholder="Ваш телефон..." required><br>
+            		</div>
+            		<button class="style-form-button">Отправить</button>
+            
+            	</form>
+            	<script>
+                    $(document).ready(function() {
+                    	$("#forma-quest").submit(function() {
+                    		var th = $(this);
+                    		$.ajax({
+                    			type: "POST",
+                    			url: "mail.php",
+                    			data: th.serialize()
+                    		}).done(function() {
+                    			alert("Благодарим за заявку!");
+                    			setTimeout(function() {
+                    				// Done Functions
+                    				th.trigger("reset");
+                    			}, 1000);
+                    		});
+                    		return false;
+                    	});
+                    });
+                    </script>
+    </div>
+</aside>
+{% endif %}

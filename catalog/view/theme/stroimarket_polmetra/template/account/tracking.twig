@@ -1,0 +1,85 @@
+{{ header }}
+<div id="account-tracking">
+  <div class="bg-container">
+    <div class="container">
+      <div class="navigation-content">
+        <ul class="breadcrumb">
+          {% for i,breadcrumb in breadcrumbs %} 
+          {% if (i+1<breadcrumbs|length) %}
+          <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+          {% else %}
+          <li>{{ breadcrumb.text }}</li>
+          {% endif %} 
+          {% endfor %}	
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="content-wrapper">
+      <div class="row">
+        {{ column_left }}
+        {% if column_left and column_right %}
+        {% set class = 'col-sm-6' %}
+        {% elseif column_left or column_right %}
+        {% set class = 'col-sm-9' %}
+        {% else %}
+        {% set class = 'col-sm-12' %}
+        {% endif %}
+        <div id="content" class="{{ class }}">
+          {{ content_top }}
+          <h1>{{ heading_title }}</h1>
+          <p>{{ text_description }}</p>
+          <form>
+            <div class="form-group">
+              <label class="control-label" for="input-code">{{ entry_code }}</label>
+              <div>
+                <textarea cols="40" rows="5" placeholder="{{ entry_code }}" id="input-code" class="form-control">{{ code }}</textarea>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label" for="input-generator"><span data-toggle="tooltip" title="{{ help_generator }}">{{ entry_generator }}</span></label>
+              <div>
+                <input type="text" name="product" value="" placeholder="{{ entry_generator }}" id="input-generator" class="form-control" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label" for="input-link">{{ entry_link }}</label>
+              <div>
+                <textarea name="link" cols="40" rows="5" placeholder="{{ entry_link }}" id="input-link" class="form-control"></textarea>
+              </div>
+            </div>
+          </form>
+          <div class="buttons clearfix">
+            <div class="pull-right"><a href="{{ continue }}" class="btn btn-primary">{{ button_continue }}</a></div>
+          </div>
+          {{ content_bottom }}
+        </div>
+        {{ column_right }}
+      </div>
+    </div>
+  </div>
+</div>
+<script><!--
+$('input[name=\'product\']').autocomplete({
+	'source': function(request, response) {
+		$.ajax({
+			url: 'index.php?route=account/tracking/autocomplete&filter_name=' +  encodeURIComponent(request) + '&tracking=' + encodeURIComponent($('#input-code').val()),
+			dataType: 'json',
+			success: function(json) {
+				response($.map(json, function(item) {
+					return {
+						label: item['name'],
+						value: item['link']
+					}
+				}));
+			}
+		});
+	},
+	'select': function(item) {
+		$('input[name=\'product\']').val(item['label']);
+		$('textarea[name=\'link\']').val(item['value']);
+	}
+});
+//--></script>
+{{ footer }}

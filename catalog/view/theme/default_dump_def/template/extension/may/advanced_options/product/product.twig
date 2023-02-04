@@ -1,0 +1,517 @@
+<div id="may-advanced-options" class="hidden">
+{% if may_advanced_options_config['theme'] == 'journal3' %}
+<div class="product-options">
+{% endif %}
+{% if may_advanced_options %}
+<input type="hidden" name="option[sku]" value=""/>
+<input type="hidden" name="option[image]" value=""/>
+{% if not options or options|length == 0 %}
+<hr>
+<h3>{{ text_option }}</h3>
+{% endif %}
+{% for option in may_advanced_options %}
+<div class="form-group{{ option['required'] ? ' required' : '' }} type-{{ may_advanced_options_config['swatches'] ? 'swatches' : option['type'] }} may-advanced-option-level-{{ (option['advanced_option_id']|split('-'))|length }} {{ option['init_visible'] ? 'visible' : 'hidden' }}" data-advanced-option-id="{{ option['advanced_option_id'] }}">
+{% if not may_advanced_options_config['swatches'] %}
+{% if option['type'] == 'select' %}
+  <label class="control-label" for="input-option{{ option['product_option_id'] }}">{{ option['name'] }}</label>
+  <select for="#option-{{ option['product_option_id'] }}" id="input-option{{ option['product_option_id'] }}" data-advanced-option-id="{{ option['advanced_option_id'] }}" class="form-control may-advanced-option" {{ option['init_disable'] ? 'disabled' : '' }}>
+    <option value="">{{ text_select }}</option>
+    {% for option_value in option['product_option_value'] %}
+    <option value="{{ option_value['product_option_value_id'] }}" data-advanced-option-id="{{ option['advanced_option_id'] }}" data-option-value-id="{{ option_value['option_value_id'] }}" data-option-value='{{ option_value|json_encode|escape }}'>{{ option_value['name'] }}
+    {% if option_value['price'] %}
+    ({{ option_value['price_prefix'] }}{{ option_value['price'] }})
+    {% endif %}
+    </option>
+    {% endfor %}
+  </select>
+{% endif %}
+{% if option['type'] == 'radio' %}
+  <label class="control-label">{{ option['name'] }}</label>
+  <div id="input-option{{ option['product_option_id'] }}">
+    {% for option_value in option['product_option_value'] %}
+    <div class="radio">
+      <label>
+        <input type="radio" name="may_advanced_option_{{ option['product_option_id'] }}" for="#option-{{ option['product_option_id'] }}" value="{{ option_value['product_option_value_id'] }}" data-advanced-option-id="{{ option['advanced_option_id'] }}" data-option-value-id="{{ option_value['option_value_id'] }}" class="may-advanced-option" {% if option_value['product_images'] %}data-option-value-image-origin="{{ option_value['product_images'][0]['origin'] }}" data-option-value-image-popup="{{ option_value['product_images'][0]['popup'] }}" data-option-value-image-thumb="{{ option_value['product_images'][0]['thumb'] }}"{% endif %} {{ option['init_disable'] ? 'disabled' : '' }}  data-option-value='{{ option_value|json_encode|escape }}'/>
+        {% if option_value['image'] %}
+        <img src="{{ option_value['image'] }}" alt="{{ option_value['name'] }}{{ option_value['price'] ? " #{option_value['price_prefix']}#{option_value['price']}" : '' }}" class="img-thumbnail" /> 
+        {% endif %}
+        {{ option_value['name'] }}
+        {% if option_value['price'] %}
+        ({{ option_value['price_prefix'] }}{{ option_value['price'] }})
+        {% endif %}
+      </label>
+    </div>
+    {% endfor %}
+  </div>
+{% endif %}
+{% else %}
+  <label class="control-label">{{ option['name'] }}&nbsp;<span class="selected-option-label"></span></label>
+  <div id="input-option{{ option['product_option_id'] }}" class="may-swatches">
+    {% for option_value in option['product_option_value'] %}
+      <label>
+        <input type="radio" data-label="{{ option_value['name'] }}{% if may_advanced_options_config['show_option_price'] %}{{ (option_value['price']) ? "#{option_value['price_prefix']}#{option_value['price']}" : '' }}{% endif %}" name="may_advanced_option_{{ option['product_option_id'] }}" for="#option-{{ option['product_option_id'] }}" value="{{ option_value['product_option_value_id'] }}" data-advanced-option-id="{{ option['advanced_option_id'] }}" data-option-value-id="{{ option_value['option_value_id'] }}" class="may-advanced-option"  {% if option_value['product_images'] %}data-option-value-image-origin="{{ option_value['product_images'][0]['origin'] }}" data-option-value-image-popup="{{ option_value['product_images'][0]['popup'] }}" data-option-value-image-thumb="{{ option_value['product_images'][0]['thumb'] }}"{% endif %} {{ option['init_disable'] ? 'disabled' : '' }} data-option-value='{{ option_value|json_encode|escape }}'/>
+        {% if may_advanced_options_config['swatch_image'] and option_value['product_images'] %}
+        <img src="{{ option_value['product_images'][0]['thumb'] }}" alt="{{ option_value['name'] }}{{ option_value['price'] ? " #{option_value['price_prefix']}#{option_value['price']}" : '' }}" class="img-thumbnail" /> 
+        {% elseif option_value['image'] %}
+        <img src="{{ option_value['image'] }}" alt="{{ option_value['name'] }}{{ option_value['price'] ? "#{option_value['price_prefix']}#{option_value['price']}" : '' }}" class="img-thumbnail" /> 
+        {% else %}
+        <span>
+        {{ option_value['name'] }}
+        {% if option_value['price'] %}
+        ({{ option_value['price_prefix'] }}{{ option_value['price'] }})
+        {% endif %}
+        </span>
+        {% endif %}
+      </label>
+    {% endfor %}
+  </div>
+{% endif %}
+<input type="hidden" name="option[{{ option['product_option_id'] }}]" id="option-{{ option['product_option_id'] }}" />
+</div>
+{% endfor %}
+{% endif %}
+{% if may_advanced_options_config['theme'] == 'journal3' %}
+</div>
+{% endif %}
+</div>
+{% if may_advanced_options_config['swatches'] %}
+<style type="text/css">
+{{ may_advanced_options_config['swatch_css'] }}
+</style>
+<style id="may-advanced-options-swatch-style">
+.may-swatches input[type=radio] + img,
+.may-swatches input[type=radio] + span {
+	border: {{ may_advanced_options_config['swatch_style_border_width'] }}px solid #{{ may_advanced_options_config['swatch_style_border_color_default'] }};
+	min-width: {{ may_advanced_options_config['swatch_style_size_width'] }}px;
+	height: {{ may_advanced_options_config['swatch_style_size_height'] }}px;
+	border-radius: {{ may_advanced_options_config['swatch_style_size_radius'] }}px;
+}
+.may-swatches input[type=radio] + img {
+	max-width: {{ may_advanced_options_config['swatch_style_size_width'] }}px;
+	padding: {{ may_advanced_options_config['swatch_style_space_padding'] }}px;
+}
+.may-swatches input[type=radio] + span {
+	padding: {{ may_advanced_options_config['swatch_style_space_padding'] + 4 }}px;
+	line-height: {{ may_advanced_options_config['swatch_style_size_height'] - may_advanced_options_config['swatch_style_space_padding'] * 2 - 8 }}px;
+}
+.may-swatches input[type=radio]:enabled + img:hover,
+.may-swatches input[type=radio]:enabled + span:hover,
+.may-swatches input[type=radio]:checked + img,
+.may-swatches input[type=radio]:checked + span {
+	border-color: #{{ may_advanced_options_config['swatch_style_border_color_selected'] }};
+}
+</style>
+{% endif %}
+<script type="text/javascript"><!--
+{% if may_advanced_options_config['wrapper'] and may_advanced_options_config['wrapper'] != '#product' %}
+	if ($('{{ may_advanced_options_config['wrapper'] }}').length) {
+		$('{{ may_advanced_options_config['wrapper'] }}').append($('#may-advanced-options').html());
+	}
+{% else %}
+{% if not options or options|length == 0 %}
+	if ($('#product').length) {
+		$('#product').prepend($('#may-advanced-options').html());
+	}
+{% else %}
+	if ($($('#product [id^=\'input-option\']').get({{ options|length - 1 }})).length) {
+		$($('#product [id^=\'input-option\']').get({{ options|length - 1 }})).parentsUntil('#product', 'div.form-group').after($('#may-advanced-options').html());
+	}
+{% endif %}
+{% endif %}
+$('#may-advanced-options').remove();
+
+{% if may_advanced_options_config['theme'] == 'journal3' %}
+Journal['quickviewPageStylePriceUpdate'] = false;
+Journal['productPageStylePriceUpdate'] = false;
+{% endif %}
+var may_option_value_quantity = -1;
+$(document).delegate('.may-advanced-option', 'change', function(event) {
+	$($(this).attr('for')).val($(this).val());
+
+	var $selected_option;
+	var visible_option_advanced_id;
+
+	var advanced_option_id = $(this).data('advanced-option-id');
+	var advanced_option_level = (typeof advanced_option_id == 'string') ? advanced_option_id.split('-').length : 1;
+
+	if ($('div.may-advanced-option-level-' + (advanced_option_level + 1) + '[data-advanced-option-id^=\'' + advanced_option_id + '\']').length) {
+		while ($('div.may-advanced-option-level-' + (advanced_option_level + 1) + '[data-advanced-option-id^=\'' + advanced_option_id + '\']').length) {
+			if ($('div.visible.may-advanced-option-level-' + advanced_option_level).length) {
+				if ($('div.visible.may-advanced-option-level-' + advanced_option_level).hasClass('type-select')) {
+					$selected_option = $('div.visible.may-advanced-option-level-' + advanced_option_level + ' .may-advanced-option option:selected');
+					if (!$selected_option.length) {
+						$selected_option = $('div.visible.may-advanced-option-level-' + advanced_option_level + ' .may-advanced-option option:first');
+					}
+				} else {
+					$selected_option = $('div.visible.may-advanced-option-level-' + advanced_option_level + ' .may-advanced-option:checked');
+					if (!$selected_option.length) {
+						$selected_option = $('div.visible.may-advanced-option-level-' + advanced_option_level + ' .may-advanced-option:first');
+					}
+				}
+			}
+
+			if (typeof $selected_option.data('advanced-option-id') !== 'undefined') {
+				visible_option_advanced_id = $selected_option.data('advanced-option-id') + '-' + $selected_option.data('option-value-id');
+			} else {
+				visible_option_advanced_id = $('div.may-advanced-option-level-' + (advanced_option_level + 1) + '[data-advanced-option-id^=\'' + visible_option_advanced_id + '-\']:first').data('advanced-option-id');
+			}
+
+			$('div.may-advanced-option-level-' + (advanced_option_level + 1)).each(function(index) {
+				if ($(this).data('advanced-option-id') == visible_option_advanced_id) {
+					$(this).find('.may-advanced-option').prop('disabled', false);
+					$(this).removeClass('hidden');
+					$(this).addClass('visible');
+
+					var $selected_option_value;
+					if ($(this).hasClass('type-select')) {
+						$selected_option_value = $(this).find('.may-advanced-option option:selected');
+					} else {
+						$selected_option_value = $(this).find('.may-advanced-option:checked');
+					}
+
+					if ($selected_option_value.length) {
+						$(this).find('input[type=\'hidden\']').val($selected_option_value.val());
+					} else {
+						$(this).find('input[type=\'hidden\']').val(0);
+					}
+				} else {
+					$(this).find('.may-advanced-option').prop('disabled', true);
+					$(this).find('input[type=\'hidden\']').val(-1);
+					$(this).removeClass('visible');
+					$(this).addClass('hidden');
+				}
+			});
+
+			advanced_option_level ++;
+		}
+	} else {
+		$selected_option = $(this);
+	}
+
+	var advanced_option_elements = $('div.visible').get().reverse();
+
+	var currency_position = "{{ currency['symbol_position'] }}";
+	var currency_symbol = "{{ currency['symbol'] }}";
+	var currency_decimal_place = "{{ currency['decimal_place'] }}";
+	var decimal_point = "{{ currency['decimal_point'] }}";
+	var thousand_point = "{{ currency['thousand_point'] }}";
+
+	var convertPriceStringToNumber = function(str) {
+		var result = str.replace(currency_symbol, "");
+		result = result.split(thousand_point).join('');
+		result = result.replace(decimal_point, '');
+		result = parseFloat(result) / Math.pow(10, currency_decimal_place);
+		return result;
+	}
+
+	var price = convertPriceStringToNumber("{{ price }}");
+	var special = convertPriceStringToNumber("{{ special }}");
+	var base_price = convertPriceStringToNumber("{{ tax }}");
+
+	var is_sku_updated = false;
+	var is_image_updated = false;
+	var is_quantity_updated = false;
+
+	for (var i=0; i<advanced_option_elements.length; i++) {
+		var $elem = $(advanced_option_elements[i]);
+		var $selected_option;
+		if ($elem.hasClass('type-select')) {
+			$selected_option = $elem.find('.may-advanced-option option:selected');
+		} else {
+			$selected_option = $elem.find('.may-advanced-option:checked');
+		}
+
+		if (!$selected_option.length || $selected_option.data('option-value') == undefined) {
+			if ($elem.hasClass('type-select')) {
+				$elem.find('.may-advanced-option option').eq(0).prop('selected', true);
+				$selected_option = $elem.find('.may-advanced-option option:selected');
+			} else {
+				$elem.find('.may-advanced-option').eq(0).prop('checked', true);
+				$selected_option = $elem.find('.may-advanced-option:checked');
+			}
+			$elem.find('input[type=\'hidden\']').val($selected_option.val());
+		}
+
+		if (!$selected_option.length || $selected_option.data('option-value') == undefined) {
+			continue;
+		}
+
+		var selected_option_value_id = $selected_option.data('option-value-id');
+		if ($elem.hasClass('type-select')) {
+			$('.may-advanced-option option[data-option-value-id="' + selected_option_value_id + '"]').prop('selected', true);
+		} else {
+			$('.may-advanced-option[data-option-value-id="' + selected_option_value_id + '"]').prop('checked', true);
+		}
+
+		var option_value = $selected_option.data('option-value');
+		if (typeof option_value == 'string') {
+			option_value = JSON.parse(option_value);
+		}
+
+		// SKU
+		if (!is_sku_updated && option_value['sku'] != undefined && option_value['sku'] != "") {
+			var option_value_sku = option_value['sku'];
+			{% if may_advanced_options_config['sku_js'] %}
+			{{ may_advanced_options_config['sku_js']|replace({'{{SKU}}': "option_value_sku"}) }}
+			{% else %}
+			{% if may_advanced_options_config['theme'] == 'journal3' or manufacturer %}
+			var $elem_sku = $('#content ul.list-unstyled:first li').eq(1);
+			{% else %}
+			var $elem_sku = $('#content ul.list-unstyled:first li').eq(0);
+			{% endif %}
+			if ($elem_sku.length) {
+				$elem_sku.find('span.sku').remove();
+				$elem_sku.html($elem_sku.html() + '<span class="sku">-' + option_value_sku + '</span>');
+			}
+			{% endif %}
+			$('input:hidden[name=\'option[sku]\']').val(option_value_sku);
+
+			is_sku_updated = true;
+		}
+
+		// Quantity
+		if (!is_quantity_updated && (option_value['subtract'] || option_value['quantity'])) {
+			var option_value_quantity = option_value['quantity'];
+			may_option_value_quantity = parseInt(option_value_quantity);
+			if (option_value_quantity == 0 && option_value['subtract'] != 1) {
+				option_value_quantity = '{{ stock }}';
+				may_option_value_quantity = -1;
+			}
+			{% if may_advanced_options_config['stock_js'] %}
+			{{ may_advanced_options_config['stock_js']|replace({'{{QTY}}': "option_value_quantity"}) }}
+			{% elseif may_advanced_options_config['theme'] == 'journal3' %}
+			$('.product-stock span').html(option_value_quantity);
+			{% else %}
+			{% if manufacturer %}
+			var $elem_quantity = $('#content ul.list-unstyled:first li').eq(2);
+			{% else %}
+			var $elem_quantity = $('#content ul.list-unstyled:first li').eq(1);
+			{% endif %}
+			if ($elem_quantity.length) {
+				$elem_quantity.html('{{ text_stock }} ' + option_value_quantity);
+			}
+			{% endif %}
+
+			is_quantity_updated = true;
+		}
+
+		// Product Images
+		if (!is_image_updated && option_value['product_images'] != undefined) {
+		{% if may_advanced_options_config['theme'] == 'journal3' %}
+			var new_main_images = [];
+			var new_additional_images = [];
+			var new_gallery_images = [];
+			var old_slide_index = [];
+			option_value['product_images'].forEach(function(item, index) {
+				if (item['origin'] == "") {
+					return;
+				}
+
+				new_main_images.unshift('<div class="swiper-slide"' + (Journal['isPopup'] ? '' : (' data-gallery=".lightgallery-product-images" data-index="' + index + '"')) + '><img src="' + item['popup'] + '" data-largeimg="' + item['popup'] + '" alt="{{ heading_title }}" title="{{ heading_title }}"/></div>');
+
+				var additions_carousel_class = (Journal['isPopup'] ? Journal['quickviewPageStyleAdditionalImagesCarousel'] : true) ? "swiper-slide" : "";
+
+				new_additional_images.unshift('<div class="' + additions_carousel_class + ' additional-image" data-index="' + index + '"><img src="' + item['thumb'] + '" alt="{{ heading_title }}" title="{{ heading_title }}"/></div>');
+
+				new_gallery_images.push({
+					"src": item['popup'],
+					"thumb": item['thumb']
+				});
+			});
+
+			var main_swiper = $('.product-image .main-image').data('swiper');			
+			for (var k=0;k<Math.min(main_swiper.slides.length, new_main_images.length);k++) {
+				$('.product-image .main-image img').eq(k).data('imagezoom').destroy();
+				old_slide_index.push(k);
+			}
+			main_swiper.removeSlide(old_slide_index);
+			main_swiper.prependSlide(new_main_images);
+			main_swiper.slideTo(0);
+			$('.product-image .main-image').data('swiper', main_swiper);
+			if (Journal['isPopup'] ? Journal['quickviewPageStyleCloudZoomStatus'] : Journal['productPageStyleCloudZoomStatus']) {
+				$('.main-image img').each(function (item, index) {
+					if (index >= new_main_images.length) {
+						return;
+					}
+
+					var $this = $(this);
+					$this.ImageZoom({
+						type: Journal['isPopup'] ? Journal['quickviewPageStyleCloudZoomPosition'] : Journal['productPageStyleCloudZoomPosition'],
+						showDescription: false,
+						offset: [0, 0],
+						zoomSize: [$this.width(), $this.height()],
+						bigImageSrc: $this.data('largeimg')
+					});
+				});
+			}
+
+			if (Journal['isPopup'] ? Journal['quickviewPageStyleAdditionalImagesCarousel'] : true) {
+				var additional_swiper = $('.product-image .additional-images').data('swiper');
+				additional_swiper.removeSlide(old_slide_index);
+				additional_swiper.prependSlide(new_additional_images);
+				additional_swiper.slideTo(0);
+				$('.product-image .additional-images').data('swiper', additional_swiper);
+			} else {
+				for (var k=0;k<old_slide_index.length;k++) {
+					$('.product-image .additional-images .additional-image').eq(0).remove();
+				}
+
+				$('.product-image .additional-images').prepend(new_additional_images.reverse().join(''));
+			}
+
+			var light_gallery_images = $('.lightgallery-product-images').data('images');
+			if (light_gallery_images != undefined && light_gallery_images.length) {
+				light_gallery_images = new_gallery_images.concat(light_gallery_images.slice(old_slide_index.length));
+				$('.lightgallery-product-images').data('images', light_gallery_images);
+			}
+		{% else %}
+			var new_additional_images = [];
+			var new_replace_images = [];
+			var current_images_count = $('ul.thumbnails li').length;
+			option_value['product_images'].forEach(function(item, index) {
+				if (item['origin'] == "") {
+					return;
+				}
+
+				if (new_replace_images.length < current_images_count) {
+					new_replace_images.push(item);
+				} else {
+					new_additional_images.push('<li' + (new_additional_images.length ? ' class="image-additional"' : '') + '><a class="thumbnail" href="' + item['popup'] + '" title="{{ header_title }}"><img src="' + (new_additional_images.length ? item['thumb'] : item['popup']) + '" title="{{ header_title }}" alt="{{ header_title }}"/></a></li>');
+				}
+			});
+
+			for (var k=0;k<new_replace_images.length;k++) {
+				var replace_thumb = new_replace_images[k]['thumb'];
+				var replace_popup = new_replace_images[k]['popup'];
+				$('ul.thumbnails li').eq(k).find('a.thumbnail').attr('href', replace_popup);
+				$('ul.thumbnails li').eq(k).find('a.thumbnail img').data('src', (k==0) ? replace_popup : replace_thumb);
+				if ($('ul.thumbnails li').eq(k).find('a.thumbnail img').attr('src') != $('ul.thumbnails li').eq(k).find('a.thumbnail img').data('src')) {
+					$('ul.thumbnails li').eq(k).find('a.thumbnail').height($('ul.thumbnails li').eq(k).find('a.thumbnail').height());
+					$('ul.thumbnails li').eq(k).find('a.thumbnail img').fadeOut(100, function(){
+						$(this).closest('li').append('<div class="may-loading"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>');
+						$(this).attr('src', $(this).data('src')).on('onreadystatechange load', function(){
+							if (this.complete) {
+								$(this).closest('a.thumbnail').css('height', 'auto');
+								$(this).closest('li').find('.may-loading').remove();
+								$(this).fadeIn(100);
+							}
+						});
+					});
+				}
+			}
+			$('ul.thumbnails').prepend(new_additional_images.join(''));
+		{% endif %}
+			$('input:hidden[name=\'option[image]\']').val(option_value['product_images'][0]['origin']);
+
+			is_image_updated = true;
+		}
+
+		{% if may_advanced_options_config['swatches'] %}
+		// Update Labels
+		var option_value_label = $selected_option.data('label');
+		if (option_value_label != undefined) {
+			$selected_option.closest('.type-swatches').find('span.selected-option-label').html(option_value_label != "" ? "- " + option_value_label : "");
+		}
+		{% endif %}
+
+
+		// Update Prices
+		if (option_value['price_prefix'] == "+") {
+			if (option_value['price']) {
+				price = price + convertPriceStringToNumber(option_value['price']);
+				special = special + convertPriceStringToNumber(option_value['price']);
+			}
+			if (option_value['base_price']) {
+				base_price = base_price + convertPriceStringToNumber(option_value['base_price']);
+			}
+		} else if (option_value['price_prefix'] == "-") {
+			if (option_value['price']) {
+				price = price - convertPriceStringToNumber(option_value['price']);
+				special = special - convertPriceStringToNumber(option_value['price']);
+			}
+			if (option_value['base_price']) {
+				base_price = base_price - convertPriceStringToNumber(option_value['base_price']);
+			}
+		}
+	}
+
+	var convertPriceNumberToString = function(number) {
+		numberInt = Math.floor(number);
+		numberDecimal = Math.round((number - numberInt) * Math.pow(10, currency_decimal_place)) + Math.pow(10, currency_decimal_place);
+		var result = numberInt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, thousand_point) + decimal_point + numberDecimal.toString().substring(1);
+		if (currency_position == "left") {
+			result = currency_symbol + result;
+		} else {
+			result = result + currency_symbol;
+		}
+
+		return result;
+	}
+
+	// Update Prices
+	price = convertPriceNumberToString(price);
+	special = convertPriceNumberToString(special);
+	base_price = convertPriceNumberToString(base_price);
+	
+	{% if may_advanced_options_config['price_js'] %}
+	{{ may_advanced_options_config['price_js']|replace({'{{PRICE}}': "price", '{{SPECIAL}}': "special", '{{TAX}}': "base_price"}) }}
+	{% elseif may_advanced_options_config['theme'] == 'journal3' %}
+	{% if not special %}
+	$('.product-price').html(price);
+	{% else %}
+	$('.product-price-new').html(special);
+	$('.product-price-old').html(price);
+	{% endif %} // not special
+	{% if tax %}
+	$('.product-tax').html("{{ text_tax }} " + base_price);
+	{% endif %} // tax
+	{% else %}
+	{% if not special %}
+	$('#content ul.list-unstyled').eq(1).find('h2').html(price);
+	{% else %}
+	$('#content ul.list-unstyled').eq(1).find('li:first span').html(price);
+	$('#content ul.list-unstyled').eq(1).find('h2').html(special);
+	{% endif %} // not special
+	{% if tax %}
+	{% if not special %}
+	$('#content ul.list-unstyled').eq(1).find('li').eq(1).html("{{ text_tax }} " + base_price);
+	{% else %}
+	$('#content ul.list-unstyled').eq(1).find('li').eq(2).html("{{ text_tax }} " + base_price);
+	{% endif %} // not special
+	{% endif %} // tax
+	{% endif %} // may_advanced_options_config['price_js']
+
+	return false;
+});
+
+$("#button-cart, [data-quick-buy]").each(function() {
+	$(this).on("click", function (event) {
+		var is_all_option_selected = true;
+		$('.form-group.visible input[type="hidden"]').each(function() {
+			if ($(this).val() == 0) {
+				is_all_option_selected = false;
+			}
+		});
+
+		if (is_all_option_selected && may_option_value_quantity != -1 && parseInt($('input[name="quantity"]').val()) > may_option_value_quantity) {
+			$('.form-group.visible').removeClass('has-error');
+			$('.form-group.visible .text-danger').remove();
+			$('#error-quantity.has-error').remove();
+
+			{% if may_advanced_options_config['theme'] == 'journal3' %}
+			$('input[name="quantity"]').closest('.buttons-wrapper').after('<div id="error-quantity" class="has-error">{{ may_advanced_options_language['error_option_stock'] }}</div>');
+			{% else %}
+			$('input[name="quantity"]').after('<div id="error-quantity" class="has-error">{{ may_advanced_options_language['error_option_stock'] }}</div>');
+			{% endif %}
+
+			event.preventDefault();
+			event.stopImmediatePropagation();
+			return false;
+		} else {
+			$('#error-quantity.has-error').remove();
+		}
+	});
+	var btnEvent = $._data($(this).get(0), 'events').click.pop();
+	$._data($(this).get(0), 'events').click.unshift(btnEvent);
+});
+--></script>

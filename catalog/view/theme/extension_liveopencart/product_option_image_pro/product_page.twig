@@ -1,0 +1,70 @@
+<script  type = "text/javascript" ><!--
+	(function($poip_custom_container, custom_setPoipProductCustomMethods){
+		
+		let  poip_product_settings = {{
+			{
+				product_option_ids 	: poip_product_option_ids,
+				images 				: poip_images,
+				images_by_povs		: poip_images_by_povs,
+				module_settings 	: poip_settings,
+				options_settings 	: poip_product_settings,
+				poip_ov 			: (poip_ov ?? 0),
+				default_image_title : heading_title,
+			}|json_encode
+		}};
+		
+		poip_product_settings.custom_setPoipProductCustomMethods = custom_setPoipProductCustomMethods;
+		
+		if ( $poip_custom_container ) {
+			poip_product_settings.$container = $poip_custom_container;
+		}
+		
+		if ( typeof(poip_custom_product_settings) != 'undefined' && poip_custom_product_settings ) {
+			$.extend(poip_product_settings, poip_custom_product_settings);
+		}
+		
+		{% if ( poip_custom_js_settings ?? false ) %}
+			poip_product_settings.theme_settings = {{ poip_custom_js_settings|json_encode }};
+		{% endif %}
+		
+		let initPoip = function(){
+			let poip_product = getPoipProduct(custom_setPoipProductCustomMethods);
+			poip_common.initObject(poip_product, poip_product_settings);
+		};
+		
+		let event_id = 'poip_scripts_loaded_'+(''+Math.random(1000000,9999999)).replace('.','_')+'_'+(new Date()).getTime();
+		
+		document.addEventListener(event_id, function(){
+			initPoip();
+		}, {once: true});
+		
+		if ( typeof(getPoipProduct) != 'undefined' ) {
+			initPoip();
+		} else {
+			
+			let poip_interval_timer = setInterval(function(){
+				if ( typeof(getPoipProduct) != 'undefined' && ($('script[src*="theme_product.js"]').length == 0 || typeof(setPoipProductCustomMethods) != 'undefined') ) {
+					clearInterval(poip_interval_timer);
+					try {
+						document.dispatchEvent( new Event(event_id) );
+					} catch(e) {
+						console.debug(e); // IE
+					}
+				}
+			}, 50);
+			
+			document.addEventListener("DOMContentLoaded", function(){
+				try {
+					document.dispatchEvent( new Event(event_id) );
+				} catch(e) {
+					console.debug(e); // IE
+				}
+			}, {once: true});
+			
+
+		}
+	
+		
+	})( (typeof($poip_custom_container) != 'undefined' ? $poip_custom_container : false), (typeof(custom_setPoipProductCustomMethods) != 'undefined' ? custom_setPoipProductCustomMethods : false ) );
+	
+//--></script>

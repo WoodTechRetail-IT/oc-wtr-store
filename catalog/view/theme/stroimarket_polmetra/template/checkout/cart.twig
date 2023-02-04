@@ -1,0 +1,236 @@
+{{ header }}
+<div id="checkout-cart">
+  <div class="bg-container">
+    <div class="container">
+      <div class="navigation-content">
+        <ul class="breadcrumb">
+          {% for i,breadcrumb in breadcrumbs %} 
+          {% if (i+1<breadcrumbs|length) %}
+          <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+          {% else %}
+          <li>{{ breadcrumb.text }}</li>
+          {% endif %} 
+          {% endfor %}	
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="content-wrapper">
+      {% if attention %}
+      <div class="alert alert-info"><i class="fa fa-info-circle"></i> {{ attention }}
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
+      {% endif %}
+      {% if success %}
+      <div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> {{ success }}
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
+      {% endif %}
+      {% if error_warning %}
+      <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
+      {% endif %}
+      <div class="row">
+        {{ column_left }}
+        {% if column_left and column_right %}
+        {% set class = 'col-sm-6' %}
+        {% elseif column_left or column_right %}
+        {% set class = 'col-sm-9' %}
+        {% else %}
+        {% set class = 'col-sm-12' %}
+        {% endif %}
+        <div id="content" class="{{ class }}">
+          {{ content_top }}
+          <h1>{{ heading_title }}
+            {% if weight %}
+            &nbsp;({{ weight }})
+            {% endif %} 
+          </h1>
+          <form action="{{ action }}" method="post" enctype="multipart/form-data">
+            <div class="table-responsive">
+              <table class="table checkout-table">
+                <thead>
+                  <tr>
+                    <td></td>
+                    <td>{{ column_image }}</td>
+                    <td>{{ column_name }}</td>
+                    <td class="hidden-sm">{{ column_price }}</td>
+                    <td>{{ column_quantity }}</td>
+                    <td>{{ column_total }}</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for product in products %}
+                  <tr>
+                    <td>
+                      <button type="button" class="remove-button" onclick="cart.remove('{{ product.cart_id }}');" title="{{ button_remove }}"></button>
+                    </td>
+                    <td>
+                      {% if product.thumb %}
+                      <a href="{{ product.href }}" class="checkout-image">
+                      <img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive" />    
+                      </a>
+                      {% endif %}
+                      {% if not product.stock %}
+                      <span class="checkout-stock">***</span>
+                      {% endif %}	
+                    </td>
+                    <td>
+                      <div class="checkout-info">
+                        {% if product.model %}
+                        <p class="checkout-model"><span class="checkout-model__text">{{ column_model }}</span> {{ product.model }}</p>
+                        {% endif %}
+                        <h4 class="checkout-name">{{ product.name }}</h4>
+                        {% if product.option %}
+                        {% for option in product.option %}
+                        <div><small>{{ option.name }}: {{ option.value }}</small></div>
+                        {% endfor %}
+                        {% endif %}
+                        {% if product.reward %}
+                        <div><small>{{ product.reward }}</small></div>
+                        {% endif %}
+                        {% if product.recurring %}
+                        <span class="label label-info">{{ text_recurring_item }}</span> <small>{{ product.recurring }}</small> {% endif %}
+                      </div>
+                    </td>
+                    <td class="hidden-sm"><span class="price-qty">{{ product.price }}</span></td>
+                    <td>
+                      <div class="cart-count">
+                        <button type="submit" class="reload" title="{{ button_update }}"><i class="fi fi-rr-refresh"></i></button>
+                        <input type="text" name="quantity[{{ product.cart_id }}]" value="{{ product.quantity }}" size="1" />
+                      </div>
+                    </td>
+                    <td class="white-space-nowrap checkout-cart__total">{{ product.total }}</td>
+                  </tr>
+                  {% endfor %}
+                  {% for voucher in vouchers %}
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td class="text-left">{{ voucher.description }}</td>
+                    <td class="text-center">{{ voucher.amount }}</td>
+                    <td class="text-left">
+                      <div class="input-group btn-block" style="max-width: 200px;">
+                        <input type="text" name="" value="1" size="1" disabled="disabled" class="form-control" />
+                        <span class="input-group-btn">
+                        <button type="button" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger" onclick="voucher.remove('{{ voucher.key }}');"><i class="fa fa-times-circle"></i></button>
+                        </span>
+                      </div>
+                    </td>
+                    <td class="text-center">{{ voucher.amount }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </form>
+          <section class="forma-productpred">
+
+      	
+      
+      <div class="form-prodpredcall">
+
+                			<div class="container containeradapt">
+                				<div class="row">
+<form id="forma-podpred" class="forma-qwest forms-sfloor-popu">
+                    <h4 class="one-click-checkout">Заказажите в один клик</h4>
+            		
+            		
+            		<!-- Hidden Required Fields -->
+            		<input type="hidden" name="project_name" value="Polmetra.ru">
+            		<input type="hidden" name="admin_email" value="zakaz@polmetra.ru">
+            		<input type="hidden" name="form_subject" value="Быстрый заказ корзины (Polmetra.ru)">
+                <input type="hidden" name="Name-product" value="Корзина покупок">
+                <input type="hidden" name="cart-product" value="Корзина покупок">
+                
+                
+                                    <input type="hidden" name="cart-product-href-" value="Ссылка - Пример">
+                    <input type="hidden" name="cart-product-name-" value="Продукция - Корзина">
+                                    <input type="hidden" name="cart-product-quantite-" value="Кол-во - 1.00">
+                  <input type="hidden" name="cart-product-price-" value="Цена - 999 214 ₽">
+                  <input type="hidden" name="cart-product-total-" value="Итого - 999 214 ₽">
+              
+                            
+              
+              
+              
+            		<!-- END Hidden Required Fields -->
+                <!-- END Hidden Required Fields -->
+                <div class="hiclass-form">
+                    <input type="text" name="Name" placeholder="Ваше имя...">
+                </div>
+                <!-- END Hidden Required Fields -->
+                <div class="forms-inputheadcall">
+                    <input type="text" name="NameTwo" placeholder="Ваше имя...">
+                </div>
+            		<div class="forms-inputprod">
+            		    <input class="phone_masckcom" type="text" name="Phone" placeholder="Ваш телефон..." required="">
+            		</div>
+            		<div class="forms-inputprod">
+            		    <button class="popup-a-button-form button-formprod"><span>Отправить</span></button>
+            		</div>
+            
+            	</form>
+            
+            <script>
+$(document).ready(function() {
+	$("#forma-podpred").submit(function() {
+		var th = $(this);
+		$.ajax({
+			type: "POST",
+			url: "mail.php",
+			data: th.serialize()
+		}).done(function() {
+			alert("Благодарим за заявку!");
+			setTimeout(function() {
+				// Done Functions
+				th.trigger("reset");
+			}, 1000);
+		});
+		return false;
+	});
+});
+</script>
+
+                    <div class="form-prodsec-text">
+        <p>После оформления с Вами свяжутся наши менеджеры для уточнения всех деталей Вашего заказа.</p>
+        <span>Нажимая кнопку "Отправить", вы даёте согласие на обработку ваших персональных данных</span>
+
+    </div>
+
+        </div>
+
+        </div>
+
+        </div>
+
+        
+    </section>
+          
+          <div class="row">
+            <div class="col-sm-6 offset-sm-6">
+              <table class="table table-bordered">
+                {% for total in totals %}
+                <tr>
+                  <td class="text-right"><strong>{{ total.title }}:</strong></td>
+                  <td class="text-right white-space-nowrap">{{ total.text }}</td>
+                </tr>
+                {% endfor %}
+              </table>
+            </div>
+          </div>
+          <div class="buttons clearfix checkout-btns text-right">
+            <a href="{{ continue }}" class="btn btn-default">{{ button_shopping }}</a>
+            <a href="{{ checkout }}" class="btn btn-primary">{{ button_checkout }}</a>
+          </div>
+          
+          {{ content_bottom }}
+        </div>
+        {{ column_right }}
+      </div>
+    </div>
+  </div>
+</div>
+{{ footer }}

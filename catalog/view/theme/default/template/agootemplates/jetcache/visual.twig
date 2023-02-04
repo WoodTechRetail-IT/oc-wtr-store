@@ -1,0 +1,243 @@
+<div id="jetcache-informer" class="sc-jetcache-bottom-heading">
+
+	<div class="sc-flex-container">
+		<div class="sc-flex-block sc-jetcache-heading">
+
+			<div class="sc-flex-block">
+				<div class="sc-flex-container">
+					<div class="sc-flex-container-left">
+						<div>
+						 <a href="{{ url_jetcache_buy }}" target="_blank"><img src="{{ icon }}"></a>
+						</div>
+				    </div>
+					<div>
+						<div>
+							&nbsp;
+							<a href="{{ url_jetcache_buy }}" target="_blank">{{ entry_jetcache }}</a>
+							&nbsp;
+							<a href="{{ url_jetcache_buy }}" target="_blank" class="jetcache-button-buy">{{ entry_jetcache_buy }}</a>
+						</div>
+				    </div>
+				</div>
+	   		</div>
+
+		</div>
+        {% if (cache_remove_status) %}
+		<div class="sc-flex-block">
+		    <a href="#" id="httpsfix_cache_remove" onclick="
+				$.ajax({
+					url: '{{ jetcache_url_cache_remove }}',
+					type: 'POST',
+					data: 'filename={{ filename }}',
+					dataType: 'html',
+					beforeSend: function() {
+		               $('.div_cache_remove').show().html('{{ text_jetcache_loading }}');
+					},
+					success: function(content) {
+						if (content) {
+							$('.div_cache_remove').show().html('<span style=\'color:#fff\'>'+content+'<\/span>');
+							setTimeout('jetcache_div_hide()', 2000);
+						}
+					},
+					error: function(content) {
+						$('.div_cache_remove').show().html('<span style=\'color:red\'>{{ text_jetcache_cache_remove_fail }}<\/span>');
+					}
+				}); return false;" class="jetcache-button-buy" style="">{{ text_jetcache_url_cache_remove }}</a>
+				<div class="div_cache_remove"></div>
+		</div>
+        {% endif %}
+		<div class="sc-flex-block" id="jet_queries">
+		{% if (queries != queries_cache and round_queries_queries_cache > 0) %}
+			{{ entry_jetcache_db }}
+			{{ ' (' }}
+			{{ text_jetcache_queries }}
+			{{ ') <br>Jet:&nbsp;&nbsp;x' }}
+			{{ round_queries_queries_cache }}
+			{% else %}
+			 &nbsp;<br>&nbsp;
+			{% endif %}
+		</div>
+        {% if (queries > 0 and queries_cache > 0) %}
+  		<div class="sc-flex-block">
+			<div class="sc-flex-container">
+				<div class="sc-flex-container-left">
+					<div>
+					 {{ entry_jetcache_queries }}&nbsp;
+					</div>
+					{% if (queries != queries_cache) %}
+					<div>
+					   {{ entry_jetcache_queries_cache }}&nbsp;
+					</div>
+					{% endif %}
+			    </div>
+				<div>
+					<div>
+					  {{ round_queries }}
+					</div>
+					{% if (queries != queries_cache) %}
+					<div>
+					  {{ round_queries_cache }}
+					</div>
+					{% endif %}
+			    </div>
+			</div>
+   		</div>
+   		{% endif %}
+<!--
+{% if (queries_count_cache != '') %}
+  		<div class="sc-flex-block">
+			<div class="sc-flex-container">
+				<div class="sc-flex-container-left">
+					<div>
+					 {{ entry_queries_count_cache }}&nbsp;
+					</div>
+			    </div>
+				<div>
+					<div>
+					  {{ round_queries_count_cache }}
+					</div>
+			    </div>
+			</div>
+   		</div>
+{% endif %}
+-->
+
+{% if (count_cont_cached > 0) %}
+  		<div class="sc-flex-block">
+			<div class="sc-flex-container">
+				<div class="sc-flex-container-left">
+					<div>
+					 {{ entry_count_cont_cached }}&nbsp;
+					</div>
+			    </div>
+				<div>
+					<div>
+					  {{ count_cont_cached }}
+					</div>
+			    </div>
+			</div>
+   		</div>
+{% endif %}
+
+
+{% if (count_model_cached != 0) %}
+  		<div class="sc-flex-block">
+			<div class="sc-flex-container">
+				<div class="sc-flex-container-left">
+					<div>
+					 {{ entry_count_model_cached }}&nbsp;
+					</div>
+			    </div>
+				<div>
+					<div>
+					  {{ count_model_cached }}
+					</div>
+			    </div>
+			</div>
+   		</div>
+{% endif %}
+
+{% if (count_query_cached > 0 and queries > 0 and queries_cache > 0) %}
+  		<div class="sc-flex-block">
+			<div class="sc-flex-container">
+				<div class="sc-flex-container-left">
+					<div>
+					 {{ entry_count_query_cached }}&nbsp;
+					</div>
+			    </div>
+				<div>
+					<div>
+					  {{ count_query_cached }}
+					</div>
+			    </div>
+			</div>
+   		</div>
+{% endif %}
+
+
+{% if (queries_time_cache != '' and jetcache_opencart_core != '') %}
+		<div class="sc-flex-block">
+			<div class="sc-flex-container">
+				<div class="sc-flex-container-left">
+					<div>
+					 {{ entry_queries_time_cache }}&nbsp;
+					</div>
+			    </div>
+				<div>
+					<div>
+					  &nbsp;{{ round_queries_time_cache }} {{ entry_jetcache_sec }}
+					</div>
+			    </div>
+			</div>
+   		</div>
+{% endif %}
+
+{% if (jetcache_opencart_core != '') %}
+	  <div class="sc-flex-block">
+			<div class="sc-flex-container">
+				<div class="sc-flex-container-left">
+					<div>
+					 {{ entry_jetcache_opencart_core }}&nbsp;
+					</div>
+			    </div>
+				<div>
+					<div>
+					  {{ round_jetcache_opencart_core }} {{ entry_jetcache_sec }}
+					</div>
+			    </div>
+			</div>
+	   </div>
+{% endif %}
+
+		<div class="sc-flex-block">
+			{% if (load != cache and rate > 1) %}
+				{{ entry_jetcache_pages~'<br>Jet:&nbsp;&nbsp;x'~ rate }}
+			{% else %}
+			 &nbsp;<br>&nbsp;
+			{% endif %}
+  		</div>
+
+		<div class="sc-flex-block">
+			<div class="sc-flex-container">
+				<div class="sc-flex-container-left">
+					<div>
+					 {{ entry_jetcache_withoutcache }}&nbsp;
+					</div>
+					{% if (load != cache and load != cache_all) %}
+					<div>
+					   {{ entry_jetcache_cache }}&nbsp;
+					</div>
+					{% endif %}
+			    </div>
+				<div>
+					<div>
+					  {{ round_load }} {{ entry_jetcache_sec }}
+					</div>
+					{% if (load != cache and load != cache_all) %}
+					<div id="round_cache">
+					  {{ round_cache }} {{ entry_jetcache_sec }}
+					</div>
+					<div id="round_cache_all">
+					  {{ round_cache_all }} {{ entry_jetcache_sec }}
+					</div>
+                    <script>
+                    $('#round_cache, #round_cache_all').click(function(){
+                    	$('#round_cache').toggle();
+                    	$('#round_cache_all').toggle();
+                    });
+                    </script>
+
+					{% endif %}
+			    </div>
+			</div>
+  		</div>
+
+	</div>
+
+</div>
+
+<script>
+function jetcache_div_hide() {
+	$('.div_cache_remove').hide();
+}
+</script>

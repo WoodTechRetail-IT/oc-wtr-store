@@ -1,0 +1,270 @@
+{# microdatapro 7.7  #}
+{% if breadcrumbs %}
+{% if syntax  ==  "md" or syntax  ==  "all" %}
+<!--microdatapro {{ version }} breadcrumb start [microdata] -->
+<span itemscope itemtype="http://schema.org/BreadcrumbList">
+{% for key, breadcrumb in breadcrumbs %}
+<span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+<link itemprop="item" href="{{ breadcrumb.href }}">
+<meta itemprop="name" content="{{ breadcrumb.text }}" />
+<meta itemprop="position" content="{{ key }}" />
+</span>
+{% endfor %}
+</span>
+<!--microdatapro {{ version }} breadcrumb end [microdata] -->
+{% endif %}
+{% if syntax  ==  "ld" or syntax  ==  "all" %}
+<!--microdatapro {{ version }} breadcrumb start [json-ld] -->
+<script type="application/ld+json">
+{
+"@context": "http://schema.org",
+"@type": "BreadcrumbList",
+"itemListElement": [{% for key, breadcrumb in breadcrumbs %}{
+"@type": "ListItem",
+"position": {{ key }},
+"item": {
+"@id": "{{ breadcrumb.href }}",
+"name": "{{ breadcrumb.text }}"
+}
+}{% if key != count_breadcrumbs %},{% endif %}{% endfor %}]
+}
+</script>
+<!--microdatapro {{ version }} breadcrumb end [json-ld] -->
+{% endif %}
+{% endif %}
+{% if syntax  ==  "md" or syntax  ==  "all"%} {# syntax md  #}
+<!--microdatapro {{ version }} product start [microdata] -->
+<span itemscope itemtype="http://schema.org/Product">
+<meta itemprop="name" content="{{ name }}" />
+<link itemprop="url" href="{{ url }}" />
+{% if popup %}
+<link itemprop="image" href="{{ popup }}" />
+{% endif %}{% if manufacturer %}
+<span itemprop="brand" itemtype="https://schema.org/Brand" itemscope><meta itemprop="name" content="{{ manufacturer }}" /></span>
+<meta itemprop="manufacturer" content="{{ manufacturer }}" />
+{% endif %}{% if model %}
+<meta itemprop="model" content="{{ model }}" />
+{% endif %}{% if upc %}
+<meta itemprop="gtin12" content="{{ upc }}" />
+{% endif %}{% if ean %}
+<meta itemprop="gtin8" content="{{ ean }}" />
+{% endif %}{% if isbn %}
+<meta itemprop="productID" content="{{ isbn }}" />
+{% endif %}{% if mpn %}
+<meta itemprop="mpn" content="{{ mpn }}" />
+{% endif %}{% if sku %}
+<meta itemprop="sku" content="{{ sku }}" />
+{% endif %}{% if category %}
+<meta itemprop="category" content="{{ category }}" />
+{% endif %}
+{% if reviews %}
+<span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+<meta itemprop="ratingValue" content="{{ rating }}">
+<meta itemprop="reviewCount" content="{{ reviewCount }}">
+<meta itemprop="bestRating" content="5">
+<meta itemprop="worstRating" content="1">
+</span>
+{% endif %}
+<span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+<meta itemprop="priceCurrency" content="{{ code }}" />
+<meta itemprop="price" content="{{ price }}" />
+<meta itemprop="itemCondition" content="http://schema.org/NewCondition" />
+<link itemprop="availability" href="http://schema.org/{{stock}}" />
+<meta itemprop="priceValidUntil" content="{{ price_valid }}" />
+<link itemprop="url" href="{{ url }}" />
+</span>
+<meta itemprop="description" content="{{ description }}" />
+{% if reviews %}
+{% for review_item in reviews %}
+<span itemprop="review" itemscope itemtype="http://schema.org/Review">
+<span itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="{{ review_item.author }}"></span>
+<meta itemprop="datePublished" content="{{ review_item.date_added }}" />
+<span itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
+<meta itemprop="worstRating" content = "1" />
+<meta itemprop="ratingValue" content="{{ review_item.rating }}" />
+<meta itemprop="bestRating" content="5" />
+</span>
+<meta itemprop="description" content="{{ review_item.text }}" />
+</span>
+{% endfor %}
+{% endif %}
+{% if attributes %}
+{% for attribute in attributes %}
+<span itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">
+<meta itemprop="value" content="{{ attribute.text }}" />
+<meta itemprop="name" content="{{ attribute.name }}" />
+</span>
+{% endfor %}
+{% endif %}
+{% if products %}
+{% for key, product in products %}
+<span id="related-product-{{ key }}" itemprop="isRelatedTo" itemscope itemtype="http://schema.org/Product">
+<meta itemprop="name" content="{{ product.name }}" />
+<meta itemprop="description" content="{{ product.name }}" />
+<link itemprop="url" href="{{ product.href }}" />
+<link itemprop="image" href="{{ product.thumb }}" />
+<span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+<meta itemprop="priceCurrency" content="{{ code }}" />
+<meta itemprop="price" content="{{ product.price }}" />
+</span>
+</span>
+{% endfor %}
+{% endif %}
+</span>
+<!--microdatapro {{ version }} product end [microdata] -->
+<!--microdatapro {{ version }} image start[microdata] -->
+<span itemscope itemtype="http://schema.org/ImageObject">
+<meta itemprop="name" content="{{ name }}" />
+<meta itemprop="description" content="{{ name }}" />
+<link itemprop="thumbnailUrl" href="{{ thumb }}" />
+<link itemprop="contentUrl" href="{{ popup }}" />
+<meta itemprop="author" content="{{ author }}" />
+<meta itemprop="datePublished" content="{{ date_added }}">
+</span>
+<!--microdatapro {{ version }} image end [microdata] -->
+{% if images %}
+<!--microdatapro {{ version }} gallery start[microdata] -->
+<span itemscope itemtype="http://schema.org/ImageGallery">
+{% for image in images %}
+<span itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+<meta itemprop="name" content="{{ name }}" />
+<meta itemprop="description" content="{{ name }}" />
+<link itemprop="thumbnailUrl" href="{{ image.thumb }}" />
+<link itemprop="contentUrl" href="{{ image.popup }}" />
+<meta itemprop="author" content="{{ author }}" />
+<meta itemprop="datePublished" content="{{ date_added }}">
+</span>
+{% endfor %}
+</span>
+<!--microdatapro {{ version }} gallery end [microdata] -->
+{% endif %}
+{% endif %}
+{% if syntax  ==  "ld" or syntax  ==  "all"%} {# syntax json-ld  #}
+<!--microdatapro {{ version }} product start [json-ld] -->
+<script type="application/ld+json">
+{
+"@context": "http://schema.org",
+"@type": "Product",
+"url": "{{ url }}",
+{% if category %}
+"category": "{{ category }}",
+{% endif %}
+{% if popup %}
+"image": "{{ popup }}",
+{% endif %}
+{% if manufacturer %}
+"brand": {"@type": "Brand","name": "{{ manufacturer }}"},
+"manufacturer": "{{ manufacturer }}",
+{% endif %}{% if model %}
+"model": "{{ model }}",
+{% endif %}{% if upc %}
+"gtin12": "{{ upc }}",
+{% endif %}{% if ean %}
+"gtin8": "{{ ean }}",
+{% endif %}{% if isbn %}
+"productID": "{{ isbn }}",
+{% endif %}{% if mpn %}
+"mpn": "{{ mpn }}",
+{% endif %}{% if sku %}
+"sku": "{{ sku }}",
+{% endif %}{% if reviews %}
+"aggregateRating": {
+"@type": "AggregateRating",
+"ratingValue": "{{ rating }}",
+"reviewCount": "{{ reviewCount }}",
+"bestRating": "5",
+"worstRating": "1"
+},
+{% endif %}
+"description": "{{ description }}",
+"name": "{{ name }}",
+"offers": {
+"@type": "Offer",
+"availability": "http://schema.org/{{ stock }}",
+"price": "{{price}}",
+"priceValidUntil": "{{ price_valid }}",
+"url": "{{ url }}",
+"priceCurrency": "{{ code }}",
+"itemCondition": "http://schema.org/NewCondition"
+}{% if reviews %},
+"review": [
+{% for key, review_item in reviews %}
+{
+"@type": "Review",
+"author": {"@type": "Person", "name": "{{ review_item.author }}"},
+"datePublished": "{{ review_item.date_added }}",
+"description": "{{ review_item.text }}",
+"reviewRating": {
+"@type": "Rating",
+"bestRating": "5",
+"ratingValue": "{{ review_item.rating }}",
+"worstRating": "1"
+}
+}{% if key  !=  count_reviews %},{% endif %}{% endfor %}
+]{% endif %}
+{% if products %}
+,"isRelatedTo": [
+{% for key, product in products %}{
+"@type": "Product",
+"image": "{{ product.thumb }}",
+"url": "{{ product.href }}",
+"name": "{{ product.name }}",
+"offers": {
+"@type": "Offer",
+"price": "{{ product.price }}",
+"priceCurrency": "{{ code }}"
+}
+}{% if key  != count_products %},{% endif %}{% endfor %}
+]
+{% endif %}
+{% if attributes %}
+,"additionalProperty":[
+{% for key, attribute in attributes %}
+{
+"@type": "PropertyValue",
+"name": "{{ attribute.name }}",
+"value": "{{ attribute.text }}"
+}{% if key  !=  count_attributes %},{% endif %}{% endfor %}
+]
+{% endif %}
+}
+</script>
+<!--microdatapro {{ version }} product end [json-ld] -->
+<!--microdatapro {{ version }} image start [json-ld] -->
+<script type="application/ld+json">
+{
+"@context": "http://schema.org",
+"@type": "ImageObject",
+"author": "{{ author }}",
+"thumbnailUrl": "{{ thumb }}",
+"contentUrl": "{{ popup }}",
+"datePublished": "{{ date_added }}",
+"description": "{{ name }}",
+"name": "{{ name }}"
+}
+</script>
+<!--microdatapro {{ version }} image end [json-ld] -->
+{% if images %}
+<!--microdatapro {{ version }} gallery start [json-ld] -->
+<script type="application/ld+json">
+{
+"@context": "http://schema.org",
+"@type": "ImageGallery",
+"associatedMedia":[
+{% set key_i = 1 %}{% for image in images %}
+{
+"@type": "ImageObject",
+"author": "{{ author }}",
+"thumbnailUrl": "{{ image.thumb }}",
+"contentUrl": "{{ image.popup }}",
+"datePublished": "{{ date_added }}",
+"description": "{{ name }}",
+"name": "{{ name }}"
+}{% if key_i != count_images %},{% endif %}
+{% set key_i = key_i + 1 %}{% endfor %}
+]
+}
+</script>
+<!--microdatapro {{ version }} gallery end [json-ld] -->
+{% endif %}
+{% endif %}

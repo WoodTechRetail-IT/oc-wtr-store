@@ -1,0 +1,214 @@
+{{ header }}
+<div id="account-order">
+  <div class="bg-container">
+    <div class="container">
+      <div class="navigation-content">
+        <ul class="breadcrumb">
+          {% for i,breadcrumb in breadcrumbs %} 
+          {% if (i+1<breadcrumbs|length) %}
+          <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+          {% else %}
+          <li>{{ breadcrumb.text }}</li>
+          {% endif %} 
+          {% endfor %}	
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="content-wrapper">
+      {% if success %}
+      <div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> {{ success }}
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
+      {% endif %}
+      {% if error_warning %}
+      <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
+      {% endif %}
+      <div class="row">
+        {{ column_left }}
+        {% if column_left and column_right %}
+        {% set class = 'col-sm-6' %}
+        {% elseif column_left or column_right %}
+        {% set class = 'col-sm-9' %}
+        {% else %}
+        {% set class = 'col-sm-12' %}
+        {% endif %}
+        <div id="content" class="{{ class }}">
+          {{ content_top }}
+          <h1>{{ heading_title }}</h1>
+          <div class="order-list-info">
+            <div class="order-list">			  
+			  <div class="order-item">
+			    <div class="order-title">
+				  <div class="order-name">Заказ {{ order_id }}</div>
+				  <div class="order-date">{{ date_added }}</div>
+				</div>
+				{% for product in products %}
+				<div class="order-block">
+				  <div class="order-name-block">
+				    <div class="order-image"><img src="{{ product.image }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive" /></div>
+					<div class="order-name-option">
+					  <span class="order-name">{{ product.name }}</span>
+					  {% if product.option %}
+					  <div class="order-options">						
+						{% for option in product.option %}
+					    <div class="name-options"><small> - {{ option.name }}: {{ option.value }}</small></div>
+					    {% endfor %}						
+				      </div>
+					  {% endif %}
+					</div>
+				  </div>
+				  <div class="row">
+				    <div class="col-sm-8">
+					  <div class="product-order-list">
+					    <div class="products-order-list">
+						  <div class="products-order-name">						    
+							<div class="products-order-options clearfix">
+							  {% if product.model %}
+							  <div class="order-inline order-model">
+							    <div class="order-options-title">{{ column_model }}</div>							  
+							    {{ product.model }}
+							  </div>
+						      {% endif %}
+							  <div class="order-inline order-quantity">
+							    <div class="order-options-title">{{ column_quantity }}</div>							  
+							    {{ product.quantity }}
+							  </div>
+						    </div>
+							{% if product.reorder %}
+							<div class="product-reorder">						      
+						      <a href="{{ product.reorder }}" class="btn btn-default btn-sm"><i class="fa fa-cart-plus"></i>&nbsp;&nbsp;{{ button_reorder }}</a>						      
+						    </div>
+							{% endif %}
+						  </div>						  
+						</div>						
+					  </div>
+					</div>
+					<div class="col-sm-4">
+					  <div class="product-order-list-info text-right">
+					    <div class="products-order-list-info">
+						  <div class="products-order-price-title">{{ column_price }}</div>
+						  <div class="products-order-price">{{ product.price }}</div>
+						  <div class="product-total-amount">
+							<div class="products-order-total-title">{{ column_total }}</div>
+						    <div class="products-order-total">{{ product.total }}</div>
+						  </div>
+						</div>
+					  </div>
+					</div>
+				  </div>
+				  <div class="product-order-methods">
+				    <div class="product-order-method">
+					  {% if payment_method %}
+					  <div class="order-metods payment_method">
+					    <strong>{{ text_payment_method }}</strong> {{ payment_method }}
+					  </div>
+					  {% endif %}
+					  {% if shipping_method %}
+					  <div class="order-metods shipping_method">
+						<strong>{{ text_shipping_method }}</strong> {{ shipping_method }}
+					  </div>
+					  {% endif %}
+					</div>
+				  </div>
+				</div>
+				{% endfor %}
+			  </div>			  
+              {% for voucher in vouchers %}
+			  <div class="order-item">
+			    <div class="order-title">
+				  <div class="order-name">Заказ {{ order_id }}</div>
+				  <div class="order-date">{{ date_added }}</div>
+				</div>
+				<div class="order-block">
+				  <div class="row">
+				    <div class="col-sm-6">
+					  <div class="product-order-list">
+					    <div class="products-order-list">
+						  <div class="products-order-name">
+						    <div class="order-name-block">
+							  <span class="order-name">{{ voucher.description }}</span>
+							</div>
+							<div class="products-order-options clearfix">
+							  <div class="order-inline order-quantity">
+							    <div class="order-options-title">{{ column_quantity }}</div>							  
+							    1
+							  </div>
+						    </div>
+						  </div>
+						</div>
+					  </div>
+					</div>
+					<div class="col-sm-6">
+					  <div class="product-order-list-info text-right">
+					    <div class="products-order-list-info">
+						  <div class="products-order-price-title">{{ column_price }}</div>
+						  <div class="products-order-price">{{ voucher.amount }}</div>
+						  <div class="product-total-amount">
+							<div class="products-order-total-title">{{ column_total }}</div>
+						    <div class="products-order-total">{{ voucher.amount }}</div>
+						  </div>
+						</div>
+					  </div>
+					</div>
+				  </div>
+				</div>
+			  </div>
+			  {% endfor %}
+			</div>
+          </div>
+          {% if comment %}
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th class="text-left">{{ text_comment }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-left">{{ comment }}</td>
+              </tr>
+            </tbody>
+          </table>
+          {% endif %}
+          {% if histories %}
+          <h3>{{ text_history }}</h3>
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th class="text-left">{{ column_date_added }}</th>
+                <th class="text-left">{{ column_status }}</th>
+                <th class="text-left">{{ column_comment }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% if histories %}
+              {% for history in histories %}
+              <tr>
+                <td class="text-left">{{ history.date_added }}</td>
+                <td class="text-left">{{ history.status }}</td>
+                <td class="text-left">{{ history.comment }}</td>
+              </tr>
+              {% endfor %}
+              {% else %}
+              <tr>
+                <td colspan="3" class="text-center">{{ text_no_results }}</td>
+              </tr>
+              {% endif %}
+            </tbody>
+          </table>
+          {% endif %}
+          <div class="buttons clearfix">
+            <div class="pull-right"><a href="{{ continue }}" class="btn btn-primary">{{ button_continue }}</a></div>
+          </div>
+          {{ content_bottom }}
+        </div>
+        {{ column_right }}
+      </div>
+    </div>
+  </div>
+</div>
+{{ footer }}

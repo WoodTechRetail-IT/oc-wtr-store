@@ -1,0 +1,231 @@
+{{ header }}
+<div id="product-search">
+  <div class="catalog-wrapper">
+    <div class="container">
+      <div class="navigation-content">
+        <ul class="breadcrumb">
+          {% for i,breadcrumb in breadcrumbs %} 
+          {% if (i+1<breadcrumbs|length) %}
+          <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+          {% else %}
+          <li>{{ breadcrumb.text }}</li>
+          {% endif %} 
+          {% endfor %}	
+        </ul>
+      </div>
+      <div class="catalog-toolbar-section">
+        <div class="catalog-toolbar-block">
+          <h1>{{ heading_title }}</h1>
+          {% if products %}
+          <div class="catalog-toolbar__sort">
+            <div class="catalog-toolbar__panel d-flex align-items-center">
+              <div class="toolbar-form__input">
+                <div class="toolbar-form__sort">
+                  <span class="toolbar-form__input__title">{{ text_sort }}</span>
+                  <select id="input-sort" class="form-control form-control-sm" onchange="location = this.value;">
+                    {% for sorts in sorts %}
+                    {% if sorts.value == '%s-%s'|format(sort, order) %}
+                    <option value="{{ sorts.href }}" selected="selected">{{ sorts.text }}</option>
+                    {% else %}
+                    <option value="{{ sorts.href }}">{{ sorts.text }}</option>
+                    {% endif %}
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <div class="toolbar-form__input">
+                <div class="toolbar-form__limit">
+                  <span class="toolbar-form__input__title">{{ text_limit }}</span>
+                  <select id="input-limit" class="form-control form-control-sm" onchange="location = this.value;">
+                    {% for limits in limits %}
+                    {% if limits.value == limit %}
+                    <option value="{{ limits.href }}" selected="selected">{{ limits.text }}</option>
+                    {% else %}
+                    <option value="{{ limits.href }}">{{ limits.text }}</option>
+                    {% endif %}
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+              <div class="toolbar-form__toggle hidden-xs text-right ml-auto">
+                <div class="toolbar-toggle d-flex align-items-center">
+                  <button type="button" id="grid-view" class="grid-view clear-button" title="{{ button_grid }}"></button>
+                  <button type="button" id="list-view" class="list-view clear-button" title="{{ button_list }}"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="catalog-product__block catalog-section__products">
+    <div class="container">
+      <div class="row">
+        {{ column_left }}
+        {% if column_left and column_right %}
+        {% set class = 'col-sm-6' %}
+        {% elseif column_left or column_right %}
+        {% set class = 'col-sm-9' %}
+        {% else %}
+        {% set class = 'col-sm-12' %}
+        {% endif %}
+        <div id="content" class="{{ class }}">
+          <div class="catalog-section__container">
+            {{ content_top }}
+            {% if products %}
+            <div class="catalog-section">
+              <div class="catalog-grid catalog-row-gap catalog-grid-column-gap">
+                {% for product in products %}
+                <div class="product-layout product-grid">
+                  <div class="product-item__container">
+                    <div class="product-item">
+                      <div class="product-item__image">
+                        <a href="{{ product.href }}">
+                          <img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive" />		
+                          {% if product.percent %}
+                          <div class="product-item-markers product-item-markers-icons">
+                            <span class="product-item-marker product-item-marker-discount product-item-marker-14px"><span>{{ "-" ~ product.percent ~ "%" }}</span></span>
+                          </div>
+                          {% endif %}
+                        </a>
+                        <div class="product-item__icons">
+                          <div class="product-item__delay" data-toggle="tooltip" title="{{ button_wishlist }}" onclick="wishlist.add('{{ product.product_id }}');">
+                            <i class="fi fi-rr-heart"></i>
+                          </div>
+                        </div>
+                        {% if product.manufacturer_image %}
+                        <div class="product-item__brand">
+                          <img src="{{ product.manufacturer_image }}" alt="{{ product.manufacturer }}" title="{{ product.manufacturer }}" class="img-thumbnail">
+                        </div>
+                        {% endif %}
+                      </div>
+                      <div class="product-item__basket">
+                        {% if product.sku %}
+                        <div class="product-item__sku">
+                          <span class="product-item__text_sku">{{ text_sku }} {{ product.sku }}</span>
+                        </div>
+                        {% endif %}
+                        <div class="product-item__title">
+                          <h3 class="product-item__heading">
+                            <a href="{{ product.href }}"><span>{{ product.name }}</span></a>
+                          </h3>
+                        </div>
+                        {% if review_status %}
+                        <div class="rating product-item__rating">
+                          {% for i in 1..5 %}
+                          {% if product.rating < i %}
+                          <span class="star-empty"><i class="fa fa-star"></i></span>
+                          {% else %}
+                          <span class="star"><i class="fa fa-star"></i></span>
+                          {% endif %}
+                          {% endfor %} 
+                          <div class="reviews-count">{{ product.reviews }}</div>
+                        </div>
+                        {% endif %}
+                        {% if short_description %}
+                        <div class="product-item__description">{{ product.description }}</div>
+                        {% endif %}
+                        {% if product.attributes %}
+                        <div class="product-item__attribute">
+                          <div class="short-attribute">
+                            {% for attribute in product.attributes|slice(0, 5) %}
+                            <div class="short-attribute__list">
+                              <div class="short-attr__left"><span>{{ attribute.name }}:</span></div>
+                              <div class="short-attr__right"><span>{{ attribute.text }}</span></div>
+                            </div>
+                            {% endfor %}
+                          </div>
+                        </div>
+                        {% endif %}
+                        <div class="product-item__info">
+                          <div class="product-item__caption-block">
+                            <div class="product-item__caption">
+                              <div class="product-item__blocks">
+                                {% if product.price %}
+                                <div class="product-item__price">
+                                  {% if not product.special %}
+                                  <div class="product-price__main">
+                                    <span class="product-price__current">{{ product.price }}</span>
+                                  </div>
+                                  {% else %}
+                                  <div class="product-price__main">
+                                    <span class="product-price__current price-new">{{ product.special }}</span>
+                                  </div>
+                                  <div class="product-item-price-stock">
+                                    <div class="product-item-price-old">{{ product.price }}</div>
+                                    {% if product.economy %}
+                                    <div class="product-item-price-economy"> - {{ product.economy }}</div>
+                                    {% endif %}
+                                  </div>
+                                  {% endif %}
+                                  {% if product.tax %}
+                                  <div class="product-price-tax">{{ text_tax }} {{ product.tax }}</div>
+                                  {% endif %}
+                                </div>
+                                {% endif %}
+                                {% if product.price == false %}
+                                <div class="alert-price">{{ product.attention }}</div>
+                                {% endif %}
+                                {% if product.price %}
+                                {% if product.quantity <= 0 %}
+                                <div class="product-item__hidden">
+                                  <div class="product-item__quantity">
+                                    <i class="product-item__quantity-icon icon-danger"></i>
+                                    <span class="product-item__quantity-val">{{ product.stock }}</span>
+                                  </div>
+                                </div>
+                                {% else %}
+                                <div class="product-item__hidden">
+                                  <div class="product-item__quantity">
+                                    <i class="product-item__quantity-icon icon-success"></i>
+                                    <span class="product-item__quantity-val">{{ text_instock }}</span>
+                                  </div>
+                                </div>
+                                {% endif %}
+                                {% if quantity_btn %}
+                                <div class="product-item__amount">
+                                  <button type="button" aria-label="Button minus" class="minus product-item__amount-btn-minus">-</button>
+                                  <input type="text" name="quantity" class="product-item__amount-input" size="2" value="{{ product.minimum }}" data-maximum="{{ product.quantity }}" />	  
+                                  <button type="button" aria-label="Button plus" class="plus product-item__amount-btn-plus">+</button>
+                                </div>
+                                {% endif %}
+                                {% endif %}
+                              </div>
+                              <div class="product-button__container">
+                                {% if product.quantity > 0 or product.quantity == 0 and stock_checkout %}
+                                <button type="button" class="btn btn-buy" onclick="cart.add('{{ product.product_id }}', $(this).parent().parent().find('.product-item__amount-input').val());" aria-label="{{ button_cart }}"><i class="fi fi-rr-shopping-cart-add"></i></button>
+                                {% else %}
+                                <button type="button" class="btn btn-buy disabled" disabled aria-label="{{ button_cart }}"><i class="fi fi-rr-shopping-cart-add"></i></button>
+                                {% endif %}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+            <div class="catalog-section-pagination">{{ pagination }}</div>
+            {% endif %}
+            {% if not categories and not products %}
+            <div class="text-empty">
+              <p>{{ text_empty }}</p>
+              <div class="buttons clearfix">
+                <div class="pull-right"><a href="{{ continue }}" class="btn btn-primary">{{ button_continue }}</a></div>
+              </div>
+            </div>
+            {% endif %}
+            {{ content_bottom }}
+          </div>
+        </div>
+        {{ column_right }}
+      </div>
+    </div>
+  </div>
+</div>
+{{ footer }}

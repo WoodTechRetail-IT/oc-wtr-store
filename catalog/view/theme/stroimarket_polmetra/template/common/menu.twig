@@ -1,0 +1,219 @@
+
+
+{% if categories %}
+<div class="header-nav__submenu header-submenu">
+  <div class="header-nav__container">
+    <div class="header-nav__submenu__content">
+      <div class="header-nav__catalog">
+        <div class="header-nav__catalog__menu">
+          <div class="header-submenu__col header-submenu__leftside header-submenu__col--grey">
+            <div class="header-submenu__parent">
+            
+              <div class="header-submenu__title">{{ text_catalog }}</div>
+              <div class="header-nav__catalog__list">
+                <ul class="header-submenu__list">
+                  {% for category in categories %}
+                  <li class="header-submenu__item" data-id="{{ category.category_id }}">
+                    <a href="{{ category.href }}" class="header-submenu__link category-link">
+                    {% if category.image %}
+                    <img src="{{ category.image }}" alt="{{ category.name }}">
+                    {% endif %}
+                    <span>{{ category.name }}</span>
+                    </a>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="header-submenu__col header-submenu__rightside header-submenu__col--white">
+            <svg class="header-submenu__close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#5f6368">
+              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+              <path fill="none" d="M0 0h24v24H0z"></path>
+            </svg>
+            
+            {% for category in categories %}
+            {% if category.children %}
+            <div class="header-submenu__block" data-id="{{ category.category_id }}">
+              <div class="header-submenu__title">{{ category.name }}</div>
+              <div class="header-submenu__container">
+                {% for children in category.children|batch(category.children|length) %}
+                <div class="header-submenu__inner">
+                  {% for child in children %}
+                  {% if child.gchildren %}
+                  <div class="header-submenu__column">
+                    <a href="{{ child.href }}" class="submenu-link link-bold">
+                    {% if child.image %}
+                    <span class="header-submenu__image"><img src="{{ child.image }}" alt="{{ child.name }}" title="{{ child.name }}" />{{ child.stickersb }}</span>
+                    {% endif %}
+                    <span class="header-submenu__child">{{ child.stickersb }} {{ child.name }}</span>
+                    </a>
+                  </div>
+                  {% else %}
+                  <div class="header-submenu__column">
+                    <a href="{{ child.href }}" class="submenu-link link-bold">
+                    {% if child.image %}
+                    <span class="header-submenu__image"><img src="{{ child.image }}" alt="{{ child.name }}" title="{{ child.name }}" />{{ child.stickersb }}</span>
+                    {% endif %}
+                    <span class="header-submenu__child">{{ child.stickersb }} {{ child.name }}</span>
+                    </a>
+                  </div>
+                  {% endif %}
+                  
+                  
+                  
+                  {% endfor %}
+                </div>
+                
+                {% endfor %}
+                
+              </div>
+              
+                    {% if category.menudopblock %}
+                    <!--<div class="header-submenu__title">Подбор по характеристикам</div>-->
+                    <div class="header-submenu__container">
+                        <div class="header-submenu__inner">
+                            {{ category.menudopblock }}
+                        </div>
+                      </div>
+                    {% endif %}
+            </div>
+            {% endif %}
+            {% endfor %}
+            
+            
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mobile-catalog catalog-category">
+  <div class="mobile-catalog__panel">
+    <div class="mobile-catalog__push">
+      <div class="FxW4"></div>
+    </div>
+    <div class="mobile-catalog__title">{{ text_catalog }}</div>
+    <button type="button" aria-label="Закрыть каталог" class="clear-button mobile-catalog__close">
+      <svg width="16" height="16" fill="#172033" viewBox="0 0 16 16" class="icon icon-close">
+        <path fill-rule="evenodd" d="M2.293 2.293a1 1 0 011.414 0l10 10a1 1 0 01-1.414 1.414l-10-10a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+        <path fill-rule="evenodd" d="M13.707 2.293a1 1 0 00-1.414 0l-10 10a1 1 0 101.414 1.414l10-10a1 1 0 000-1.414z" clip-rule="evenodd"></path>
+      </svg>
+    </button>
+  </div>
+  <div class="mobile-catalog__inner">
+    <ul class="mobile-catalog__list">
+      {% for category in categories %}
+      {% if category.children %}
+      <li class="mobile-catalog__item has-item">
+        <div class="mobile-item">
+          {% if category.image %}
+          <div class="kMP8 mobile-catalog__image">
+            <img src="{{ category.image }}" alt="{{ category.name }}" class="mobile-catalog__img">
+          </div>
+          {% endif %}
+          <div class="mobile-catalog__name">{{ category.name }}</div>
+          <div class="ULo6 mobile-catalog__icon__arrow d-flex">
+            <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon icon-arrow">
+              <path d="M5.293 12.293a1 1 0 101.414 1.414l5-5a1 1 0 000-1.414l-5-5a1 1 0 00-1.414 1.414L9.586 8l-4.293 4.293z" fill="currentColor"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="mobile-catalog catalog-children">
+          <div class="mobile-catalog__panel">
+            <button type="button" aria-label="Вернуться назад" class="clear-button mobile-catalog__back">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="icon icon-arrow-left" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+              </svg>
+            </button>
+            <div class="mobile-catalog__title">{{ category.name }}</div>
+            <button type="button" aria-label="Закрыть каталог" class="clear-button mobile-catalog__close">
+              <svg width="16" height="16" fill="#172033" viewBox="0 0 16 16" class="icon icon-close">
+                <path fill-rule="evenodd" d="M2.293 2.293a1 1 0 011.414 0l10 10a1 1 0 01-1.414 1.414l-10-10a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                <path fill-rule="evenodd" d="M13.707 2.293a1 1 0 00-1.414 0l-10 10a1 1 0 101.414 1.414l10-10a1 1 0 000-1.414z" clip-rule="evenodd"></path>
+              </svg>
+            </button>
+          </div>
+          <div class="mobile-catalog__inner">
+            {% for children in category.children|batch(category.children|length) %}
+            <ul class="mobile-catalog__list">
+              <li class="mobile-catalog__item mobile-catalog__all">
+                <span class="mobile-item mobile-catalog__link" data-link="{{ category.href }}">
+                  <span class="mobile-catalog__name">{{ text_see_all_products }}</span>
+                </span>
+              </li>
+              {% for child in children %}
+              {% if child.gchildren %}
+              <li class="mobile-catalog__item has-item">
+                <span class="mobile-item">
+                  <span class="mobile-catalog__name">{{ child.name }}</span>
+                  <span class="mobile-catalog__icon__arrow d-flex">
+                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon icon-arrow">
+                      <path d="M5.293 12.293a1 1 0 101.414 1.414l5-5a1 1 0 000-1.414l-5-5a1 1 0 00-1.414 1.414L9.586 8l-4.293 4.293z" fill="currentColor"></path>
+                    </svg>
+                  </span>
+                </span>
+                <div class="mobile-catalog catalog-child">
+                  <div class="mobile-catalog__panel">
+                    <button type="button" aria-label="Вернуться назад" class="clear-button mobile-catalog__back">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="icon icon-arrow-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                      </svg>
+                    </button>
+                    <div class="mobile-catalog__title">{{ child.name }}</div>
+                    <button type="button" aria-label="Закрыть каталог" class="clear-button mobile-catalog__close">
+                      <svg width="16" height="16" fill="#172033" viewBox="0 0 16 16" class="icon icon-close">
+                        <path fill-rule="evenodd" d="M2.293 2.293a1 1 0 011.414 0l10 10a1 1 0 01-1.414 1.414l-10-10a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                        <path fill-rule="evenodd" d="M13.707 2.293a1 1 0 00-1.414 0l-10 10a1 1 0 101.414 1.414l10-10a1 1 0 000-1.414z" clip-rule="evenodd"></path>
+                      </svg>
+                    </button>
+                  </div>
+                  <div class="mobile-catalog__inner">
+                    <ul class="mobile-catalog__list">
+                      <li class="mobile-catalog__item mobile-catalog__all">
+                        <span class="mobile-item mobile-catalog__link" data-link="{{ child.href }}">
+                          <span class="mobile-catalog__name">{{ text_see_all_products }}</span>
+                        </span>
+                      </li>
+                      {% for gchild in child.gchildren %}		      
+                      <li class="mobile-catalog__item">
+                        <span class="mobile-item mobile-catalog__link" data-link="{{ gchild.href }}">
+                        <span class="mobile-catalog__name">{{ gchild.name }}  {{ child.count }}</span>
+                        </span>
+                      </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </div>
+              </li>
+              {% else %}
+              <li class="mobile-catalog__item">
+                <span class="mobile-item mobile-catalog__link" data-link="{{ child.href }}">
+                  <span class="mobile-catalog__name">{{ child.name }}</span>
+                </span>
+              </li>
+              {% endif %}
+              {% endfor %}
+            </ul>
+            {% endfor %}
+          </div>
+        </div>
+      </li>
+      {% else %}
+      <li class="mobile-catalog__item">
+        <div class="mobile-item mobile-catalog__link" data-link="{{ category.href }}">
+          {% if category.image %}
+          <div class="mobile-catalog__image">
+            <img src="{{ category.image }}" alt="{{ category.name }}" class="mobile-catalog__img">
+          </div>
+          {% endif %}
+          <div class="mobile-catalog__name">{{ category.name }} {{ child.count }}</div>
+        </div>
+      </li>
+      {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endif %}

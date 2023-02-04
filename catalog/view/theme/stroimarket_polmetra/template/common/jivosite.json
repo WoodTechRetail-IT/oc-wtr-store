@@ -1,0 +1,92 @@
+
+[
+  {
+    "conditions": [
+      {
+        "condition": "time_on_site",
+        "comparator": "greater",
+        "value": 70
+      },
+      {
+        "condition": "time_after_close",
+        "comparator": "greater",
+        "value": 500
+      }
+    ],
+    "commands": [
+      {
+        "command": "proactive",
+        "params": {
+          "message": "Polmetra - консультант"
+        }
+      }
+    ],
+    "name": "Proactive Invitation on Every Page",
+    "enabled": true,
+    "type": "all"
+  },
+  {
+    "name": "Lead Collection When Agents are Offline",
+    "enabled": true,
+    "type": "all",
+    "conditions": [
+      {
+        "condition": "online",
+        "value": false
+      },
+      {
+        "condition": "time_on_page",
+        "comparator": "greater",
+        "value": 10
+      },
+      {
+        "condition": "time_on_site",
+        "comparator": "greater",
+        "value": 20
+      },
+      {
+        "condition": "time_after_close",
+        "comparator": "greater",
+        "value": 300
+      },
+      {
+        "condition": "time_after_invitation",
+        "comparator": "greater",
+        "value": 60
+      }
+    ],
+    "commands": [
+      {
+        "command": "open_offline",
+        "params": {
+          "title": "Polmetra - консультант",
+          "message": "Polmetra - консультант"
+        }
+      }
+    ]
+  },
+  {
+    "name": "Retaining Message if Agent is not Answering",
+    "enabled": true,
+    "type": "all",
+    "conditions": [
+      {
+        "condition": "online",
+        "value": true
+      },
+      {
+        "condition": "time_after_first_message",
+        "comparator": "greater",
+        "value": 60
+      }
+    ],
+    "commands": [
+      {
+        "command": "system_message",
+        "params": {
+          "message": "Polmetra - консультант"
+        }
+      }
+    ]
+  }
+]

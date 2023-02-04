@@ -1,0 +1,23 @@
+/*
+Quantity per Option / Количество для опций
+Support: support@liveopencart.com / Поддержка: help@liveopencart.ru
+*/
+
+.qpo-btn-minus {
+	width: 18px;
+	padding-left: 2px;
+}
+.qpo-btn-plus {
+	width: 18px;
+	padding-left: 3px;
+}
+.qpo-option-info {
+	padding-top: 6px;
+}
+.qpo-input-group {
+	width: 80px;
+}
+.qpo-input-group-right {
+	width: 80px;
+	float: right;
+}

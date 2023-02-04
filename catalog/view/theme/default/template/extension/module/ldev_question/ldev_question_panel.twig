@@ -1,0 +1,34 @@
+<div
+     id="accordion-{{ item_id }}" class="panel-group">
+
+    {% if heading_status %} <h4>{{ name }}</h4> {% endif %}
+    {{ about }}
+    {% for k, question in list  %}
+    <div
+
+            class="panel panel-default card">
+        <div class="panel-heading card-header">
+            <h4 class="panel-title mb-0">
+                <span class="accordion-item-icon">{{ question.marker }}</span>
+                {{ question.title }}
+            </h4>
+        </div>
+        <div class="panel-collapse collapse in show">
+            <div class="panel-body card-body">
+                {% if question.thumb %}
+                    {% if question.link %}
+                        <a href="{{ question.link }}"><img src="{{ question.thumb }}" alt="{{ question.title }}" title="{{ question.title }}"></a>
+                    {% else %}
+                        <img src="{{ question.thumb }}" alt="{{ question.title }}" title="{{ question.title }}">
+                    {% endif %}
+                {% endif %}
+                <div>{{ question.text }}</div>
+                <div>{{ question.module }}</div>
+            </div>
+        </div>
+
+    </div>
+    {% endfor %}
+</div>
+
+

@@ -1,0 +1,587 @@
+{% set am = 1 %}
+{% if mobile is defined and mobile %} 
+{% if (standart_menu is defined and standart_menu) or (uni_megamenu_mobile_categories is defined and uni_megamenu_mobile_categories) or (uni_megamenu_brands is defined and uni_megamenu_brands) or (uni_megamenu_informations is defined and uni_megamenu_informations) or (uni_megamenu_links is defined and uni_megamenu_links) %}
+{% if am is defined and am is not empty %}
+<ul>
+	{% else %}
+	<ul id="uni-menu-ul" class="uni-menu-ul uni-menu-parent-ul list-unstyled d-lg-none visible-sm visible-xs">
+		{% endif %}
+		{% if standart_menu is defined and standart_menu is not empty %}
+		{% if am is defined and am is not empty %}
+		{{ standart_menu }}
+		{% else %}
+		{{ standart_menu }}
+		{% endif %}
+		{% endif %}
+		{% if items is defined and items is not empty %}
+		{% for item in items %}
+		{% if item.item_type == 1 and (uni_megamenu_links is defined and uni_megamenu_links) %}
+		{% if am is defined and am is not empty %}
+		<li><a href="{{ item.href }}">{{ item.title }}</a></li>
+		{% else %}
+		<li class="uni-menu-li"><a href="{{ item.href }}" {{ item.open_link_type ? 'target="_blank"' : '' }} class="uni-menu-a">
+		<span class="uni-menu-item-name">{{ item.title }}</span></a></li>
+		{% endif %}
+		{% endif %}
+		{% if item.children %}
+		{% if item.item_type == 2 and (uni_megamenu_mobile_categories is defined and uni_megamenu_mobile_categories) %}
+		{% if item.display_type == 1 or item.display_type == 3 %}
+		{% if am is defined and am is not empty %}	
+		<li><a href="{{ item.href }}">{{ item.title }}</a>
+			<ul>
+				{% for children in item.children %}
+				<li><a href="{{ children.href }}">{{ children.name }}</a>
+					{% if children.children %}
+					<ul>
+						{% for child in children.children %}
+						<li><a href="{{ child.href }}">{{ child.name }}</a></li>
+						{% endfor %}
+					</ul>
+					{% endif %}
+				</li>
+				{% endfor %}
+			</ul>
+		</li>
+		{% else %}
+		<li class="uni-menu-li">
+			<div class="d-flex align-items-center justify-content-between"><a href="{{ item.href }}" {{ item.open_link_type ? 'target="_blank"' : '' }} class="uni-menu-a"><span class="uni-menu-item-name">{{ item.title }}</span></a>{% if item.children %}<span class="uni-menu-toggle"><span class="right-down"></span></span>{% endif %}</div>
+			<div class="uni-menu-child-ul">
+				<div class="uni-menu-back"><span class="left-down"></span> {{ item.title }}</div>
+				<ul class="uni-menu-ul list-unstyled">
+					{% for children in item.children %}
+					<li class="uni-menu-li">
+						<div class="d-flex align-items-center justify-content-between"><a href="{{ children.href }}"><span class="uni-menu-item-name">{{ children.name }}</span></a>{% if children.children %}<span class="uni-menu-toggle"><span class="right-down"></span></span>{% endif %}</div>
+						{% if children.children %}
+						<div class="uni-menu-child-ul">
+							<div class="uni-menu-back"><span class="left-down"></span> {{ children.name }}</div>
+							<ul class="uni-menu-ul list-unstyled">
+								{% for child in children.children %}
+								<li class="uni-menu-li"><a href="{{ child.href }}"><span class="uni-menu-item-name">{{ child.name }}</span></a></li>
+								{% endfor %}
+							</ul>
+						</div>
+						{% endif %}
+					</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</li>
+		
+		{% endif %}
+		{% endif %}
+		{% endif %}
+		{% if item.item_type == 3 and (uni_megamenu_brands is defined and uni_megamenu_brands) %}
+		{% if am is defined and am is not empty %}
+		<li><a href="{{ item.href }}">{{ item.title }}</a>
+			<ul>
+				{% for children in item.children %}
+				<li><a href="{{ children.href }}">{{ children.name }}</a></li>
+				{% endfor %}
+			</ul>
+		</li>
+		{% else %}
+		<li class="uni-menu-li">
+			<div class="d-flex align-items-center justify-content-between"><a href="{{ item.href }}" {{ item.open_link_type ? 'target="_blank"' : '' }} class="uni-menu-a"><span class="uni-menu-item-name">{{ item.title }}</span></a>{% if item.children %}<span class="uni-menu-toggle"><span class="right-down"></span></span>{% endif %}</div>
+			<div class="uni-menu-child-ul">
+				<div class="uni-menu-back"><span class="left-down"></span> {{ item.title }}</div>
+				<ul class="uni-menu-ul list-unstyled">
+					{% for children in item.children %}
+					<li class="uni-menu-li"><a class="uni-menu-a" href="{{ children.href }}"><span class="uni-menu-item-name">{{ children.name }}</span></a></li>
+					{% endfor %}
+				</ul>
+			</div>
+		</li>
+		{% endif %}
+		{% endif %}
+		{% if item.item_type == 5 and (uni_megamenu_informations is defined and uni_megamenu_informations) %}
+		{% if am is defined and am is not empty %}
+		<li><a href="{{ item.href }}">{{ item.title }}</a>
+			<ul>
+				{% for children in item.children %}
+				<li><a href="{{ children.href }}">{{ children.title }}</a></li>
+				{% endfor %}
+			</ul>
+		</li>
+		{% else %}
+		<li class="uni-menu-li">
+			<div class="d-flex align-items-center justify-content-between"><a href="{{ item.href }}" {{ item.open_link_type ? 'target="_blank"' : '' }} class="uni-menu-a"><span class="uni-menu-item-name">{{ item.title }}</span></a>{% if item.children %}<span class="uni-menu-toggle"><span class="right-down"></span></span>{% endif %}</div>
+			<div class="uni-menu-child-ul">
+				<div class="uni-menu-back"><span class="left-down"></span> {{ item.title }}</div>
+				<ul class="uni-menu-ul list-unstyled">
+					{% for children in item.children %}
+					<li class="uni-menu-li"><a href="{{ children.href }}" class="uni-menu-a"><span class="uni-menu-item-name">{{ children.title }}</span></a></li>
+					{% endfor %}
+				</ul>
+			</div>
+		</li>
+		{% endif %}
+		{% endif %}
+		{% if item.item_type == 8 and (uni_megamenu_blog is defined and uni_megamenu_blog) %}
+		{% if am is defined and am is not empty %}
+		<li><a href="{{ item.href }}">{{ item.title }}</a>
+			<ul>
+				{% for children in item.children %}
+				<li><a href="{{ children.href }}">{{ children.name }}</a>
+					{% if children.children %}
+					<ul>
+						{% for child in children.children %}
+						<li><a href="{{ child.href }}">{{ child.name }}</a></li>
+						{% endfor %}
+					</ul>
+					{% endif %}
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</li>
+	{% else %}
+	<li class="uni-menu-li">
+		<div class="d-flex align-items-center justify-content-between"><a href="{{ item.href }}" {{ item.open_link_type ? 'target="_blank"' : '' }} class="uni-menu-a"><span class="uni-menu-item-name">{{ item.title }}</span></a>{% if item.children %}<span class="uni-menu-toggle"><span class="right-down"></span></span>{% endif %}</div>
+		<div class="uni-menu-child-ul">
+			<div class="uni-menu-back"><span class="left-down"></span> {{ item.title }}</div>
+			<ul class="uni-menu-ul list-unstyled">
+				{% for children in item.children %}
+				<li class="uni-menu-li">
+					<div class="d-flex align-items-center justify-content-between"><a href="{{ children.href }}"><span class="uni-menu-item-name">{{ children.name }}</span></a>{% if children.children %}<span class="uni-menu-toggle"><span class="right-down"></span></span>{% endif %}</div>
+					{% if children.children %}
+					<div class="uni-menu-child-ul">
+						<div class="uni-menu-back"><span class="left-down"></span> {{ children.name }}</div>
+						<ul class="uni-menu-ul list-unstyled">
+							{% for child in children.children %}
+							<li class="uni-menu-li"><a href="{{ child.href }}"><span class="uni-menu-item-name">{{ child.name }}</span></a></li>
+							{% endfor %}
+						</ul>
+					</div>
+					{% endif %}
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</li>
+	{% endif %}	
+	{% endif %}
+	{% endif %}
+	{% endfor %}
+	{% endif %}
+</ul>
+{% endif %}
+
+{% if deff is defined and deff %}
+<ul id="uni-menu-ul" class="uni-menu-ul uni-menu-parent-ul list-unstyled d-lg-none visible-sm visible-xs">
+	{% if standart_menu is defined and standart_menu is not empty %}
+	{{ standart_menu }}
+	{% endif %}
+</ul>
+{% endif %}
+<script>
+	(function($) {
+		'use strict';
+		var Nav = new hcOffcanvasNav('#uni_menu_mobile_content', {
+			width: 320, //280
+			position: '{{ mobile_position }}', //options: 'left', 'right'
+			customToggle: '.uni-menu-mobile',
+            levelSpacing: 40,
+			levelOpen: '{{ level_open }}', //options: 'overlap', 'expand', 'none' or false.
+			navTitle: '{{ uni_mobile_menu }}',
+            levelTitles: true,
+            levelTitleAsBack: true,
+		  //navClass:	'',
+            pushContent: '#container',
+            labelClose: false
+		});
+		
+	})(jQuery);
+</script>
+
+{% else %}
+{% if standart_menu is defined and standart_menu is not empty %}
+<div id="uni-menu-box" class="col-sm-3">
+	<div  id="uni-ultra-menu-header" class="uni-ultra-menu d-flex align-items-center">
+		<span class="uni-mm-cat-link-fas"><div class="bars"></div><div class="bars"></div><div class="bars"></div></span> 
+		<span class="uni-mm-cat-link-text">{{ text_category }}</span>
+		<span class="uni-mm-link-down"><div class="down2"></div></span>
+		
+	</div>
+	<nav id="uni-menu-dropdown-menu">
+		<ul id="uni-menu-ul" class="uni-menu-ul uni-menu-parent-ul list-unstyled">
+			{{ standart_menu }}
+		</ul>
+	</nav>
+</div>
+{% endif %}
+{% if items is defined and items is not empty %}
+<div id="uni-megamenu-box" class="{% if standart_menu is defined and standart_menu is not empty %}col-sm-9{% else %}col-sm-12{% endif %}">
+	<nav id="uni-megamenu" class="uni-megamenu-navbar">
+		
+		
+		<ul id="main-menu" class="uni-megamenu-nav uni-megamenu-navbar-nav flex-row sm sm-simple">
+            <li class="uni-old" id="uni-old"></li>		
+			{% for item in items %}
+			{% if item.children %}
+			{% if item.item_type == 2 %}
+			{% if item.display_type == 1 %}
+			<li class="uni uni-mm-link position-unset">
+				<a class="unia" href="{{ item.href }}" {{ item.open_link_type ? 'target="_blank"' : '' }}>{% if item.uni_image %}<img class="uni-menu-cat-icon" src="{{ item.uni_image }}" alt="{{ item.title }}" />{% endif %}{{ item.title }}{% if item.children %}<span class="sub-arrow"></span>{% endif %}</a>				
+				<div class="uni-mm-dropdown uni-mm-full-width uni-mm-type-2">					
+					<div class="row d-flex flex-wrap justify-content-center">
+						<div class="col-sm-{% if item.description %}8{% else %}12{% endif %}">
+							{% set divide_value = item.description ? 4 : 6 %}
+							<div class="row d-flex flex-wrap justify-content-center">
+								{% for children in item.children|batch(divide_value) %}
+								{% for children_inner in children %}
+								<div class="uni-mm-hassubchild col-sm-{% if item.description %}3{% else %}2{% endif %} d-flex flex-column">
+									<a class="uni-mm-parent-link d-flex flex-column{% if not children_inner.children %} uni-mm-brands-link{% endif %}" href="{{ children_inner.href }}">
+										{% if children_inner.thumb %}
+										<img src="{{ children_inner.thumb }}"{% if uni_lazyload %} data-srcset="{{ children_inner.thumb }} 100w" srcset="{{ uni_lazy_image }} 100w" sizes="100vw"{% endif %} alt="{{ children_inner.name }}" title="{{ children_inner.name }}" class="uni-mm-parent-img uni-mm-parent-img-full-width{% if uni_lazyload %} uni-lazy{% endif %}" />
+										{% endif %}
+										<span class="uni-mm-parent-title{% if not children_inner.children %} uni-mm-parent-title-light text-center{% endif %}">{{ children_inner.name }}</span>
+									</a>
+									{% if children_inner.children %}
+									<ul class="uni-mm-child list-unstyled">
+										{% set countstop = 1 %}
+										{% for child in children_inner.children %}
+										{% set countstop = countstop + 1 %}
+										<li><a href="{{ child.href }}" >{{ child.name }}</a></li>
+										{% if countstop > item.limit_item %}
+										<li> <a class="uni-mm-see-all" href="{{ children_inner.href }}" >&#10144; {{ text_all_category }}</a></li>
+										{% endif %}
+										{% endfor %}
+									</ul>
+									{% endif %}
+								</div>
+								{% endfor %}
+								{% endfor %}
+							</div>
+						</div>
+						{% if item.description %}
+						<div class="col-sm-4">
+							<div id="uni-mm-banner{{ item.megamenu_id }}" class="uni-mm-banner">
+								<div class="uni-mm-banner-title">{{ item.banner_title }}</div>
+								{% if item.banner_image %}
+								<div class="uni-mm-banner-img">
+									<img src="{{ item.banner_image }}" alt="{{ item.banner_title }}" />
+								</div>
+								{% endif %}
+								<div class="uni-mm-banner-text">{{ item.banner_text }}</div>
+								<a href="{{ item.banner_link }}" class="uni-mm-banner-button">{{ item.banner_button }}</a>
+							</div>
+						</div>
+						<style>
+							{% if item.banner_image_color %}
+							#uni-mm-banner{{ item.megamenu_id }}.uni-mm-banner {
+							background: {{ item.banner_image_color }};
+							}
+							{% endif %}
+							{% if item.banner_image_title_color %}
+							#uni-mm-banner{{ item.megamenu_id }} .uni-mm-banner-title {
+							color: {{ item.banner_image_title_color }};
+							}
+							{% endif %}
+							{% if item.banner_image_text_color %}
+							#uni-mm-banner{{ item.megamenu_id }} .uni-mm-banner-text {
+							color: {{ item.banner_image_text_color }};
+							}
+							{% endif %}
+							{% if item.banner_image_button_color or item.banner_image_link_color %}
+							#uni-mm-banner{{ item.megamenu_id }} .uni-mm-banner-button {
+							{% if item.banner_image_button_color %}background: {{ item.banner_image_button_color }};{% endif %}
+							{% if item.banner_image_link_color %}color: {{ item.banner_image_link_color }};{% endif %}
+							}
+							{% endif %}
+							{% if item.banner_image_button_border_hover_color or item.banner_image_link_hover_color %}
+							#uni-mm-banner{{ item.megamenu_id }} .uni-mm-banner-button:hover {
+							{% if item.banner_image_button_hover_color %}background: {{ item.banner_image_button_hover_color }};{% endif %}
+							{% if item.banner_image_link_hover_color %}color: {{ item.banner_image_link_hover_color }};{% endif %}
+							}
+							{% endif %}
+						</style>
+						{% endif %}
+					</div>
+					
+				</div>
+				
+			</li>
+			{% else %}
+			<li class="uni uni-mm-link">
+				<a class="unia" href="{{ item.href }}" {{ item.open_link_type ? 'target="_blank"' : '' }}>{% if item.uni_image %}<img class="uni-menu-cat-icon" src="{{ item.uni_image }}" alt="{{ item.title }}" />{% endif %}{{ item.title }}</a>
+				<ul class="uniu">
+					{% for children in item.children %}
+					{% if children.children %}
+					<li class="uni unichild">
+						<a href="{{ children.href }}" class="unia uni-menu-a">{{ children.name }}</a>
+						<ul class="uniu">
+							{% for child in children.children %}
+							<li class="uni unichild">
+								<a class="unia" href="{{ child.href }}">{{ child.name }}</a>
+							</li>
+							{% endfor %}
+						</ul>
+					</li>
+					{% else %}
+					<li class="uni unichild">
+						<a href="{{ children.href }}" class="unia uni-menu-a">{{ children.name }}</a>
+					</li>
+					{% endif %}
+					{% endfor %}
+				</ul>
+			</li>
+			{% endif %}
+			{% endif %}
+			{% if item.item_type == 3 %}
+			<li class="uni uni-mm-link position-unset">
+				<a class="unia" href="{{ item.href }}" {{ item.open_link_type ? 'target="_blank"' : '' }}>{% if item.uni_image %}<img class="uni-menu-cat-icon" src="{{ item.uni_image }}" alt="{{ item.title }}" />{% endif %}{{ item.title }}{% if item.children %}<span class="sub-arrow"></span>{% endif %}</a>
+				<div class="uni-mm-dropdown uni-mm-full-width uni-mm-brands-dropdown uni-mm-type-3">
+					<div class="row d-flex flex-wrap justify-content-center">
+						{% for children in item.children %}
+						<div class="uni-mm-hassubchild col-sm-2 d-flex flex-column">
+							<a class="uni-mm-parent-link uni-mm-brands-link d-flex flex-column" href="{{ children.href }}">
+								{% if children.thumb %}
+								<img src="{{ children.thumb }}"{% if uni_lazyload %} data-srcset="{{ children.thumb }} 100w" srcset="{{ uni_lazy_image }} 100w" sizes="100vw"{% endif %} alt="{{ children.name }}" title="{{ children.name }}" class="uni-mm-parent-img uni-mm-img-transition{% if uni_lazyload %} uni-lazy{% endif %}" />
+								{% endif %}
+								<span class="uni-mm-parent-title uni-mm-parent-title-light flex-grow-1 text-center">{{ children.name }}</span>
+							</a>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+			</li>
+			{% endif %}
+			{% if item.item_type == 4 %}
+			<li class="uni uni-mm-link position-unset">
+				<a class="unia" href="{{ item.href }}" {{ item.open_link_type ? 'target="_blank"' : '' }}>{% if item.uni_image %}<img class="uni-menu-cat-icon" src="{{ item.uni_image }}" alt="{{ item.title }}" />{% endif %}{{ item.title }}{% if item.children %}<span class="sub-arrow"></span>{% endif %}</a>
+				<div class="uni-mm-dropdown uni-mm-full-width uni-mm-type-4">
+					<div class="row d-flex flex-wrap justify-content-center">
+						<div class="col-sm-{% if item.description %}8{% else %}12{% endif %}">
+							{% set divide_value = item.description ? 4 : 6 %}
+							<div class="row d-flex flex-wrap justify-content-center">
+								{% for children in item.children|batch(divide_value) %}
+								{% for child in children %}
+								<div class="uni-mm-hassubchild uni-mm-product col-sm-{% if item.description %}3{% else %}2{% endif %} d-flex flex-column">
+									<a class="uni-mm-parent-link d-flex flex-column flex-grow-1" href="{{ child.href }}">
+										{% if child.thumb %}
+										<img src="{{ child.thumb }}" alt="{{ child.name }}" title="{{ child.name }}" class="uni-mm-parent-img" />
+										{% endif %}
+										<span class="uni-mm-parent-title uni-mm-product-parent-title  flex-grow-1 text-center">{{ child.name }}</span>
+									</a>
+									{% if not child.special %}
+									<div class="uni-mm-price">
+										<span class="uni-price-normal">{{ child.price }}</span>
+									</div>
+									{% else %}
+									<div class="uni-mm-price">
+										<span class="uni-price-old">{{ child.price }}</span>
+										<span class="uni-price-new">{{ child.special }}</span>
+									</div>
+									{% endif %}
+								</div>
+								{% endfor %}
+								{% endfor %}
+							</div>
+						</div>
+						{% if item.description %}
+						<div class="col-sm-4">
+							<div id="uni-mm-banner{{ item.megamenu_id }}" class="uni-mm-banner">
+								<div class="uni-mm-banner-title">{{ item.banner_title }}</div>
+								{% if item.banner_image %}
+								<div class="uni-mm-banner-img">
+									<img src="{{ item.banner_image }}" alt="{{ item.banner_title }}" />
+								</div>
+								{% endif %}
+								<div class="uni-mm-banner-text">{{ item.banner_text }}</div>
+								<a href="{{ item.banner_link }}" class="uni-mm-banner-button">{{ item.banner_button }}</a>
+							</div>
+						</div>
+						<style>
+							{% if item.banner_image_color %}
+							#uni-mm-banner{{ item.megamenu_id }}.uni-mm-banner {
+							background: {{ item.banner_image_color }};
+							}
+							{% endif %}
+							{% if item.banner_image_title_color %}
+							#uni-mm-banner{{ item.megamenu_id }} .uni-mm-banner-title {
+							color: {{ item.banner_image_title_color }};
+							}
+							{% endif %}
+							{% if item.banner_image_text_color %}
+							#uni-mm-banner{{ item.megamenu_id }} .uni-mm-banner-text {
+							color: {{ item.banner_image_text_color }};
+							}
+							{% endif %}
+							{% if item.banner_image_button_color or item.banner_image_link_color %}
+							#uni-mm-banner{{ item.megamenu_id }} .uni-mm-banner-button {
+							{% if item.banner_image_button_color %}background: {{ item.banner_image_button_color }};{% endif %}
+							{% if item.banner_image_link_color %}color: {{ item.banner_image_link_color }};{% endif %}
+							}
+							{% endif %}
+							{% if item.banner_image_button_border_hover_color or item.banner_image_link_hover_color %}
+							#uni-mm-banner{{ item.megamenu_id }} .uni-mm-banner-button:hover {
+							{% if item.banner_image_button_hover_color %}background: {{ item.banner_image_button_hover_color }};{% endif %}
+							{% if item.banner_image_link_hover_color %}color: {{ item.banner_image_link_hover_color }};{% endif %}
+							}
+							{% endif %}
+						</style>
+						{% endif %}
+					</div>
+				</div>
+			</li>
+			{% endif %}
+			{% if item.item_type == 5 %}
+			<li class="uni uni-mm-link">
+				<a class="unia" href="{{ item.href }}" {{ item.open_link_type ? 'target="_blank"' : '' }}>{% if item.uni_image %}<img class="uni-menu-cat-icon" src="{{ item.uni_image }}" alt="{{ item.title }}" />{% endif %}{{ item.title }}</a>
+				<ul class="uniu">
+					{% for children in item.children %}
+					<li class="uni unichild"><a href="{{ children.href }}" class="unia uni-menu-a">{{ children.title }}</a></li>
+					{% endfor %}
+				</ul>
+			</li>
+			
+			{% endif %}
+			{% if item.item_type == 8 %}
+			<li class="uni uni-mm-link">
+				<a class="unia" href="{{ item.href }}" {{ item.open_link_type ? 'target="_blank"' : '' }}>{% if item.uni_image %}<img class="uni-menu-cat-icon" src="{{ item.uni_image }}" alt="{{ item.title }}" />{% endif %}{{ item.title }}</a>
+				<ul class="uniu">
+					{% for children in item.children %}
+					{% if children.children %}
+					<li class="uni unichild">
+						<a href="{{ children.href }}" class="unia uni-menu-a">{{ children.name }}</a>
+						<ul class="uniu">
+							{% for child in children.children %}
+							<li class="uni unichild">
+								<a class="unia" href="{{ child.href }}">{{ child.name }}</a>
+							</li>
+							{% endfor %}
+						</ul>
+					</li>
+					{% else %}
+					<li class="uni unichild">
+						<a href="{{ children.href }}" class="unia uni-menu-a">{{ children.name }}</a>
+					</li>
+					{% endif %}
+					{% endfor %}
+				</ul>
+			</li>
+			{% endif %}
+			{% else %}
+			{% if item.item_type == 7 and item.custom_html %}
+			<li class="uni uni-mm-link position-unset">
+				<a class="unia" href="{{ item.href }}" {{ item.open_link_type ? 'target="_blank"' : '' }}>{% if item.uni_image %}<img class="uni-menu-cat-icon" src="{{ item.uni_image }}" alt="{{ item.title }}" />{% endif %}{{ item.title }}<span class="triangle-down"></span></a>
+				<div class="uni-mm-dropdown uni-mm-full-width uni-mm-html uni-mm-type-7">
+					{{ item.custom_html }}
+				</div>
+			</li>
+			{% elseif item.item_type == 9 and item.custom_map %}
+			<li class="uni uni-mm-link position-unset">
+				<a class="unia" href="{{ item.href }}" {{ item.open_link_type ? 'target="_blank"' : '' }}>{% if item.uni_image %}<img class="uni-menu-cat-icon" src="{{ item.uni_image }}" alt="{{ item.title }}" />{% endif %}{{ item.title }}<span class="sub-arrow"></span></a>
+				<div class="uni-mm-dropdown uni-mm-full-width uni-mm-map uni-mm-type-9">
+					<div class="col-sm-8">{{ item.custom_map }}</div> <div class="col-sm-4">{{ item.custom_contacts }}</div>
+				</div>
+			</li>					
+			{% else %}
+			<li class="uni uni-mm-link uni-mm-simple-link"><a class="unia" href="{{ item.href }}" {{ item.open_link_type ? 'target="_blank"' : '' }}>{% if item.uni_image %}<img class="uni-menu-cat-icon" src="{{ item.uni_image }}" alt="{{ item.title }}" />{% endif %}{{ item.title }}</a></li>
+			{% endif %}
+			{% endif %}
+			{% if item.description %}
+			{% endif %}
+			{% endfor %}
+		</ul>	
+	</nav>
+</div>
+<script>
+	(function($) {
+		$.SmartMenus.prototype.old_init = $.SmartMenus.prototype.init;
+		$.SmartMenus.prototype.init = function(refresh) {
+			if (!refresh && !this.$root.hasClass('sm-vertical')) {
+				var $originalItems = this.$root.children('li.uni'),
+				$moreSub = this.$root.clone().removeAttr('id').removeAttr('class').addClass('uniu dropdown-menu'),
+				$moreSubItems = $moreSub.children('li'),
+				$moreItem = $('<li class="uni flexMenu-viewMore"><a class="unia" href="#">{{ link_text }}<span class="triangle-down"></span></a></li>').append($moreSub).appendTo(this.$root),
+				self = this,
+				vieportW,
+				hiddenItems = [],
+				hiddenMoreItems = [];
+			}
+			this.old_init(refresh);			
+			if (!refresh && !this.$root.hasClass('sm-vertical')) {
+				function handleResize(force) {
+					var curWidth = $(window).width();
+					if (vieportW !== curWidth || force) {
+						// hide More item
+						$moreItem.detach();						
+						// show all main menu items
+						$.each(hiddenItems, function() {
+							$(this).appendTo(self.$root);
+						});
+						hiddenItems = [];						
+						// show all More sub items
+						$.each(hiddenMoreItems, function() {
+							$(this).prependTo($moreSub);
+						});
+						hiddenMoreItems = [];						
+						// if in desktop view and the last item is wrapped
+						if (!self.$root.hasClass('sm-vertical') && (/^(left|right)$/.test(self.$firstLink.parent().css('float')) || self.$firstLink.parent().css('display') == 'table-cell') && $originalItems.eq(-1)[0].offsetTop != $originalItems.eq(0)[0].offsetTop) {
+							// show More item
+							$moreItem.appendTo(self.$root);							
+							// while the More item is wrapped
+							while ($moreItem[0].offsetTop != $originalItems.eq(0)[0].offsetTop) {
+								hiddenItems.unshift($moreItem.prev('li').detach());
+							};							
+							// hide proper More sub items
+							$moreSubItems.slice(0, $moreSubItems.length - hiddenItems.length).each(function() {
+								hiddenMoreItems.unshift($(this).detach());
+							});
+						}						
+						// save new viewport width
+						vieportW = curWidth;
+					}
+				}
+				handleResize();
+				
+				$(window).bind({
+					'load.smartmenus': function() {
+						handleResize(true);
+					},
+					'resize.smartmenus': handleResize
+				});
+			}
+		};		
+		// Fix isCollapsible method
+		$.SmartMenus.prototype.isCollapsible = function() {
+			return this.$root.find('ul.uniu').eq(0).css('position') == 'static';
+		};
+		
+	})(jQuery);
+	
+	$(function() {
+		$('#main-menu').smartmenus({
+			mainMenuSubOffsetX: -1,
+			subMenusSubOffsetX: 10,
+			subMenusSubOffsetY: 0
+		});
+	});
+	
+	/* < ----------- > */
+	$('.flexMenu-viewMore .uni-mm-link a').click(function(){
+		if($(this).hasClass('uni-mm-dropdown-click')){$('.uni-mm-dropdown').removeClass('uni-mm-dropdown-click');
+		} else {$('.uni-mm-dropdown').removeClass('uni-mm-dropdown-click'); $(this).toggleClass('uni-mm-dropdown-click');}
+	});		
+	
+	$('#main-menu').on('click', '.flexMenu-viewMore .uni-mm-link', function(){
+		var elm = $('.uni-mm-dropdown', this);
+		$('#uni-old').empty();
+		if (elm.closest('.uni-mm-link')) {
+			$(elm).clone().appendTo(".uni-old");
+			$('.uni-old .uni-mm-dropdown').toggleClass('uni-mm-dropdown-click');
+		}
+	})	
+
+	$(document).mouseup(function (e){
+		var div = $('.uni-old .uni-mm-dropdown');
+		if (!div.is(e.target)
+		&& div.has(e.target).length === 0) {
+			div.removeClass('uni-mm-dropdown-click');
+			$('#uni-old').empty();
+		}
+	});	
+</script>
+{% endif %}
+{% endif %}

@@ -1,0 +1,208 @@
+{{ header }}
+<div id="account-account">
+  <div class="bg-container">
+    <div class="container">
+      <div class="navigation-content">
+        <ul class="breadcrumb">
+          {% for i,breadcrumb in breadcrumbs %} 
+          {% if (i+1<breadcrumbs|length) %}
+          <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+          {% else %}
+          <li>{{ breadcrumb.text }}</li>
+          {% endif %} 
+          {% endfor %}	
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="content-wrapper account-block">
+      {% if success %}
+      <div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> {{ success }}</div>
+      {% endif %}
+      <div class="row">
+        {{ column_left }}
+        {% if column_left and column_right %}
+        {% set class = 'col-sm-6' %}
+        {% elseif column_left or column_right %}
+        {% set class = 'col-sm-9' %}
+        {% else %}
+        {% set class = 'col-sm-12' %}
+        {% endif %}
+        <div id="content" class="{{ class }}">
+          {{ content_top }}         
+          <div class="account my-account account-section">
+            <div class="account-title">
+              <div class="accoun-title__icon icon-my__account"></div>
+              <div class="accoun-title__head">{{ text_my_account }}</div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <a href="{{ edit }}">
+                  <span>{{ text_edit }}</span>
+                  </a>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <a href="{{ password }}">
+                  <span>{{ text_password }}</span>
+                  </a>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <a href="{{ address }}">
+                  <span>{{ text_address }}</span>
+                  </a>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <a href="{{ wishlist }}">
+                  <span>{{ text_wishlist }}</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% if credit_cards %}          
+          <div class="account credit-card account-section">
+            <div class="account-title">
+              <div class="accoun-title__icon icon-credit__card"></div>
+              <div class="accoun-title__head">{{ text_credit_card }}</div>
+            </div>
+            <div class="row">
+              {% for credit_card in credit_cards %}            			
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <a href="{{ credit_card.href }}">
+                  <span>{{ credit_card.name }}</span>
+                  </a>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}          
+          <div class="account my-orders account-section">
+            <div class="account-title">
+              <div class="accoun-title__icon icon-my__orders"></div>
+              <div class="accoun-title__head">{{ text_my_orders }}</div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <a href="{{ order }}">
+                  <span>{{ text_order }}</span>
+                  </a>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <a href="{{ download }}">
+                  <span>{{ text_download }}</span>
+                  </a>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <a href="{{ reward }}">
+                  <span>{{ text_reward }}</span>
+                  </a>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <a href="{{ return }}">
+                  <span>{{ text_return }}</span>
+                  </a>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <a href="{{ transaction }}">
+                  <span>{{ text_transaction }}</span>
+                  </a>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <a href="{{ recurring }}">
+                  <span>{{ text_recurring }}</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="account my-affiliate account-section">
+            <div class="account-title">
+              <div class="accoun-title__icon icon-my__affiliate"></div>
+              <div class="accoun-title__head">{{ text_my_affiliate }}</div>
+            </div>
+            <div class="row">
+              {% if not tracking %}
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <a href="{{ affiliate }}">
+                  <span>{{ text_affiliate_add }}</span>
+                  </a>
+                </div>
+              </div>
+              {% else %}
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <a href="{{ affiliate }}">
+                  <span>{{ text_affiliate_edit }}</span>
+                  </a>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <a href="{{ tracking }}">
+                  <span>{{ text_tracking }}</span>
+                  </a>
+                </div>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="account my-newsletter account-section">
+            <div class="account-title">
+              <div class="accoun-title__icon icon-my__newsletter"></div>
+              <div class="accoun-title__head">{{ text_my_newsletter }}</div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <a href="{{ newsletter }}">
+                  <span>{{ text_newsletter }}</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="account my-logout account-section">
+            <div class="account-title">
+              <div class="accoun-title__icon icon-my__logout"></div>
+              <div class="accoun-title__head">{{ text_my_logout }}</div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <a href="{{ logout }}">
+                  <span>{{ text_logout }}</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          {{ content_bottom }}
+        </div>
+        {{ column_right }}
+      </div>
+    </div>
+  </div>
+</div>
+{{ footer }}

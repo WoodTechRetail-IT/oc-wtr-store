@@ -1,0 +1,42 @@
+<div class="ldev-tabs-wrap ldev-tabs-vertical-wrap">
+    {% if heading_status %} <h4>{{ name }}</h4> {% endif %}
+    {{ about }}
+    <!-- Nav tabs -->
+    <div class="ldev-row">
+        <div class="ldev-col-sm-4 ldev-col-xs-12">
+            <ul class="nav nav-tabs" role="tablist">
+                {% for k, question in list  %}
+                <li role="presentation" class="nav-item  {% if k==0 %} active {% endif %}">
+                    <a class="nav-link {% if k==0 %} active {% endif %}" href="#tab-{{ item_id~'-'~k }}" id="tab-{{ item_id~'-'~k }}-tab" aria-controls="tab-{{ item_id~'-'~k }}" role="tab" data-toggle="tab">
+                        <span class="accordion-item-icon">{{ question.marker }}</span>
+                        {{ question.title }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Tab panes -->
+        <div class="ldev-col-sm-8 ldev-col-xs-12">
+            <div class="tab-content">
+                {% for k, question in list  %}
+            <div role="tabpanel" class="tab-pane {% if k==0 %} active {% endif %}" id="tab-{{ item_id~'-'~k }}" aria-labelledby="tab-{{ item_id~'-'~k }}-tab">
+                {% if question.thumb %}
+                    {% if question.link %}
+                    <a href="{{ question.link }}"><img src="{{ question.thumb }}" alt="{{ question.title }}" title="{{ question.title }}"></a>
+                    {% else %}
+                    <img src="{{ question.thumb }}" alt="{{ question.title }}" title="{{ question.title }}">
+                    {% endif %}
+                {% endif %}
+                {{ question.text }}
+                {%  if question.module %}
+                    <div>{{ question.module }}</div>
+                {% endif %}
+            </div>
+       {% endfor %}
+
+    </div>
+        </div>
+    </div>
+
+</div>

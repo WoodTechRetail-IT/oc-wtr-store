@@ -1,0 +1,20 @@
+<div class="ocf-selected-card ocf-desktop">
+  <div class="ocf-selected-header">{{ text_choosed }}</div>
+  {% for filter in selecteds %}   
+  <div class="ocf-selected-filter">
+    <span class="ocf-selected-filter-name">{{ filter.name }}:</span>
+    
+    {% for value in filter.values %}   
+    <button type="button" onclick="location = '{{ value.href }}';" class="ocf-selected-discard" title="{{ value.name }}">
+      <span class="ocf-selected-value-name">{{ value.name }}</span> 
+      <i class="ocf-icon ocf-times-circle"></i>
+    </button>
+    {% endfor %}
+  </div>
+  {% endfor %}
+  
+  <div class="ocf-between">   
+    <button type="button" class="ocf-btn ocf-btn-link ocf-text-danger" onclick="location = '{{ link }}';">{{ button_cancel_all }}</button>
+    <button type="button" class="ocf-btn ocf-btn-link" data-ocf="specify">{{ button_specify }}</button>    
+  </div>
+</div>

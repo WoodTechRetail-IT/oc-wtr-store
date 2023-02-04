@@ -1,0 +1,250 @@
+{{ header }}
+<link href="catalog/view/javascript/jquery/swiper/css/swiper.min.css" type="text/css" rel="stylesheet" media="screen">
+<script src="catalog/view/javascript/jquery/swiper/js/swiper.jquery.js"></script>
+<div id="information-contact">
+  <div class="bg-container">
+    <div class="container">
+      <div class="navigation-content">
+        <ul class="breadcrumb">
+          {% for i,breadcrumb in breadcrumbs %} 
+          {% if (i+1<breadcrumbs|length) %}
+          <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+          {% else %}
+          <li>{{ breadcrumb.text }}</li>
+          {% endif %} 
+          {% endfor %}	
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="content-wrapper">
+      <div class="row">{{ column_left }}
+        {% if column_left and column_right %}
+        {% set class = 'col-sm-6' %}
+        {% elseif column_left or column_right %}
+        {% set class = 'col-sm-9' %}
+        {% else %}
+        {% set class = 'col-sm-12' %}
+        {% endif %}
+        <div id="content" class="{{ class }}">{{ content_top }}
+          <h1>{{ heading_title }}</h1>
+          <div class="contact-page">
+            <div class="contact-body">
+            
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">Slide 1</div>
+        <div class="swiper-slide">Slide 2</div>
+        <div class="swiper-slide">Slide 3</div>
+        <div class="swiper-slide">Slide 4</div>
+        <div class="swiper-slide">Slide 5</div>
+        <div class="swiper-slide">Slide 6</div>
+        <div class="swiper-slide">Slide 7</div>
+        <div class="swiper-slide">Slide 8</div>
+        <div class="swiper-slide">Slide 9</div>
+      </div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-pagination"></div>
+    </div>
+
+
+    <!-- Initialize Swiper -->
+    <script>
+      var swiper = new Swiper(".mySwiper", {
+        pagination: {
+          el: ".swiper-pagination",
+          type: "fraction",
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      });
+    </script>
+              {% if image %}
+              <div class="contacts-item__image">
+                <img src="{{ image }}" alt="{{ store }}" title="{{ store }}" class="img-responsive" />
+              </div>
+              {% endif %}
+              <div class="contact-form contact-middle">
+                <div class="contacts-item__caption">
+                  <div class="contacts-item contacts-item__address">
+                    <div class="contacts-item__title"><h3>{{ text_address }}</h3></div>
+                    <div class="contacts-item__row">
+                      <div class="contacts-item__icon"><i class="fi fi-rr-marker"></i></div>
+                      <div class="contacts-item__text">{{ address }}
+                        {% if geocode %}
+                        <div>
+                          <a href="https://maps.google.com/maps?q={{ geocode|url_encode }}&hl={{ geocode_hl }}&t=m&z=15" target="_blank" class="geo-link"><span class="address-geo">{{ button_map }}</span></a>
+                        </div>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                  {% if open %}
+                  <div class="contacts-item contacts-item__open">
+                    <div class="contacts-item__title"><h3>{{ text_open }}</h3></div>
+                    <div class="contacts-item__row">
+                      <div class="contacts-item__icon"><i class="fi fi-rr-clock"></i></div>
+                      <div class="contacts-item__text">{{ open }}</div>
+                    </div>
+                  </div>
+                  {% endif %}
+                  <div class="contacts-item contacts-item__phone">
+                    <div class="contacts-item__title"><h3>{{ text_telephone }}</h3></div>
+                    <div class="contacts-item__row">
+                      <div class="contacts-item__icon"><i class="fi fi-rr-phone-call"></i></div>
+                      <div class="contacts-item__text"><a href="tel:{{ contact_phone }}" class="contacts-item__text contacts-item-link">{{ telephone }}</a></div>
+                    </div>
+                  </div>
+                  {% if fax %}
+                  <div class="contacts-item contacts-item-fax">
+                    <div class="contacts-item__title"><h3>{{ text_fax }}</h3></div>
+                    <div class="contacts-item__row">
+                      <div class="contacts-item__icon"><i class="fi fi-rr-print"></i></div>
+                      <div class="contacts-item__text contacts-item-link">{{ fax }}</div>
+                    </div>
+                  </div>
+                  {% endif %}
+                  <div class="contacts-item contacts-item__email">
+                    <div class="contacts-item__title"><h3>{{ text_email }}</h3></div>
+                    <div class="contacts-item__row">
+                      <div class="contacts-item__icon"><i class="fi fi-rr-envelope"></i></div>
+                      <div class="contacts-item__text">
+                        <a href="mailto:{{ contact_email }}">{{ contact_email }}</a>
+                      </div>
+                    </div>
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#contactModal"><i class="fi fi-rr-pencil mr-2"></i>{{ text_email }}</button>
+                  </div>
+                  {% if comment %}
+                  <div class="alert alert-info contacts-item__comment">
+                    <div class="contacts-item__text">{{ comment }}</div>
+                  </div>
+                  {% endif %}
+                </div>
+                <div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-md" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h3 class="modal-title" id="contactModalLabel">{{ text_email }}</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="contact-form__modal">
+                          <form action="{{ action }}" method="post" enctype="multipart/form-data">
+                            <div class="contact-form__action">
+                              <div class="form-group required">
+                                <label class="control-label" for="input-name">{{ entry_name }}</label>
+                                <div class="form-input">
+                                  <input type="text" name="name" value="{{ name }}" id="input-name" class="form-control" required />
+                                  {% if error_name %}
+                                  <div class="text-danger">{{ error_name }}</div>
+                                  {% endif %}
+                                </div>
+                              </div>
+                              <div class="form-group required">
+                                <label class="control-label" for="input-email">{{ entry_email }}</label>
+                                <div class="form-input">
+                                  <input type="email" name="email" value="{{ email }}" id="input-email" class="form-control" required />
+                                  {% if error_email %}
+                                  <div class="text-danger">{{ error_email }}</div>
+                                  {% endif %}
+                                </div>
+                              </div>
+                              <div class="form-group required">
+                                <label class="control-label" for="input-phone">{{ entry_phone }}</label>
+                                <div class="form-input">
+                                  <input type="text" name="phone" value="{{ phone }}" id="input-phone" class="form-control" required />
+                                  {% if error_phone %}
+                                  <div class="text-danger">{{ error_phone }}</div>
+                                  {% endif %}
+                                </div>
+                              </div>
+                              <div class="form-group required">
+                                <label class="control-label" for="input-enquiry">{{ entry_enquiry }}</label>
+                                <div class="form-input">
+                                  <textarea name="enquiry" rows="10" id="input-enquiry" class="form-control" required>{{ enquiry }}</textarea>
+                                  {% if error_enquiry %}
+                                  <div class="text-danger">{{ error_enquiry }}</div>
+                                  {% endif %}
+                                </div>
+                              </div>
+                              {{ captcha }}
+                            </div>
+                            <div class="buttons clearfix">
+                              <div class="pull-right">
+                                <input class="btn btn-primary" type="submit" value="{{ button_submit }}" />
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% if locations %}
+            <div class="our-store" id="locations">
+              {% for location in locations %}
+              <div class="store-list">
+                {% if location.image %}
+                <div class="store-image">				  
+                  <img src="{{ location.image }}" alt="{{ location.name }}" title="{{ location.name }}" class="img-responsive" />                 
+                </div>
+                {% endif %}
+                <div class="store-form">
+                  <div class="store-caption">
+                    <div class="content-title">{{ location.name }}</div>
+                    {% if location.comment %}
+                    <div class="store-comment">
+                      <span>{{ location.comment }}</span>
+                    </div>
+                    {% endif %}
+                    <div class="store-address">
+                      <span class="store-text">{{ location.address }}</span>
+                    </div>
+                    {% if location.open %}
+                    <div class="store-hours form-group">
+                      <span class="store-text">{{ location.open }}</span>
+                    </div>
+                    {% endif %}
+                    {% if location.geocode %}
+                    <a href="https://maps.google.com/maps?q={{ location.geocode|url_encode }}&hl={{ geocode_hl }}&t=m&z=15" target="_blank" class="btn btn-primary geo-link"><i class="fi fi-rr-map-marker mr-2"></i>{{ button_map }}</a>
+                    {% endif %}
+                    <hr>
+                    <div class="store-phone form-group">
+                      <div class="store-title-icon">
+                        <i class="fi fi-rr-phone-call"></i>
+                        <h4>{{ text_telephone }}</h4>
+                      </div>
+                      <span>{{ location.telephone }}</span>
+                    </div>
+                    {% if location.fax %}
+                    <div class="store-fax form-group">
+                      <div class="store-title-icon">
+                        <i class="fi fi-rr-print"></i>
+                        <h4>{{ text_fax }}</h4>
+                      </div>
+                      <span>{{ location.fax }}</span>
+                    </div>
+                    {% endif %}               
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+          {{ content_bottom }}
+        </div>
+        {{ column_right }}
+      </div>
+    </div>
+  </div>
+</div>
+{{ footer }}

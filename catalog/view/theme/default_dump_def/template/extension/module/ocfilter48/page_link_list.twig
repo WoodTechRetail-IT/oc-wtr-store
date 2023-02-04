@@ -1,0 +1,14 @@
+<div class="ocf-module-page">
+  <div class="ocf-module-page-header">{{ page_module_link_title }}</div>
+  <ul class="ocf-module-page-list ocf-scroll-y">
+    {% for page in seo_pages %}   
+    <li>
+      {% if page.selected %}
+      <a href="{{ page.href }}" class="ocf-page-selected ocf-between">{{ page.name }} <i class="ocf-icon ocf-icon-16 ocf-times-circle"></i></a>
+      {% else %}
+      <a href="{{ page.href }}">{{ page.name }}</a>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul> 
+</div>

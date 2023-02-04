@@ -1,0 +1,64 @@
+{{ header }}
+<div id="information-information">
+{{ description }}
+  <div class="container">
+    <div class="content-wrapper">
+      <div class="row">
+        {{ column_left }}
+        {% if column_left and column_right %}
+        {% set class = 'col-sm-6' %}
+        {% elseif column_left or column_right %}
+        {% set class = 'col-sm-9' %}
+        {% else %}
+        {% set class = 'col-sm-12' %}
+        {% endif %}
+        <div id="content" class="{{ class }}">
+          {{ content_top }}
+          {{ content_bottom }}
+        </div>
+        {{ column_right }}
+      </div>
+    </div>
+  </div>
+</div>
+{{ footer }}
+
+<script>
+$(document).ready(function() {
+  $("#forma-inviz").submit(function() {
+    var th = $(this);
+    $.ajax({
+      type: "POST",
+      url: "mail.php",
+      data: th.serialize()
+    }).done(function() {
+      alert("Благодарим за заявку!");
+      setTimeout(function() {
+        // Done Functions
+        th.trigger("reset");
+      }, 1000);
+    });
+    return false;
+  });
+});
+</script>
+
+<script>
+$(document).ready(function() {
+  $("#form-zamerfreeinviz").submit(function() {
+    var th = $(this);
+    $.ajax({
+      type: "POST",
+      url: "mail.php",
+      data: th.serialize()
+    }).done(function() {
+      alert("Благодарим за заявку!");
+      setTimeout(function() {
+        // Done Functions
+        th.trigger("reset");
+      }, 1000);
+    });
+    return false;
+  });
+});
+</script>

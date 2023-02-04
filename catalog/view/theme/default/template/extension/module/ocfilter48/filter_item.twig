@@ -1,0 +1,71 @@
+{% set dropdown = filter.dropdown %}
+
+{% if layout == 'horizontal' %}
+{% set dropdown = true %}
+{% endif %}
+
+{% set class = 'ocf-filter' %}
+
+{% if dropdown %}
+{% set class = class ~ ' ocf-dropdown' %}
+{% endif %}
+
+{% if filter.type == 'slide' or filter.type == 'slide_dual' %}
+{% set class = class ~ ' ocf-slider' %}
+
+{% if slider_input %}
+{% set class = class ~ ' ocf-has-input' %}
+{% endif %}
+{% endif %}
+
+{% if filter.selected %}
+{% set class = class ~ ' ocf-active' %}
+{% endif %}
+
+<div class="{{ class }}" id="ocf-filter-{{ filter.id }}">
+  <div class="ocf-filter-body">
+    <div class="ocf-filter-header" data-ocf="expand">  
+      <i class="ocf-mobile ocf-icon ocf-arrow-long ocf-arrow-left"></i> 
+      
+      {% if filter.type == 'slide' or filter.type == 'slide_dual' %}
+      <span class="ocf-active-label">
+        {{ filter.prefix }}
+        <span id="ocf-text-min-{{ filter.id }}">{{ filter.min_request }}</span>
+        {% if filter.type == 'slide_dual' %}
+        - <span id="ocf-text-max-{{ filter.id }}">{{ filter.max_request }}</span>
+        {% endif %}
+        {{ filter.suffix }}
+      </span>    
+      {% else %}
+      <span class="ocf-active-label">{{ filter.text_selected }}</span>    
+      {% endif %}                      
+      
+      <span class="ocf-filter-name">{{ filter.name }}</span>     
+      
+      <span class="ocf-filter-header-append">
+        {% if filter.description %}
+        <span class="ocf-desktop ocf-filter-description" data-ocf="popover" data-content="{{ filter.description }}">
+          <i class="ocf-icon ocf-icon-16 ocf-help-circle"></i>
+        </span>
+        {% endif %}     
+        
+        <span class="ocf-filter-discard ocf-icon ocf-icon-16 ocf-minus-circle" data-ocf-discard="{{ filter.filter_key }}"></span> 
+        
+        <i class="ocf-mobile ocf-icon ocf-angle ocf-angle-right"></i>        
+        {% if dropdown %} 
+        <i class="ocf-desktop ocf-icon ocf-angle ocf-angle-down"></i>
+        {% endif %}   
+      </span>
+    </div><!-- /.ocf-filter-header -->
+    
+    {% if filter.type == 'slide' or filter.type == 'slide_dual' %}
+    
+    {% include('default/template/extension/module/ocfilter48/filter_slider_item.twig') %}
+    
+    {% else %}
+    
+    {% include('default/template/extension/module/ocfilter48/value_list.twig') %}
+    
+    {% endif %}
+  </div>    
+</div>

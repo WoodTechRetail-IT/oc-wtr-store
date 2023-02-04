@@ -1,0 +1,185 @@
+{{ header }}
+<div id="information-contact">
+  <div class="bg-container">
+    <div class="container">
+      <div class="navigation-content">
+        <ul class="breadcrumb">
+          {% for i,breadcrumb in breadcrumbs %} 
+          {% if (i+1<breadcrumbs|length) %}
+          <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+          {% else %}
+          <li>{{ breadcrumb.text }}</li>
+          {% endif %} 
+          {% endfor %}	
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="content-wrapper">
+      <div class="row">{{ column_left }}
+        {% if column_left and column_right %}
+        {% set class = 'col-sm-6' %}
+        {% elseif column_left or column_right %}
+        {% set class = 'col-sm-9' %}
+        {% else %}
+        {% set class = 'col-sm-12' %}
+        {% endif %}
+        <div id="content" class="{{ class }}">{{ content_top }}
+          <h1>{{ heading_title }}</h1>
+          <div class="contact-page">
+            <div class="row">
+              <div class="contact-form contact-top col-12 col-sm-5 col-md-4">
+                <div class="contacts-item__caption">
+                  {% if image %}
+                  <div class="contacts-item__image">
+                    <img src="{{ image }}" alt="{{ store }}" title="{{ store }}" class="img-responsive" />
+                  </div>
+                  {% endif %}				
+                  <div class="contacts-item__row contacts-item__address" title="{{ text_address }}">
+                    <div class="contacts-item__icon"><i class="fi fi-rr-marker"></i></div>
+                    <div class="contacts-item__text">{{ address }}
+                      {% if geocode %}
+                      <a href="https://maps.google.com/maps?q={{ geocode|url_encode }}&hl={{ geocode_hl }}&t=m&z=15" target="_blank" class="geo-link"><span class="address-geo">{{ button_map }}</span></a>
+                      {% endif %}
+                    </div>
+                  </div>
+                  {% if open %}
+                  <div class="contacts-item__row contacts-item__open" title="{{ text_open }}">
+                    <div class="contacts-item__icon"><i class="fi fi-rr-clock"></i></div>
+                    <div class="contacts-item__text">{{ open }}</div>
+                  </div>
+                  {% endif %}
+                  <div class="contacts-item__row contacts-item__phone" title="{{ text_telephone }}">
+                    <div class="contacts-item__icon"><i class="fi fi-rr-phone-call"></i></div>
+                    <div class="contacts-item__text"><a href="tel:{{ contact_phone }}" class="contacts-item__text contacts-item-link">{{ telephone }}</a></div>
+                  </div>
+                  {% if fax %}
+                  <div class="contacts-item__row contacts-item-fax" title="{{ text_fax }}">
+                    <div class="contacts-item__icon"><i class="fi fi-rr-print"></i></div>
+                    <div class="contacts-item__text contacts-item-link">{{ fax }}</div>
+                  </div>
+                  {% endif %}
+                  <div class="contacts-item__row contacts-item__email" title="{{ text_email }}">
+                    <div class="contacts-item__icon"><i class="fi fi-rr-envelope"></i></div>
+                    <div class="contacts-item__text"><a href="mailto:{{ contact_email }}">{{ contact_email }}</a></div>
+                  </div>
+                </div>
+              </div>
+              <div class="contact-form contact-middle col-12 col-sm-7 col-md-8">
+                {% if comment %}
+                <div class="alert alert-info contacts-item__comment">
+                  <div class="contacts-item__text">{{ comment }}</div>
+                </div>
+                {% endif %}
+                <div class="contact-form">
+                  <div class="div-quest">Остались вопросы?</div><div class="text-form-qw">Свяжитесь с нами и мы ответим на них.</div><div class="phone-form-qw">+7 (499) 348-11-16</div>
+        
+       
+            	<form id="forma-quest" class="forma-quest">
+
+                <!-- Hidden Required Fields -->
+                <input type="hidden" name="form_subject" value="Форма - Страница обратной связи (Polmetra.ru)">
+                <input type="hidden" name="aurl" value="{{ aurl }}">
+                <input type="hidden" name="project_name" value="Polmetra.ru">
+                <input type="hidden" name="form_subject" value="Страница обратной связи (Polmetra.ru)">
+                <!-- END Hidden Required Fields -->
+                <div class="forms-inputheadcall">
+                    <input type="text" name="name" class="chcksp" placeholder="Ваше имя..." maxlength="25">
+                    <input type="text" name="text" class="chcksp" placeholder="Ваше имя..." maxlength="25">
+                    <input type="text" name="tname" placeholder="Ваше имя..." maxlength="25">
+                </div>
+            		<!-- END Hidden Required Fields -->
+            		<div class="inputs-forma">
+            		<input class="phone_masckcom" type="text" name="Phone" placeholder="Ваш телефон..." required><br>
+            		</div>
+            		<button class="style-form-button">Отправить</button>
+            
+            	</form>
+            	<script>
+                    $(document).ready(function() {
+                    	$("#forma-quest").submit(function() {
+                    		var th = $(this);
+                    		$.ajax({
+                    			type: "POST",
+                    			url: "mail.php",
+                    			data: th.serialize()
+                    		}).done(function() {
+                    			alert("Благодарим за заявку!");
+                    			setTimeout(function() {
+                    				// Done Functions
+                    				th.trigger("reset");
+                    			}, 1000);
+                    		});
+                    		return false;
+                    	});
+                    });
+                    </script>
+                </div>
+              </div>
+            </div>
+            {% if locations %}
+            <div class="content-title">{{ text_store }}</div>
+            <div class="our-store" id="locations">
+              {% for location in locations %}
+              <div class="store-list">
+                <div class="row">
+                  <div class="col-sm-4 pb-15">
+                    {% if location.image %}
+                    <div class="store-image">				  
+                      <img src="{{ location.image }}" alt="{{ location.name }}" title="{{ location.name }}" class="img-responsive" />                 
+                    </div>
+                    {% endif %}
+                    {% if location.comment %}
+                    <div class="store-comment">
+                      <span>{{ location.comment }}</span>
+                    </div>
+                    {% endif %}
+                  </div>
+                  <div class="col-sm-8">
+                    <div class="store-caption">
+                      <div class="content-title">{{ location.name }}</div>
+                      <div class="store-address">
+                        <span class="store-text">{{ location.address }}</span>
+                      </div>
+                      {% if location.open %}
+                      <div class="store-hours">
+                        <span class="store-text">{{ location.open }}</span>
+                      </div>
+                      {% endif %}
+                      {% if location.geocode %}
+                      <a href="https://maps.google.com/maps?q={{ location.geocode|url_encode }}&hl={{ geocode_hl }}&t=m&z=15" target="_blank" class="geo-link"><span class="location-geo">{{ button_map }}</span></a>
+                      {% endif %}
+                      <hr>
+                      <div class="store-phone form-group">
+                        <div class="store-title-icon">
+                          <i class="fi fi-rr-phone-call"></i>
+                          <h4>{{ text_telephone }}</h4>
+                        </div>
+                        <span>{{ location.telephone }}</span>
+                      </div>
+                      {% if location.fax %}
+                      <div class="store-fax form-group">
+                        <div class="store-title-icon">
+                          <i class="fi fi-rr-print"></i>
+                          <h4>{{ text_fax }}</h4>
+                        </div>
+                        <span>{{ location.fax }}</span>
+                      </div>
+                      {% endif %}               
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+          {{ content_bottom }}
+        </div>
+        {{ column_right }}
+      </div>
+    </div>
+  </div>
+</div>
+{{ footer }}

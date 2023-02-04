@@ -1,0 +1,54 @@
+<div id="mini-cart">
+  <div class="cart-panel">
+    {% if products or vouchers %}
+	<div class="mini has-scrollbar has-top__menu">
+	  <div class="mini-content">	    
+		<ul class="mini-list">		  
+		  {% for product in products %}
+		  <li>
+		    <i class="delete" onclick="cart.remove('{{ product.cart_id }}');" title="{{ button_remove }}" class="fa fa-times-circle"></i>
+			{% if product.thumb %}
+			<div class="minicart-img">
+			  <img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive" />
+			</div>
+			{% endif %}
+			<div class="minicart-info">
+			  {% if product.sku %}
+			  <p class="minicart-article">{{ product.sku }}</p>
+			  {% endif %}
+			  <h4 class="minicart-name">{{ product.name }}</h4>
+			  {% if product.option %}
+			  {% for option in product.option %}
+			  - <small>{{ option.name }} {{ option.value }}</small>
+			  {% endfor %}			
+			  {% endif %}
+			  {% if product.recurring %}
+			  - <small>{{ text_recurring }} {{ product.recurring }}</small>
+			  {% endif %}
+			</div>
+			<div class="minicart-price">
+			  <p>{{ product.total }}</p>
+			  <div class="minicart-quantity">{{ product.quantity }} шт</div>
+			</div>
+		  </li>
+          {% endfor %}		  
+		</ul>		
+	  </div>	
+	</div>
+	<div class="minicart-total">
+	  <div class="minicart-totals">
+	    {% for total in totals %}
+		<div class="minicart-totals__container">
+	      <div class="minicart-summ minicart-title">{{ total.title }}</div>
+          <div class="minicart-summ minicart-text">{{ total.text }}</div>
+		</div>
+        {% endfor %}
+	  </div>
+	  <a href="{{ checkout }}" class="btn btn-primary minicart-button">{{ text_checkout }}</a>
+    </div>
+	{% else %}
+    <div class="minicart-empty empty-message">{{ text_empty }}</div>
+	{% endif %}
+	<a href="index.php?route=checkout/cartprint" target="_blank" class="btn btn-primary btn-block"><i class="fa fa-print"></i> {{ text_print }}</a>
+  </div>
+</div>

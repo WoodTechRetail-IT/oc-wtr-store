@@ -1,0 +1,38 @@
+<div class="text-title">
+  <div class="content-title">{{ heading_title }}</div>
+</div>
+<div class="row catalog-section__product">
+  {% for article in articles %}
+  <div class="product-layout col-lg-3 col-md-4 col-sm-6 col-12">
+    <div class="product-item__container">
+      <div class="product-item">
+        <div class="product-blog__image">
+          <a href="{{ article.href }}" class="product-image"><img src="{{ article.thumb }}" alt="{{ article.name }}" title="{{ article.name }}" class="img-responsive" /></a>
+        </div>
+        <div class="product-item__title blog-product__title">
+          <div class="product-item__title blog-product__title">
+            <a href="{{ article.href }}"><strong>{{ article.name }}</strong></a>
+          </div>
+          <p>{{ article.description }}</p>
+          {% if article.rating %}
+          <div class="rating product-blog__rating">
+            {% for i in 5 %}
+            {% if article.rating < i %}
+            <span class="star-empty"><i class="fa fa-star"></i></span>
+            {% else %}
+            <span class="star"><i class="fa fa-star"></i></span>
+            {% endif %}
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+        <div class="button-group button-blog__group">
+          <button type="button" class="btn btn-primary btn-sm" onclick="location.href = ('{{ article.href }}');"><i class="fa fa-share"></i> <span class="hidden-xs hidden-sm hidden-md">{{ button_more }}</span></button>
+          <button type="button" class="btn btn-default btn-sm" data-toggle="tooltip" title="{{ article.date_added }}"><i class="fa fa-clock-o"></i></button>
+          <button type="button" class="btn btn-default btn-sm" data-toggle="tooltip" title="{{ text_views }} {{ article.viewed }}"><i class="fa fa-eye"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>

@@ -1,0 +1,115 @@
+{# microdatapro 7.7  #}
+{% if breadcrumbs %}
+{% if syntax  ==  "ld" or syntax  ==  "all" %}
+<!--microdatapro {{ version }} breadcrumb start [json-ld] -->
+<script type="application/ld+json">
+{
+"@context": "http://schema.org",
+"@type": "BreadcrumbList",
+"itemListElement": [{% for key, breadcrumb in breadcrumbs %}{
+"@type": "ListItem",
+"position": {{ key }},
+"item": {
+"@id": "{{ breadcrumb.href }}",
+"name": "{{ breadcrumb.text }}"
+}
+}{% if key != count_breadcrumbs %},{% endif %}{% endfor %}]
+}
+</script>
+<!--microdatapro {{ version }} breadcrumb end [json-ld] -->
+{% endif %}
+{% if syntax  ==  "md" or syntax  ==  "all" %}
+<!--microdatapro {{ version }} breadcrumb start [microdata] -->
+<span itemscope itemtype="http://schema.org/BreadcrumbList">
+{% for key, breadcrumb in breadcrumbs %}
+<span itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+<link itemprop="item" href="{{ breadcrumb.href }}">
+<meta itemprop="name" content="{{ breadcrumb.text }}" />
+<meta itemprop="position" content="{{ key }}" />
+</span>
+{% endfor %}
+</span>
+<!--microdatapro {{ version }} breadcrumb end [microdata] -->
+{% endif %}
+{% endif %}
+{% if syntax  ==  "ld" or syntax  ==  "all" %}
+<!--microdatapro {{ version }} information start [json-ld] -->
+<script type="application/ld+json">
+{
+"@context": "http://schema.org",
+"@type": "NewsArticle",
+"mainEntityOfPage":{
+"@type":"WebPage",
+"@id": "{{ url }}"
+},
+"headline": "{{ name }}",
+"image": {
+"@type": "ImageObject",
+"url": "{{ logo }}",
+"width": "{{ image_width }}",
+"height": "{{ image_height }}"
+},
+"datePublished": "{{ date }}",
+"dateModified": "{{ date }}",
+"author": {
+"@type": "Person",
+"name": "{{ author }}",
+"url": "{{ author_url }}"
+},
+"publisher": {
+"@type": "Organization",
+"image": "{{ logo }}",
+"name": "{{ author }}",
+"logo": {
+"@type": "ImageObject",
+"url": "{{ logo }}"
+}
+},
+"description":"{{ description }}"
+}
+</script>
+<!--microdatapro {{ version }} information end [json-ld] -->
+{% endif %}
+{% if syntax  ==  "md" or syntax  ==  "all" %}
+<!--microdatapro {{ version }} information start [microdata] -->
+<span itemscope itemtype="http://schema.org/NewsArticle">
+<meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="{{ url }}"/>
+<meta itemprop="headline" content="{{ name }}" />
+<span itemprop="author" itemscope itemtype="https://schema.org/Person">
+<meta itemprop="name" content="{{ author }}" />
+<link itemprop="url" href="{{ author_url }}" />
+</span>
+<meta itemprop="description" content="{{ description }}">
+<span itemprop="image" itemscope itemtype="https://schema.org/ImageObject">
+<link itemprop="contentUrl" href="{{ logo }}" />
+<link itemprop="url" href="{{ logo }}">
+<meta itemprop="width" content="{{ image_width }}">
+<meta itemprop="height" content="{{ image_height }}">
+</span>
+{% if organization %}
+<span itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+<meta itemprop="image" content="{{ logo }}" />
+{% for address in organization %}
+<span itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+<meta itemprop="addressLocality" content="{{ address.addressLocality }}" />
+<meta itemprop="postalCode" content="{{ address.postalCode }}" />
+<meta itemprop="streetAddress" content="{{ address.streetAddress }}" />
+</span>
+{% endfor %}
+{% if phones %}
+{% for phone in phones %}
+<meta itemprop="telephone" content="{{ phone }}" />
+{% endfor %}
+{% endif %}
+<span itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+<link itemprop="url" href="{{ logo }}">
+<link itemprop="contentUrl" href="{{ logo }}" />
+</span>
+<meta itemprop="name" content="{{ author }}" />
+</span>
+{% endif %}
+<meta itemprop="datePublished" content="{{ date }}" />
+<meta itemprop="dateModified" content="{{ date }}" />
+</span>
+<!--microdatapro {{ version }} information end [microdata] -->
+{% endif %}

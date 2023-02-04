@@ -1,0 +1,35 @@
+<div class="ldev-menu ldev-menu-vertical">
+    {% if heading_status %} <h4>{{ name }}</h4> {% endif %}
+    {{ about }}
+
+    <ul class="list-group nav nav-pills nav-stacked">
+        {% for k, question in list  %}
+
+
+             <li {% if (question.text | length > 15)  or (question.thumb) %}  class="dropdown" {% endif %}>
+                <a id="ldev-m-item-{{ item_id~'-'~k }}" href="{{ question.link }}" class="list-group-item list-group-item-{{ menu_style }} {% if (question.text | length > 15)  or (question.thumb) %} dropdown-toggle {% endif %}" {% if (question.text | length > 15)  or (question.thumb) %} data-toggle="dropdown"  {% endif %}>
+                {% if question.marker %}
+                <span class="accordion-item-icon">{{ question.marker }}</span>
+                {% endif %}
+                {{  question.title }}
+                {% if (question.text | length > 15)  or (question.thumb) %}
+                <span class="caret"></span>
+                {% endif %}
+                </a>
+
+                {% if (question.text | length > 15)  or (question.thumb) %}
+                    <div class="dropdown-menu" aria-labelledby="ldev-m-item-{{ item_id~'-'~k }}">
+                         {% if question.thumb %}
+                        <img src="{{ question.thumb }}" alt="{{ question.title }}" title="{{ question.title }}">
+                        {% endif %}
+                        {{ question.text }}
+                    </div>
+                {% endif %}
+            </li>
+
+
+        {% endfor %}
+    </ul>
+
+</div>
+

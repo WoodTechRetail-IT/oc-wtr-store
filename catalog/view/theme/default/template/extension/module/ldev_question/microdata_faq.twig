@@ -1,0 +1,19 @@
+<!--Microdata FAQ-->
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+      {% for k,question in list %}
+       {
+        "@type": "Question",
+        "name": "{{ question.marker_microdata }} {{ question.title_microdata }}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "{{ question.text_microdata }}"
+          }
+       }{% if k < list | length-1 %} , {% endif %}
+      {% endfor %}
+     ]
+    }
+</script>

@@ -1,0 +1,162 @@
+{{ header }}
+<div id="checkout-cart">
+  <div class="bg-container">
+    <div class="container">
+      <div class="navigation-content">
+        <ul class="breadcrumb">
+          {% for i,breadcrumb in breadcrumbs %} 
+          {% if (i+1<breadcrumbs|length) %}
+          <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+          {% else %}
+          <li>{{ breadcrumb.text }}</li>
+          {% endif %} 
+          {% endfor %}	
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="content-wrapper">
+      {% if attention %}
+      <div class="alert alert-info"><i class="fa fa-info-circle"></i> {{ attention }}
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
+      {% endif %}
+      {% if success %}
+      <div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> {{ success }}
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
+      {% endif %}
+      {% if error_warning %}
+      <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
+      {% endif %}
+      <div class="row">
+        {{ column_left }}
+        {% if column_left and column_right %}
+        {% set class = 'col-sm-6' %}
+        {% elseif column_left or column_right %}
+        {% set class = 'col-sm-9' %}
+        {% else %}
+        {% set class = 'col-sm-12' %}
+        {% endif %}
+        <div id="content" class="{{ class }}">
+          {{ content_top }}
+          <h1>{{ heading_title }}
+            {% if weight %}
+            &nbsp;({{ weight }})
+            {% endif %} 
+          </h1>
+          <form action="{{ action }}" method="post" enctype="multipart/form-data">
+            <div class="table-responsive">
+              <table class="table checkout-table">
+                <thead>
+                  <tr>
+                    <td></td>
+                    <td>{{ column_image }}</td>
+                    <td>{{ column_name }}</td>
+                    <td class="hidden-sm">{{ column_price }}</td>
+                    <td>{{ column_quantity }}</td>
+                    <td>{{ column_total }}</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for product in products %}
+                  <tr>
+                    <td>
+                      <button type="button" class="remove-button" onclick="cart.remove('{{ product.cart_id }}');" title="{{ button_remove }}"></button>
+                    </td>
+                    <td>
+                      {% if product.thumb %}
+                      <a href="{{ product.href }}" class="checkout-image">
+                      <img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive" />    
+                      </a>
+                      {% endif %}
+                      {% if not product.stock %}
+                      <span class="checkout-stock">***</span>
+                      {% endif %}	
+                    </td>
+                    <td>
+                      <div class="checkout-info">
+                        {% if product.model %}
+                        <p class="checkout-model"><span class="checkout-model__text">{{ column_model }}</span> {{ product.model }}</p>
+                        {% endif %}
+                        <h4 class="checkout-name">{{ product.name }}</h4>
+                        {% if product.option %}
+                        {% for option in product.option %}
+                        <div><small>{{ option.name }}: {{ option.value }}</small></div>
+                        {% endfor %}
+                        {% endif %}
+                        {% if product.reward %}
+                        <div><small>{{ product.reward }}</small></div>
+                        {% endif %}
+                        {% if product.recurring %}
+                        <span class="label label-info">{{ text_recurring_item }}</span> <small>{{ product.recurring }}</small> {% endif %}
+                      </div>
+                    </td>
+                    <td class="hidden-sm"><span class="price-qty">{{ product.price }}</span></td>
+                    <td>
+                      <div class="cart-count">
+                        <button type="submit" class="reload" title="{{ button_update }}"><i class="fi fi-rr-refresh"></i></button>
+                        <input type="text" name="quantity[{{ product.cart_id }}]" value="{{ product.quantity }}" size="1" />
+                      </div>
+                    </td>
+                    <td class="white-space-nowrap checkout-cart__total">{{ product.total }}</td>
+                  </tr>
+                  {% endfor %}
+                  {% for voucher in vouchers %}
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td class="text-left">{{ voucher.description }}</td>
+                    <td class="text-center">{{ voucher.amount }}</td>
+                    <td class="text-left">
+                      <div class="input-group btn-block" style="max-width: 200px;">
+                        <input type="text" name="" value="1" size="1" disabled="disabled" class="form-control" />
+                        <span class="input-group-btn">
+                        <button type="button" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger" onclick="voucher.remove('{{ voucher.key }}');"><i class="fa fa-times-circle"></i></button>
+                        </span>
+                      </div>
+                    </td>
+                    <td class="text-center">{{ voucher.amount }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </form>
+          {% if modules %}
+          <h2>{{ text_next }}</h2>
+          <div class="alert alert-info">
+            <p>{{ text_next_choice }}</p>
+          </div>
+          <div class="panel-group" id="accordion"> {% for module in modules %}
+            {{ module }}
+            {% endfor %} 
+          </div>
+          {% endif %} <br />
+          <div class="row">
+            <div class="col-sm-6 offset-sm-6">
+              <table class="table table-bordered">
+                {% for total in totals %}
+                <tr>
+                  <td class="text-right"><strong>{{ total.title }}:</strong></td>
+                  <td class="text-right white-space-nowrap">{{ total.text }}</td>
+                </tr>
+                {% endfor %}
+              </table>
+            </div>
+          </div>
+          <div class="buttons clearfix checkout-btns text-right">
+            <a href="{{ continue }}" class="btn btn-default">{{ button_shopping }}</a>
+            <a href="{{ checkout }}" class="btn btn-primary">{{ button_checkout }}</a>
+          </div>
+          {{ content_bottom }}
+        </div>
+        {{ column_right }}
+      </div>
+    </div>
+  </div>
+</div>
+{{ footer }}

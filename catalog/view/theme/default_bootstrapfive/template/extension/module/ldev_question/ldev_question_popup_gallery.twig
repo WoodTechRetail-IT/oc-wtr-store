@@ -1,0 +1,44 @@
+{% if heading_status %} <h4>{{ name }}</h4> {% endif %}
+<div class="ldev-question-popup-wrap popup-wrap-{{ item_id }}">
+    {% for k, question in list  %}
+
+        {% if question.thumb %}
+            <div class="ldev-question-popup-gallery-item">
+                <a href="{{ question.popup }}" class="open-popup-link" title="<?=$question['title']?>">
+                    <img src="{{ question.thumb }}" alt="{{ question.title }}" title="{{ question.title }}">
+                </a>
+                <?php } ?>
+            </div>
+        {% endif %}
+
+    {% endfor %}
+</div>
+
+
+<script>
+    $(function () {
+        $('.ldev-question-popup-wrap.popup-wrap-{{ item_id }} .open-popup-link').magnificPopup({
+            type: 'image',
+            gallery:{
+                enabled:true
+            },
+            mainClass: 'mfp-with-zoom-ldev mfp-img-mobile',
+            image: {
+                verticalFit: true
+            },
+            zoom: {
+                enabled: true,
+                duration: 300,
+                opener: function(element) {
+                    return element.find('img');
+                }
+            }
+        });
+        $(document).on('click', '.popup-modal-dismiss', function(e) {
+            e.preventDefault();
+            $.magnificPopup.close();
+        });
+    })
+
+</script>
+

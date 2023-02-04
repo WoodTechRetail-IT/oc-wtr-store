@@ -1,0 +1,23 @@
+{% if reviews %}
+{% for review in reviews %}
+<div class="review-table">
+  <div class="review-table__author">
+    <div class="review-author"><strong>{{ review.author }}</strong></div>
+    <div class="review-rating rating">
+      {% for i in 1..5 %}
+      {% if review.rating < i %}
+      <span class="star-empty"><i class="fa fa-star"></i></span>
+      {% else %}
+      <span class="star"><i class="fa fa-star"></i></span>
+      {% endif %}
+      {% endfor %}
+    </div>
+    <div class="review-date">{{ review.date_added }}</div>
+    <div class="review-text"><p>{{ review.text }}</p></div>
+  </div>
+</div>
+{% endfor %}
+<div class="text-right">{{ pagination }}</div>
+{% else %}
+<p>{{ text_no_reviews }}</p>
+{% endif %}

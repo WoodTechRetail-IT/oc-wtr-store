@@ -1,0 +1,270 @@
+{{ header }}
+<div id="product-category" class="full-layout">
+   <div class="bg-container">
+      <div class="container">
+         <div class="navigation-content">
+            <ul class="breadcrumb">
+               {% for i,breadcrumb in breadcrumbs %}
+               {% if (i+1<breadcrumbs|length) %} <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+                  {% else %}
+                  <li>{{ breadcrumb.text }}</li>
+                  {% endif %}
+                  {% endfor %}
+            </ul>
+         </div>
+         <div class="navigation-title">
+            <h1>{{ heading_title }}</h1>
+         </div>
+      </div>
+   </div>
+   <div class="catalog-product__block catalog-section__products">
+      <div class="container">
+         <div class="catalog-section">
+            <div class="row">
+               {{ column_left }}
+      {% if column_left or column_right %}
+      {% set class = 'col-sm-9' %}
+      {% else %}
+      {% set class = 'col-sm-12' %}
+      {% endif %}
+      <div id="content" class="{{ class }}">
+        <div class="catalog-section-container">
+          {{ content_top }}		    
+          {% if banner %}
+          <div class="category-banner">
+            <div class="category-banner__full">
+              <img src="{{ banner }}" alt="{{ heading_title }}" title="{{ heading_title }}" class="img-responsive" />
+            </div>
+          </div>
+          {% endif %}
+          {% if categories %}
+          <div class="catalog-section-list catalog-sections category-section-item">
+            <div class="row">
+              {% for category in categories %}
+              
+                  <div class="col-sm-4 col-md-4 col-lg-4 col-xxl-3 ogranichitel-dve oght-th">
+                              <a class="catalog-section__item catalog-section__item-tre catalog-mainbrend_aitem"
+                                 href="{{ category.href }}">
+                                 <div class="blockagtseriibackgmaineffect blockagtseriibackgmain2"></div>
+                                 <!-- {% if category.thumb %}has-image{% endif %} -->
+                                 <div class="blockagtseriibackgopacmain"></div>
+                                 <span class="catalog-section__item__title catalog-section__item__title-tre catalog-mainbrend_text">
+                                    <div class="mainbrandblock1 catalog-mainbrend_block">
+                                       <span class="catalog-mainbrend_titlespan">{{ category.name }}</span>
+                                       <!--<span class="catalog-mainbrend_textspan">Турция</span>-->
+                                    </div>
+                                    <div class="mainbrandblock2 catalog-mainbrend_block">
+                                       <span class="catalog-mainbrend_textspan">
+                                          {% if category.config_count %}
+                                          <span class="catalog-section__item__count">Модельный ряд: {{ category.count }}</span>
+                                          {% endif %}
+                                          <span class="catalog-mainbrend_ahref">Перейти</span>
+                                       </span>
+                                       <div>
+                                          {% if category.thumb %}
+                                          <!--<span class="catalog-section-item__image">
+                                            <img src="{{ category.thumb }}" alt="{{ category.name }}" title="{{ category.name }}" class="img-responsive" />
+                                          </span>-->
+                                          {% endif %}
+                                          <!--<img class="fireicon"
+                                             src="/image/cache/catalog/image/catalog/categor-profilback/fire.webp"
+                                             style="max-width: 24px;">-->
+                                          <img
+                                             src="/image/cache/catalog/image/catalog/categor-profilback/section/gift.webp"
+                                             style="max-width: 24px;">
+                                       </div>
+                                    </div>
+                                 </span>
+                              </a>
+                           </div>
+              {% endfor %}				
+            </div>
+          </div>
+          {% endif %}
+          {% if products %}
+                     <div class="catalog-toolbar__sort">
+                        <div class="catalog-toolbar__panel d-flex align-items-center">
+                           <div class="toolbar-form__input">
+                              <div class="toolbar-form__sort">
+                                 <select id="input-sort" class="form-control form-control-sm"
+                                    onchange="location = this.value;">
+                                    {% for sorts in sorts %}
+                                    {% if sorts.value == '%s-%s'|format(sort, order) %}
+                                    <option value="{{ sorts.href }}" selected="selected">{{ sorts.text }}</option>
+                                    {% else %}
+                                    <option value="{{ sorts.href }}">{{ sorts.text }}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                 </select>
+                              </div>
+                           </div>
+                           <div class="toolbar-form__input">
+                              <div class="toolbar-form__limit">
+                                 <select id="input-limit" class="form-control form-control-sm"
+                                    onchange="location = this.value;">
+                                    {% for limits in limits %}
+                                    {% if limits.value == limit %}
+                                    <option value="{{ limits.href }}" selected="selected">{{ limits.text }}</option>
+                                    {% else %}
+                                    <option value="{{ limits.href }}">{{ limits.text }}</option>
+                                    {% endif %}
+                                    {% endfor %}
+                                 </select>
+                              </div>
+                           </div>
+                           <div class="toolbar-form__toggle hidden-xs hidden-sm text-right ml-auto">
+                              <div class="toolbar-toggle d-flex align-items-center">
+                                 <button type="button" id="grid-view" class="grid-view clear-button"
+                                    title="{{ button_grid }}"></button>
+                                 <button type="button" id="list-view" class="list-view clear-button"
+                                    title="{{ button_list }}"></button>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+          <div class="catalog-section">
+            <div class="container-push">
+              <div class="row no-gutters catalog-section-product">
+                {% for product in products %}
+                <div class="product-layout product-grid col-xxl-20 col-lg-3 col-md-4 col-sm-6 col-6">
+                  <div class="product-item__container">
+                    <div class="product-item">
+                      <div class="product-item__image">
+                        <a href="{{ product.href }}" class="product-image">
+                          <img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive" />		
+                          {% if product.percent %}
+                          <div class="product-item-markers product-item-markers-icons">
+                            <span class="product-item-marker-container product-item-marker-container-hidden">
+                            <span class="product-item-marker product-item-marker-discount product-item-marker-14px"><span>{{ "-" ~ product.percent ~ "%" }}</span></span>
+                            </span>
+                          </div>
+                          {% endif %}
+                        </a>
+                        <div class="product-item__icons">
+                          <div class="product-item__delay" data-toggle="tooltip" title="{{ button_wishlist }}" onclick="wishlist.add('{{ product.product_id }}');">
+                            <i class="fi fi-rr-heart"></i>
+                          </div>
+                        </div>
+                        {% if product.manufacturer_image %}
+                        <div class="product-item__brand">
+                          <img src="{{ product.manufacturer_image }}" alt="{{ product.manufacturer }}" title="{{ product.manufacturer }}">
+                        </div>
+                        {% endif %}
+                      </div>
+                      <!--{% if product.sku %}
+                      <div class="product-item__sku">
+                        <span class="product-item__text_sku">{{ text_sku }} {{ product.sku }}</span>
+                      </div>
+                      {% endif %}-->
+                      <div class="product-item__title">
+                        <a href="{{ product.href }}">{{ product.name }}</a>
+                      </div>
+                      {% if product.hpm_block %}{{ product.hpm_block }}{% endif %}
+                      
+                      <div class="product-item__info">
+                        <div class="product-item__caption-block">
+                          <div class="product-item__caption">
+                            <div class="product-item__blocks">
+                              {% if product.price %}
+                              <div class="product-item__price">
+                                {% if not product.special %}
+                                <div class="product-price__main">
+                                  <span class="product-price__current">{{ product.price }}</span>
+                                </div>
+                                {% else %}
+                                <div class="product-price__main">
+                                  <span class="product-price__current price-new">{{ product.special }}</span>
+                                </div>
+                                <div class="product-item-price-stock">
+                                  <div class="product-item-price-old">{{ product.price }}</div>
+                                  {% if product.economy %}
+                                  <div class="product-item-price-economy"> - {{ product.economy }}</div>
+                                  {% endif %}
+                                </div>
+                                {% endif %}
+                              </div>
+                              {% endif %}
+                              {% if product.price == false %}
+                              <div class="alert-price">{{ product.attention }}</div>
+                              {% endif %}
+                              {% if product.price %}
+                              {% if product.quantity <= 0 %}
+                              <div class="product-item__hidden">
+                                <div class="product-item__quantity">
+                                  <i class="product-item__quantity-icon icon-danger"></i>
+                                  <span class="product-item__quantity-val">{{ product.stock }}</span>
+                                </div>
+                              </div>
+                              {% else %}
+                              <div class="product-item__hidden">
+                                <div class="product-item__quantity">
+                                  <i class="product-item__quantity-icon icon-success"></i>
+                                  <span class="product-item__quantity-val">{{ text_instock }}</span>
+                                </div>
+                              </div>
+                              {% endif %}
+                              {% if quantity_btn %}
+                              <div class="product-item__amount">
+                                <button type="button" aria-label="Button minus" class="minus product-item__amount-btn-minus">-</button>
+                                <input type="text" name="quantity" class="product-item__amount-input" size="2" value="{{ product.minimum }}" data-maximum="{{ product.quantity }}" />	  
+                                <button type="button" aria-label="Button plus" class="plus product-item__amount-btn-plus">+</button>
+                              </div>
+                              {% endif %}
+                              {% endif %}
+                            </div>
+                            <div class="product-button__container">
+                              <button type="button" class="btn btn-buy" onclick="cart.add('{{ product.product_id }}', $(this).parent().parent().find('.product-item__amount-input').val());" title="{{ button_cart }}"><i class="fi fi-rr-shopping-cart-add"></i></button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          <div class="catalog-section-pagination">{{ pagination }}</div>
+		      {% if description %}
+          <div class="product-description">
+            <div class="form-group">{{ description }}</div>
+          </div>
+          {% endif %}
+          {% endif %}
+          {% if not categories and not products %}
+          <div class="text-empty">
+            <p>{{ text_empty }}</p>
+            <div class="buttons clearfix">
+              <div class="pull-right"><a href="{{ continue }}" class="btn btn-primary">{{ button_continue }}</a></div>
+            </div>
+          </div>
+          {% endif %}
+          {{ content_bottom }}
+        </div>
+      </div>
+      {{ column_right }}
+    </div>
+  </div>
+</div>
+{{ footer }}
+
+<script type="text/javascript">
+   $('#slideshow3').owlCarousel({
+      items: 1,
+      autoPlay: false,
+      singleItem: true,
+      navigation: true,
+      navigationText: ['<i class="fa fa-chevron-left fa-5x"></i>', '<i class="fa fa-chevron-right fa-5x"></i>'],
+      pagination: false
+   });
+   $(document).ready(function () {
+      $(".thumbnails").magnificPopup({
+         type: "image",
+         delegate: "a",
+         gallery: {
+            enabled: true
+         }
+      })
+   });
+</script>

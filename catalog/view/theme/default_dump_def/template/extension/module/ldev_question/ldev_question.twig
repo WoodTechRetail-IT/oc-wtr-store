@@ -1,0 +1,24 @@
+
+{% for k, result in results %}
+
+        <div id="ldev-question-block-id-{{ result.item_id }}" class="ldev-question {{ result.display }} {% if include_css_js  %} ldev-question-local {% endif %} {% if result.container  %} container {% endif %}">
+            {{ result.view }}
+        </div>
+{% endfor %}
+
+{% if exist_selectors %}
+<script>
+$(function(){
+        {% for result in results %}
+        {% if result.selector %}
+    {{  result.selector | replace ({'[module]' : '"#ldev-question-block-id-'~ result.item_id~'"'}) }}
+       {% endif %}
+    {% endfor %}
+});
+</script>
+{% endif %}
+
+
+{% for result in results %}
+    {{ result.microdata_view }}
+{% endfor %}

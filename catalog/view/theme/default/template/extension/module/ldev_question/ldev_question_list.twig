@@ -1,0 +1,18 @@
+{% if heading_status %} <h4>{{ name }}</h4> {% endif %}
+<ul>
+    {% for k, question in list  %}
+    <li>
+        <h4><span class="accordion-item-icon">{{ question.marker }}</span></h4>
+        {{ question.title }}<br></h4>
+        {% if question.thumb %}
+            {% if question.link %}
+                <a href="{{ question.link }}"><img src="{{ question.thumb }}" alt="{{ question.title }}" title="{{ question.title }}"></a>
+            {% else %}
+                <img src="{{ question.thumb }}" alt="{{ question.title }}" title="{{ question.title }}">
+            {% endif %}
+        {% endif %}
+        <div>{{ question.text }}</div>
+        <div>{{ question.module }}</div>
+    </li>
+    {% endfor %}
+</ul>

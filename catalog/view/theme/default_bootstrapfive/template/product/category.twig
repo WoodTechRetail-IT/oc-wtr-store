@@ -1,0 +1,285 @@
+{{ header }}
+<div id="product-category" class="container">
+  <ul class="breadcrumb">
+    {% for breadcrumb in breadcrumbs %}
+    <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+    {% endfor %}
+  </ul>
+
+  <div class="row">{{ column_left }}
+    {% if column_left and column_right %}
+    {% set class = 'col-sm-6' %}
+    {% elseif column_left or column_right %}
+    {% set class = 'col-sm-9' %}
+    {% else %}
+    {% set class = 'col-sm-12' %}
+    {% endif %}
+    <div id="content" class="{{ class }}">{{ content_top }}
+      <h1>{{ heading_title }}</h1>
+      {% if categories %}
+      <h3>{{ text_refine }}</h3>
+      {% if categories|length <= 5 %}
+      <div class="catalog-section-list catalog-sections category-section-item">
+            <div class="row">
+              {% for category in categories %}
+                    
+                  <div class="col-sm-4 col-md-4 col-lg-4 col-xxl-3 ogranichitel-dve oght-th">
+                              <a class="catalog-section__item catalog-section__item-tre catalog-mainbrend_aitem" 
+                                 href="{{ category.href }}">
+                                 {% if category.thumbtwo %}
+                                    
+                                    <div class="blockagtseriibackgmaineffect blockagtseriibackgmain2" style="background-image: url(/image/{{ category.thumbtwo }})"></div>
+                                {% else %}
+                                    <div class="blockagtseriibackgmaineffect blockagtseriibackgmain2"></div>
+                                 
+                                 {% endif %} 
+                                 <!-- {% if category.thumb %}has-image{% endif %} -->
+                                 <div class="blockagtseriibackgopacmain"></div>
+                                 <span class="catalog-section__item__title catalog-section__item__title-tre catalog-mainbrend_text">
+                                    <div class="mainbrandblock1 catalog-mainbrend_block">
+                                       <span class="catalog-mainbrend_titlespan">{{ category.name }}</span>
+                                       <!--<span class="catalog-mainbrend_textspan">Турция</span>-->
+                                    </div>
+                                    <div class="mainbrandblock2 catalog-mainbrend_block">
+                                       <span class="catalog-mainbrend_textspan">
+                                          {% if category.config_count %}
+                                          {{ category.thumbtwo }}
+                                          <span class="catalog-section__item__count">Кол-во моделей: {{ category.count }}</span>
+                                          {% endif %}
+                                          <span class="catalog-mainbrend_ahref">Перейти</span>
+                                       </span>
+                                       <div>
+                                          {% if category.thumb %}
+                                          <!--<span class="catalog-section-item__image">
+                                            <img src="{{ category.thumb }}" alt="{{ category.name }}" title="{{ category.name }}" class="img-responsive" />
+                                          </span>-->
+                                          {% endif %}
+                                          <!--<img class="fireicon"
+                                             src="/image/cache/catalog/image/catalog/categor-profilback/fire.webp"
+                                             style="max-width: 24px;">-->
+                                          <img
+                                             src="/image/cache/catalog/image/catalog/categor-profilback/section/gift.webp"
+                                             style="max-width: 24px;">
+                                       </div>
+                                    </div>
+                                 </span>
+                              </a>
+                           </div>
+              {% endfor %}				
+            </div>
+          </div>
+      {% else %}
+      <div class="catalog-section-list catalog-sections category-section-item">
+            <div class="row">
+              {% for category in categories %}
+                    
+                  <div class="col-sm-4 col-md-4 col-lg-4 col-xxl-3 ogranichitel-dve oght-th">
+                              <a class="catalog-section__item catalog-section__item-tre catalog-mainbrend_aitem" 
+                                 href="{{ category.href }}">
+                                 {% if category.thumbtwo %}
+                                    
+                                    <div class="blockagtseriibackgmaineffect blockagtseriibackgmain2" style="background-image: url(/image/{{ category.thumbtwo }})"></div>
+                                {% else %}
+                                    <div class="blockagtseriibackgmaineffect blockagtseriibackgmain2"></div>
+                                 
+                                 {% endif %} 
+                                 <!-- {% if category.thumb %}has-image{% endif %} -->
+                                 <div class="blockagtseriibackgopacmain"></div>
+                                 <span class="catalog-section__item__title catalog-section__item__title-tre catalog-mainbrend_text">
+                                    <div class="mainbrandblock1 catalog-mainbrend_block">
+                                       <span class="catalog-mainbrend_titlespan">{{ category.name }}</span>
+                                       <!--<span class="catalog-mainbrend_textspan">Турция</span>-->
+                                    </div>
+                                    <div class="mainbrandblock2 catalog-mainbrend_block">
+                                       <span class="catalog-mainbrend_textspan">
+                                          {% if category.config_count %}
+                                          {{ category.thumbtwo }}
+                                          <span class="catalog-section__item__count">Кол-во моделей: {{ category.count }}</span>
+                                          {% endif %}
+                                          <span class="catalog-mainbrend_ahref">Перейти</span>
+                                       </span>
+                                       <div>
+                                          {% if category.thumb %}
+                                          <!--<span class="catalog-section-item__image">
+                                            <img src="{{ category.thumb }}" alt="{{ category.name }}" title="{{ category.name }}" class="img-responsive" />
+                                          </span>-->
+                                          {% endif %}
+                                          <!--<img class="fireicon"
+                                             src="/image/cache/catalog/image/catalog/categor-profilback/fire.webp"
+                                             style="max-width: 24px;">-->
+                                          <img
+                                             src="/image/cache/catalog/image/catalog/categor-profilback/section/gift.webp"
+                                             style="max-width: 24px;">
+                                       </div>
+                                    </div>
+                                 </span>
+                              </a>
+                           </div>
+              {% endfor %}				
+            </div>
+          </div>
+      {% endif %}
+      {% endif %}
+      {% if products %}
+      <div class="row">
+        <div class="col-md-2 col-sm-6 hidden-xs">
+          <div class="btn-group btn-group-sm">
+            <button type="button" id="list-view" class="btn btn-default" data-toggle="tooltip" title="{{ button_list }}"><i class="fa fa-th-list"></i></button>
+            <button type="button" id="grid-view" class="btn btn-default" data-toggle="tooltip" title="{{ button_grid }}"><i class="fa fa-th"></i></button>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="form-group"><a href="{{ compare }}" id="compare-total" class="btn btn-link">{{ text_compare }}</a></div>
+        </div>
+        <div class="col-md-4 col-xs-6">
+          <div class="form-group input-group input-group-sm">
+            <label class="input-group-addon" for="input-sort">{{ text_sort }}</label>
+            <select id="input-sort" class="form-control" onchange="location = this.value;">
+              {% for sorts in sorts %}
+              {% if sorts.value == '%s-%s'|format(sort, order) %}
+              <option value="{{ sorts.href }}" selected="selected">{{ sorts.text }}</option>
+              {% else %}
+              <option value="{{ sorts.href }}">{{ sorts.text }}</option>
+              {% endif %}
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <div class="col-md-3 col-xs-6">
+          <div class="form-group input-group input-group-sm">
+            <label class="input-group-addon" for="input-limit">{{ text_limit }}</label>
+            <select id="input-limit" class="form-control" onchange="location = this.value;">
+              
+              {% for limits in limits %}
+              {% if limits.value == limit %}
+              
+              <option value="{{ limits.href }}" selected="selected">{{ limits.text }}</option>
+              {% else %}
+              <option value="{{ limits.href }}">{{ limits.text }}</option>
+              
+              {% endif %}
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row"> {% for product in products %}
+      
+      
+                {% if product.pmtemplate == 'productdver' %}
+                    <div class="product-layout productdver-catalog product-list col-xs-12">
+                {% elseif product.pmtemplate == 'productpol' %}
+                    <div class="product-layout productpol-catalog product-list col-xs-12">
+                {% else %}
+                    <div class="product-layout product-list col-xs-12">
+                {% endif %}
+      
+      
+      
+          <div class="product-thumb">
+            <div class="image image-catalog">
+            
+            <!-- XD stickers start -->
+					{% if product.product_xdstickers is not empty %}
+					<div class="xdstickers_wrapper clearfix {{xdstickers_position}}">
+						{% for xdsticker in product.product_xdstickers|slice(0, 2) %}
+					        {% if xdsticker.postiont == 'left' %}
+							<div class="xdstickers {{xdsticker.id}}">
+								<div class="xdstickerbackground xdstickid{{xdsticker.id}}" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title="{{xdsticker.tooooltip}}" style="background-image: url('/{{xdsticker.imagestick}}');" alt="{{xdsticker.tooooltip}}" datatyp="{{xdsticker.typet}}" datatwo="{{xdsticker.postiont}}"></div>
+							</div>
+                              {% endif %}
+                              
+						{% endfor %}
+					</div>
+					<div class="xdstickers_wrapper clearfix xdright-two {{xdstickers_position}}">
+						{% for xdsticker in product.product_xdstickers|slice(0, 4) %}
+					        {% if xdsticker.postiont == 'right' %}
+							<div class="xdstickers {{xdsticker.id}}">
+								<div class="xdstickerbackground xdstickid{{xdsticker.id}}" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title="{{xdsticker.tooooltip}}" style="background-image: url('/{{xdsticker.imagestick}}');" alt="{{xdsticker.tooooltip}}" datatyp="{{xdsticker.typet}}" datatwo="{{xdsticker.postiont}}"></div>
+							</div>
+                              {% endif %}
+                              
+						{% endfor %}
+					</div>
+					{% endif %}
+            
+            
+            
+            <a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive" /></a></div>
+            <div>
+              <div class="caption">
+                <h4>
+                {% if product.shortname %}
+                            <a data-hpm-href="1" class="prodname" href="{{ product.href }}">{{ product.shortname }}</a>
+                        {% else %}
+                            <a data-hpm-href="1" class="prodname" href="{{ product.href }}">{{ product.name }}</a>
+                        {% endif %}
+                
+                </h4>
+                {% if product.attribute_groups %}
+                                <div class="attrblock">
+                                {% for attribute_group in product.attribute_groups %}
+                                {% for attribute in attribute_group.attribute %}
+                                {% if attribute.attribute_id in [2509, 167, 2242, 2163, 2160, 2164, 2163, 2162, 2779, 2161, 2508, 2120, 2060, 2160, 2240, 160,  2789] %}
+                                <span class="attrdelll">{{ attribute.text }}</span>
+                                {% endif %}
+                                {% endfor %}
+                                {% endfor %}
+                                </div>
+                                {% endif %}  
+                {% if product.price %}
+                <p class="price"> {% if not product.special %}
+                  {{ product.price }}
+                  {% else %} <span class="price-new">{{ product.special }}</span> <span class="price-old">{{ product.price }}</span>
+                  
+                                  {% if product.economy %}
+                                  <div class="product-item-price-economy"> - {{ product.economy }}</div>
+                                  {% endif %}{% endif %}
+                </p>
+                {% endif %}
+                          {% if product.percent %}
+                          <div class="product-item-markers product-item-markers-icons">
+                            <span class="product-item-marker-container product-item-marker-container-hidden">
+                            <span class="product-item-marker product-item-marker-discount product-item-marker-14px"><span>{{ "-" ~ product.percent ~ "%" }}</span></span>
+                            </span>
+                          </div>
+                          {% endif %}
+                        {% if product.manufacturer_image %}
+                        <div class="product-item__brand">
+                          <img src="{{ product.manufacturer_image }}" alt="{{ product.manufacturer }}" title="{{ product.manufacturer }}">
+                        </div>
+                        {% endif %}
+                </div>
+                <div class="btn-group wtr-button-gr-catalog" role="group" aria-label="Basic example">
+                  <button type="button" class="btn btn-primary" onclick="cart.add('{{ product.product_id }}', '{{ product.minimum }}');"><i class="fa fa-shopping-cart"></i> <span class="hidden-xs hidden-sm hidden-md">{{ button_cart }}</span></button>
+                  <button type="button" class="btn btn-primary" data-toggle="tooltip" title="{{ button_wishlist }}" onclick="fastviev.add('{{ product.product_id }}');"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %} </div>
+      <div class="row">
+        <div class="col-sm-6 text-left">{{ pagination }}</div>
+        <div class="col-sm-6 text-right">{{ results }}</div>
+      </div>
+      {% endif %}
+      {% if not categories and not products %}
+      <p>{{ text_empty }}</p>
+      <div class="buttons">
+        <div class="pull-right"><a href="{{ continue }}" class="btn btn-primary">{{ button_continue }}</a></div>
+      </div>
+      {% endif %}
+      
+      {% if thumb or description %}
+      <div class="row"> {% if thumb %}
+        <div class="col-sm-2"><img src="{{ thumb }}" alt="{{ heading_title }}" title="{{ heading_title }}" class="img-thumbnail" /></div>
+        {% endif %}
+        {% if description %}
+        <div class="col-sm-10">{{ description }}</div>
+        {% endif %}</div>
+      <hr>
+      {% endif %}
+      {{ content_bottom }}</div>
+    {{ column_right }}</div>
+</div>
+{{ footer }} 

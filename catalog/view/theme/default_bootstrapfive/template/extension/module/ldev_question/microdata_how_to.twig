@@ -1,0 +1,20 @@
+<!--Microdata HowTo-->
+<script type="application/ld+json">
+  {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name" : "{{ name_microdata }}",
+      {% if about_microdata %} "description" : "{{ about_microdata }}", {% endif %}
+      "step": [
+      {% for k,question in list %}
+       {
+        "@type": "HowToStep",
+        "name": "{{ question.marker_microdata }} {{ question.title_microdata }}",
+        {% if question.thumb %} "image" : "{{ question.thumb }}", {% endif %}
+        "text": "{{ question.text_microdata }}"
+       }{% if k < list | length-1 %},{% endif %}
+      {% endfor %}
+     ]
+    }
+
+</script>

@@ -1,0 +1,1609 @@
+{{ header }}
+<div id="product-product">
+  <section class="catalog-product__block product-content">
+    <div class="container">
+      <div class="catalog-product__container">
+        <div class="navigation-content">
+          <ul class="breadcrumb">
+            {% for i,breadcrumb in breadcrumbs %} 
+            {% if (i+1<breadcrumbs|length) %}
+            <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+            {% else %}
+            <li>{{ breadcrumb.text }}</li>
+            {% endif %} 
+            {% endfor %}	
+          </ul>
+          {% if back_history %}
+          <div class="back-history hidden-xs"><a href="" class="button-back" onclick="window.history.back(); return false;">{{ text_back }}</a></div>
+          {% endif %}
+        </div>
+        <div id="product" class="product">
+          {% if back_history %}
+          <div class="back-history visible-xs"><a href="" class="button-back" onclick="window.history.back(); return false;">{{ text_back }}</a></div>
+          {% endif %}
+          {{ content_top }}
+          <h1 class="main-title">{{ heading_title }}</h1>
+          <div class="row">
+            <div class="col-xl-9 col-md-7">
+              <div class="row">
+                          {% if pmtemplate == 'productdver' %}
+                                <div class="col-xl-5">
+                          {% else %}
+                                <div class="col-xl-6">
+                        {% endif %}
+                  <div class="product-left">
+                    <div class="product-left-block">
+                      <div class="product-image">
+                        {% if thumb or images %}
+                        <ul class="thumbnails">
+                        
+                                <!-- XD stickers start -->
+            					{% if xdstickers is not empty %}
+            					<li class="xdstickers_wrapper clearfix {{xdstickers_position}} xdstickers-leftprod">
+            						{% for xdsticker in xdstickers %}
+    					                    {% if xdsticker.postiont == 'left' %}
+                        							<div class="xdstickers {{xdsticker.id}}">
+                        								<div class="xdstickerbackground xdstickid{{xdsticker.id}}" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title="{{xdsticker.tooooltip}}" style="background-image: url('/{{xdsticker.imagestick}}');" alt="{{xdsticker.tooooltip}}" datatyp="{{xdsticker.typet}}" datatwo="{{xdsticker.postiont}}"></div>
+                        							</div>
+                                            {% endif %}
+            						{% endfor %}
+            					</li>
+            					{% endif %}
+            					<!-- XD stickers end -->
+            					
+                                <!-- XD stickers start -->
+            					{% if xdstickers is not empty %}
+            					<li class="xdstickers_wrapper clearfix xdstickers-rightprod {{xdstickers_position}}">
+            						{% for xdsticker in xdstickers %}
+    					                    {% if xdsticker.postiont == 'right' %}
+                        							<div class="xdstickers {{xdsticker.id}}">
+                        								<div class="xdstickerbackground xdstickid{{xdsticker.id}}" data-html="true" data-toggle="tooltip" data-placement="top" data-original-title="{{xdsticker.tooooltip}}" style="background-image: url('/{{xdsticker.imagestick}}');" alt="{{xdsticker.tooooltip}}" datatyp="{{xdsticker.typet}}" datatwo="{{xdsticker.postiont}}"></div>
+                        							</div>
+                                            {% endif %}
+            						{% endfor %}
+            					</li>
+            					{% endif %}
+            					<!-- XD stickers end -->
+            					
+            					
+            					
+            					
+            					
+            					
+                        
+                          {% if thumb %}
+                          <li><a class="thumbnail" href="{{ popup }}" title="{{ heading_title }}"><img src="{{ thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}" /></a></li>
+            {% endif %}
+                          {% if images %}
+                          {% for image in images %}
+                          <li class="image-additional"><a class="thumbnail" href="{{ image.popup }}" title="{{ heading_title }}"> <img src="{{ image.thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}" /></a></li>
+            {% endfor %}
+                          {% endif %}
+                        </ul>
+                        {% endif %}
+                      </div>
+                      	<div class="more-photo"><a href="#callback" class="callback">Нужно больше фото живых образцов? Оперативно вышлем больше фото и видео образца из шоурума</a></div>
+                    </div>
+                  </div>
+                        
+                          {% if pmtemplate == 'productdver' %}
+                          
+          <a href="#view-interior" class="view-interior-a"><div class="view-interior"><img src="/image/interior/view-interior.png" class="view-interior-img"></div></a>
+
+        <script type="text/javascript">
+          $('.mfp-gallery').magnificPopup({
+          mainClass: 'mfp-zoom-in',
+          type: 'image',
+          tLoading: '',
+          gallery:{
+            enabled:true,
+          },
+          removalDelay: 300,
+          callbacks: {
+            beforeChange: function() {
+              this.items[0].src = this.items[0].src + '?=' + Math.random(); 
+            },
+            open: function() {
+              $.magnificPopup.instance.next = function() {
+                var self = this;
+                self.wrap.removeClass('mfp-image-loaded');
+                setTimeout(function() { $.magnificPopup.proto.next.call(self); }, 120);
+              }
+              $.magnificPopup.instance.prev = function() {
+                var self = this;
+                self.wrap.removeClass('mfp-image-loaded');
+                setTimeout(function() { $.magnificPopup.proto.prev.call(self); }, 120);
+              }
+            },
+            imageLoadComplete: function() { 
+              var self = this;
+              setTimeout(function() { self.wrap.addClass('mfp-image-loaded'); }, 16);
+            }
+          }
+        });
+                </script>
+                <script type="text/javascript">
+            $('#slideshow3').owlCarousel({
+          items: 1,
+          autoPlay: false,
+          singleItem: true,
+          navigation: true,
+          navigationText: ['<i class="fa fa-chevron-left fa-5x"></i>', '<i class="fa fa-chevron-right fa-5x"></i>'],
+          pagination: false
+        });
+        </script>
+                  
+                        {% endif %}
+                  
+                  
+                  
+                </div>
+                
+                    
+                          {% if pmtemplate == 'productdver' %}
+                                <div class="col-xl-7" id="prodafthpm">
+                          {% else %}
+                                <div class="col-xl-6" id="prodafthpm">
+                        {% endif %}
+                
+                <!--
+product variant
+//-->
+
+{% if variantproducts %}
+{% for variantproduct in variantproducts %}
+<h3>{{ variantproduct.title }}</h3>
+{% for product in variantproduct.products %}
+<a href="{{ product.href }}" id="{{ product.product_id }}" class="product_variants"><img src="{{ product.image }}"  data-toggle="tooltip" class="img-thumbnail" title="{{ product.name }}" alt="{{product.name }}" /></a>
+{% endfor %}
+{% endfor %}
+{% endif %}
+
+
+<!--
+product variant
+//-->
+                
+                
+                  {% if options %}
+                  <div class="product-options">
+                    {% for option in options %}
+                    {% if option.type == 'select' %}
+                    <div class="form-group{% if option.required %} required {% endif %}">
+                      <label class="control-label" for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
+                      <select name="option[{{ option.product_option_id }}]" id="input-option{{ option.product_option_id }}" class="form-control">
+                        <option value="">{{ text_select }}</option>
+                        {% for option_value in option.product_option_value %}
+                        <option value="{{ option_value.product_option_value_id }}">{{ option_value.name }}
+                          {% if option_value.price %}
+                          ({{ option_value.price_prefix }}{{ option_value.price }})
+                          {% endif %} 
+                        </option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                    {% endif %}
+                    {% if option.type == 'radio' %}
+                    <div class="form-group{% if option.required %} required {% endif %}">
+                      <label class="control-label">{{ option.name }}</label>
+                      <div id="input-option{{ option.product_option_id }}">
+                        {% for option_value in option.product_option_value %}
+                        <div class="radio fake-radio">                 
+                          <input type="radio" id="{{ option_value.product_option_value_id }}" name="option[{{ option.product_option_id }}]" value="{{ option_value.product_option_value_id }}" />
+                          <label class="option-btn radio-btn" data-toggle="tooltip" for="{{ option_value.product_option_value_id }}">
+                            {% if not option_value.image %}
+                            <span class="option-name" data-toggle="tooltip" title="{% if option_value.price %} {{ option_value.price_prefix }} {{ option_value.price }} {% endif %}">{{ option_value.name }}</span>
+                            {% else %}
+                            <span class="option-image" data-toggle="tooltip" title="{{ option_value.name }} {% if option_value.price %} {{ option_value.price_prefix }} {{ option_value.price }} {% endif %}">
+                              <img src="{{ option_value.image }}" alt="{{ option_value.name }}" class="img-thumbnail" />
+                            </span>
+                            {% endif %} 
+                          </label>
+                        </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                    {% endif %}
+                    {% if option.type == 'checkbox' %}
+                    <div class="form-group{% if option.required %} required {% endif %}">
+                      <label class="control-label">{{ option.name }}</label>
+                      <div id="input-option{{ option.product_option_id }}">
+                        {% for option_value in option.product_option_value %}
+                        <div class="radio fake-checkbox">                
+                          <input type="checkbox" id="{{ option_value.product_option_value_id }}" name="option[{{ option.product_option_id }}][]" value="{{ option_value.product_option_value_id }}" />
+                          <label class="option-btn checkbox-btn" for="{{ option_value.product_option_value_id }}">
+                            {% if not option_value.image %}
+                            <span class="option-name" data-toggle="tooltip" title="{% if option_value.price %} {{ option_value.price_prefix }} {{ option_value.price }} {% endif %}">{{ option_value.name }}</span>
+                            {% else %}
+                            <span class="option-image" data-toggle="tooltip" title="{{ option_value.name }} {% if option_value.price %} {{ option_value.price_prefix }} {{ option_value.price }} {% endif %}">
+                              <img src="{{ option_value.image }}" alt="{{ option_value.name }}" class="img-thumbnail" />
+                            </span>
+                            {% endif %} 
+                          </label>
+                        </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                    {% endif %}
+                    {% if option.type == 'text' %}
+                    <div class="form-group{% if option.required %} required {% endif %}">
+                      <label class="control-label" for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
+                      <input type="text" name="option[{{ option.product_option_id }}]" value="{{ option.value }}" placeholder="{{ option.name }}" id="input-option{{ option.product_option_id }}" class="form-control" />
+                    </div>
+                    {% endif %}
+                    {% if option.type == 'textarea' %}
+                    <div class="form-group{% if option.required %} required {% endif %}">
+                      <label class="control-label" for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
+                      <textarea name="option[{{ option.product_option_id }}]" rows="5" placeholder="{{ option.name }}" id="input-option{{ option.product_option_id }}" class="form-control">{{ option.value }}</textarea>
+                    </div>
+                    {% endif %}
+                    {% if option.type == 'file' %}
+                    <div class="form-group{% if option.required %} required {% endif %}">
+                      <label class="control-label">{{ option.name }}</label>
+                      <button type="button" id="button-upload{{ option.product_option_id }}" data-loading-text="{{ text_loading }}" class="btn btn-default btn-block"><i class="fa fa-upload"></i> {{ button_upload }}</button>
+                      <input type="hidden" name="option[{{ option.product_option_id }}]" value="" id="input-option{{ option.product_option_id }}" />
+                    </div>
+                    {% endif %}
+                    {% if option.type == 'date' %}
+                    <div class="form-group{% if option.required %} required {% endif %}">
+                      <label class="control-label" for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
+                      <div class="input-group date">
+                        <input type="text" name="option[{{ option.product_option_id }}]" value="{{ option.value }}" data-date-format="YYYY-MM-DD" id="input-option{{ option.product_option_id }}" class="form-control" />
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" type="button"><i class="fa fa-calendar"></i></button>
+                        </span>
+                      </div>
+                    </div>
+                    {% endif %}
+                    {% if option.type == 'datetime' %}
+                    <div class="form-group{% if option.required %} required {% endif %}">
+                      <label class="control-label" for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
+                      <div class="input-group datetime">
+                        <input type="text" name="option[{{ option.product_option_id }}]" value="{{ option.value }}" data-date-format="YYYY-MM-DD HH:mm" id="input-option{{ option.product_option_id }}" class="form-control" />
+                        <span class="input-group-btn">
+                          <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                        </span>
+                      </div>
+                    </div>
+                    {% endif %}
+                    {% if option.type == 'time' %}
+                    <div class="form-group{% if option.required %} required {% endif %}">
+                      <label class="control-label" for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
+                      <div class="input-group time">
+                        <input type="text" name="option[{{ option.product_option_id }}]" value="{{ option.value }}" data-date-format="HH:mm" id="input-option{{ option.product_option_id }}" class="form-control" />
+                        <span class="input-group-btn">
+                          <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+                        </span>
+                      </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                  </div>
+                  {% endif %}
+                  {% if recurrings %}
+                  <hr>
+                  <h3>{{ text_payment_recurring }}</h3>
+                  <div class="form-group required">
+                    <select name="recurring_id" class="form-control">
+                      <option value="">{{ text_select }}</option>
+                      {% for recurring in recurrings %}
+                      <option value="{{ recurring.recurring_id }}">{{ recurring.name }}</option>
+                      {% endfor %}
+                    </select>
+                    <div class="help-block" id="recurring-description"></div>
+                  </div>
+                  {% endif %}
+                  
+                  
+                        
+                          {% if pmtemplate == 'productdver' %}
+                          {% else %}
+                                  <div class="list-attributes">
+                                    <div class="list-attributes__title">{{ text_about_product }}</div>
+                                    <ul class="list-informations">
+                                      {% if manufacturer %}
+                                      <li class="list-li">
+                                        <div class="list-col list-li__left">
+                                          <span class="li-name">{{ text_manufacturer }}</span>
+                                        </div>
+                                        <div class="list-col list-li__right">
+                                          <a href="{{ manufacturers }}">{{ manufacturer }}</a>
+                                        </div>
+                                      </li>
+                                      {% endif %}
+                                      {% if attributes %}
+                                      {% for attribute in attributes|slice(0, 5) %}
+                                      <li class="list-li">
+                                        <div class="list-col list-li__left">
+                                          <span class="li-name">{{ attribute.name }}:</span>
+                                        </div>
+                                        <div class="list-col list-li__right">{{ attribute.text }}</div>
+                                      </li>
+                                      {% endfor %}
+                                      <li class="all-tech"><a href="" onclick="$('a[href=\'#tab-specification\']').trigger('click');  $('html, body').animate({ scrollTop: $('a[href=\'#tab-specification\']').offset().top - 100}, 500); return false;">{{ text_all_attributes }}</a></li>
+                                      {% endif %}
+                                    </ul>
+                                  </div>
+                        {% endif %}
+                  
+                  <div class="consult">Получите бесплатную консультацию специалиста:<br><a href="tel:+74993481116" style="font-weight:bold;color:#243682;">+7 (499) 348-11-16</a></div>
+                  <div class="product-tools form-group">
+                <div class="btn-addtools d-flex">
+                  <button type="button" class="product-compare tools-toggle clear-button" onclick="compare.add('{{ product_id }}');" data-toggle="tooltip" title="{{ button_compare }}"><i class="fi fi-rr-duplicate"></i></button>
+                  <button type="button" class="product-wishlist tools-toggle clear-button" onclick="wishlist.add('{{ product_id }}');" data-toggle="tooltip" title="{{ button_wishlist }}"><i class="fi fi-rr-heart"></i></button>
+                  <div class="product-share" data-toggle="tooltip" title="{{ text_share }}">
+                    <span class="dropdown-toggle" data-toggle="dropdown"><i class="fi fi-rr-share"></i></span>
+                    <div class="product-share-block">
+                      <!-- Add Yandex Share -->
+                      <script async src="https://yastatic.net/es5-shims/0.0.2/es5-shims.min.js"></script>
+                      <script async src="https://yastatic.net/share2/share.js"></script>
+                      <div class="ya-share2" data-services="vkontakte,facebook,odnoklassniki,viber,whatsapp,skype,telegram"></div>
+                      <!-- Add Yandex Share END -->
+                    </div>
+                  </div>
+                  <div class="product-share" data-toggle="tooltip" title="{{ text_print }}">
+                    <a href="index.php?route=extension/module/print_version_product&print_id={{ product_id }}" target="_blank" data-toggle="tooltip" title="{{ text_print }}" data-effect="mfp-zoom-out" class="btn tools-toggle clear-button"><i class="fa fa-print"></i></a>
+                  </div>
+                  
+                </div>
+              </div>
+                  <div id="prodvar">
+                  
+                  </div>
+                  <div class="blockatributprod-img">
+				</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-md-5">
+              
+              <div class="product-right">
+           
+            <div class="product-right-block">
+               {% if minimum > 1 %}
+               <div class="product-minimum">{{ text_minimum }}м2</div>
+               {% endif %}
+               {% if price %}
+               <div class="product-prices">
+                  <div class="price">
+                     {% if not special %}
+                     <div class="main-price">{{ price }}{% if mpn %} за {{ mpn }}{% endif %}</div>
+                     {% else %}
+                     <div class="product-item-price-stock">
+                        <div class="old-price product-item-price-old">{{ price }}</div>
+                        {% if economy %}
+                        <div class="product-item-price-economy"> - {{ economy }}</div>
+                        {% endif %}
+                     </div>
+                     <div class="main-price price-special price-new">{{ special }}{% if mpn %} за {{ mpn }}{% endif %}</div>
+                     {% endif %}
+                     {% if tax %}
+                     <div class="price-tax">{{ text_tax }} {{ tax }}</div>
+                     {% endif %}
+                     {% if points %}
+                     <div class="price-points">{{ text_points }} <span>{{ points }}</span></div>
+                     {% endif %}
+                  </div>
+               </div>
+               {% endif %}
+               {% if price == false %}
+               <div class="alert-price form-group">{{ attention }}</div>
+               {% endif %}
+               {% if price %}
+               {% if discounts %}
+               <h4>{{ text_table_price }}</h4>
+               <div class="discount">
+                  {% for discount in discounts %}
+                  <div class="price-discount">
+                     <span class="discount-item">{{ discount.quantity }} {{ text_discount }}</span>
+                     <span class="discount-item-value">
+                        <span class="discount-item-bg">{{ discount.price }}{% if mpn %} за {{ mpn }}{% endif %}</span>
+                     </span>
+                  </div>
+                  {% endfor %}
+               </div>
+               {% endif %}
+               {% endif %}
+               <div class="product-actions__block">
+                  {% if percent %}
+                  <div class="product-offers card-percent"><span>{{ "-" ~ percent ~ "%" }}</span></div>
+                  {% endif %}
+                  {% if quantity == 0 %}
+                  <div class="product-offers product-stock not-available"><span>{{ stock }}</span></div>
+                  {% else %}
+                  <div class="product-offers product-stock in-stock"><span>{{ text_instock }}
+                        <!--{% if stock_display %}{{ stock }} {{ text_pcs }}{% endif %}-->
+                     </span></div>
+                  {% endif %}
+                  {% if pmtemplate == 'productpol' %}
+                     <a href="#callback" class="zapas-podrezka zapas-podrezkastyle">Запас<br> на подрезку</a>
+                  {% endif %}
+               </div>
+            
+               {% if pmtemplate == 'productpol' %}
+
+            
+               <div class="card-order">
+                  <div class="doublediv">
+              <div class="rows-calc rows-calcpol1">
+                <div class="row-calc">Ваша площадь:</div>
+                <div class="row-calc ploshad-pl-mn">
+                  <span class="quant-pm quantminus" id="minus-input-calc">-</span>
+                  <span class="sp-input">
+                    <input value="{{ minimum }}" 
+                      autocomplete="off"
+                      min="0"
+                      pricemain="2503"
+                      skidkatrue="1"
+                      priceskidk="{{ special }}"
+                      id="chislo"
+                      maxlength="6"
+                      type="text"
+                      id="chislo"
+                      class="calc-osnova"/></span>
+                  <span class="quant-pm quantplus" id="plus-input-calc">+</span>
+                </div>
+              </div>
+              <div class="rows-calc rows-calcpol">
+                <div class="row-calc">Кол-во пачек:</div>
+                <div class="row-calc">
+                  <span class="quant-pm quantminus" id="minus-input-calc2">-</span>
+                  <span class="sp-input">
+                    <input value="1"
+                      autocomplete="off"
+                      type="text"
+                      id="kolvopachek"
+                      maxlength="4"
+                      min="0" />
+                      </span>
+                  <span class="quant-pm quantplus" id="plus-input-calc2"
+                    >+</span>
+                </div>
+              </div>
+            </div>
+            
+            <div>
+               <div id="resultcalcflo">
+                  <p class="items-stoimost">Общая стоимость: Price руб.</p>
+                  <p class="double-info-stoimost">1 упаковка ( м<sup>2</sup>)</p>
+               </div>
+            </div>
+            <input type="hidden" name="quantity" value="{{ product.minimum }}" size="5" id="input-quantity" class="form-control">
+            <input type="hidden" name="minimum" value="{{ product.minimum }}" id="minimum">
+            <input type="hidden" name="product_id" value="{{ product_id }}">
+            <div class="pytnp">
+               <button type="button" id="button-cart" data-loading-text="Загрузка..." class="btn btn-primary btn-lg btn-block">В корзину</button>
+            </div>
+            </div>
+            
+               {% else %}
+            
+               <div class="product-buy add-cart-block">
+                  {% if pmtemplate == 'productdver' %}
+                  <div class="noneclassquant">
+                     {% else %}
+                     {% if quantity_btn %}
+                     <div class="product-quantity">
+                        <span class="product-entry-qty">{{ entry_qty }}</span>
+                        <div class="counter product-counter counter-style-1">
+                           <input type="text" name="quantity" value="{{ minimum }}" data-min="{{ minimum }}"
+                              data-max="{{ quantity }}" class="counter-input inputtwo" id="cartquant" />
+                           <div class="counter-controls">
+                              <button class="counter-plus" type="button" aria-label="Button plus"><i
+                                    class="fi fi-rr-plus-small"></i></button>
+                              <button class="counter-minus" type="button" aria-label="Button minus"><i
+                                    class="fi-rr-minus-small"></i></button>
+                           </div>
+                        </div>
+                     </div>
+                     {% endif %}
+                     {% endif %}
+                     <div class="product-buy-btn">
+                        <button type="button" id="button-cart" data-loading-text="{{ text_loading }}"
+                           class="btn btn-primary btn-lg btn-block"><i class="fi fi-rr-shopping-cart-add"></i><span
+                              class="btn-cart__text">{{ button_cart }}</span></button>
+                        <input type="hidden" name="product_id" value="{{ product_id }}" />
+                     </div>
+                     <div id="buyoneclick"></div>
+                     <div class="whatsapp-prod"> <a
+                           href="https://api.whatsapp.com/send/?phone=74993481116&text=Добрый+день%2C+вышлите+предложение+по+{{ product.name }}">Перейти
+                           в чат
+                           <svg height="13pt" viewBox="-1 0 512 512" width="13pt" xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                 d="m10.894531 512c-2.875 0-5.671875-1.136719-7.746093-3.234375-2.734376-2.765625-3.789063-6.78125-2.761719-10.535156l33.285156-121.546875c-20.722656-37.472656-31.648437-79.863282-31.632813-122.894532.058594-139.941406 113.941407-253.789062 253.871094-253.789062 67.871094.0273438 131.644532 26.464844 179.578125 74.433594 47.925781 47.972656 74.308594 111.742187 74.289063 179.558594-.0625 139.945312-113.945313 253.800781-253.867188 253.800781 0 0-.105468 0-.109375 0-40.871093-.015625-81.390625-9.976563-117.46875-28.84375l-124.675781 32.695312c-.914062.238281-1.84375.355469-2.761719.355469zm0 0" fill="#01e675" />
+                              <path
+                                 d="m10.894531 501.105469 34.46875-125.871094c-21.261719-36.839844-32.445312-78.628906-32.429687-121.441406.054687-133.933594 109.046875-242.898438 242.976562-242.898438 64.992188.027344 125.996094 25.324219 171.871094 71.238281 45.871094 45.914063 71.125 106.945313 71.101562 171.855469-.058593 133.929688-109.066406 242.910157-242.972656 242.910157-.007812 0 .003906 0 0 0h-.105468c-40.664063-.015626-80.617188-10.214844-116.105469-29.570313zm134.769531-77.75 7.378907 4.371093c31 18.398438 66.542969 28.128907 102.789062 28.148438h.078125c111.304688 0 201.898438-90.578125 201.945313-201.902344.019531-53.949218-20.964844-104.679687-59.09375-142.839844-38.132813-38.160156-88.832031-59.1875-142.777344-59.210937-111.394531 0-201.984375 90.566406-202.027344 201.886719-.015625 38.148437 10.65625 75.296875 30.875 107.445312l4.804688 7.640625-20.40625 74.5zm0 0"
+                                 fill="#fff" />
+                              <path
+                                 d="m19.34375 492.625 33.277344-121.519531c-20.53125-35.5625-31.324219-75.910157-31.3125-117.234375.050781-129.296875 105.273437-234.488282 234.558594-234.488282 62.75.027344 121.644531 24.449219 165.921874 68.773438 44.289063 44.324219 68.664063 103.242188 68.640626 165.898438-.054688 129.300781-105.28125 234.503906-234.550782 234.503906-.011718 0 .003906 0 0 0h-.105468c-39.253907-.015625-77.828126-9.867188-112.085938-28.539063zm0 0"
+                                 fill="#01e675" />
+                              <g fill="#fff">
+                                 <path
+                                    d="m10.894531 501.105469 34.46875-125.871094c-21.261719-36.839844-32.445312-78.628906-32.429687-121.441406.054687-133.933594 109.046875-242.898438 242.976562-242.898438 64.992188.027344 125.996094 25.324219 171.871094 71.238281 45.871094 45.914063 71.125 106.945313 71.101562 171.855469-.058593 133.929688-109.066406 242.910157-242.972656 242.910157-.007812 0 .003906 0 0 0h-.105468c-40.664063-.015626-80.617188-10.214844-116.105469-29.570313zm134.769531-77.75 7.378907 4.371093c31 18.398438 66.542969 28.128907 102.789062 28.148438h.078125c111.304688 0 201.898438-90.578125 201.945313-201.902344.019531-53.949218-20.964844-104.679687-59.09375-142.839844-38.132813-38.160156-88.832031-59.1875-142.777344-59.210937-111.394531 0-201.984375 90.566406-202.027344 201.886719-.015625 38.148437 10.65625 75.296875 30.875 107.445312l4.804688 7.640625-20.40625 74.5zm0 0" />
+                                 <path
+                                    d="m195.183594 152.246094c-4.546875-10.109375-9.335938-10.3125-13.664063-10.488282-3.539062-.152343-7.589843-.144531-11.632812-.144531-4.046875 0-10.625 1.523438-16.1875 7.597657-5.566407 6.074218-21.253907 20.761718-21.253907 50.632812 0 29.875 21.757813 58.738281 24.792969 62.792969 3.035157 4.050781 42 67.308593 103.707031 91.644531 51.285157 20.226562 61.71875 16.203125 72.851563 15.191406 11.132813-1.011718 35.917969-14.6875 40.976563-28.863281 5.0625-14.175781 5.0625-26.324219 3.542968-28.867187-1.519531-2.527344-5.566406-4.046876-11.636718-7.082032-6.070313-3.035156-35.917969-17.726562-41.484376-19.75-5.566406-2.027344-9.613281-3.035156-13.660156 3.042969-4.050781 6.070313-15.675781 19.742187-19.21875 23.789063-3.542968 4.058593-7.085937 4.566406-13.15625 1.527343-6.070312-3.042969-25.625-9.449219-48.820312-30.132812-18.046875-16.089844-30.234375-35.964844-33.777344-42.042969-3.539062-6.070312-.058594-9.070312 2.667969-12.386719 4.910156-5.972656 13.148437-16.710937 15.171875-20.757812 2.023437-4.054688 1.011718-7.597657-.503906-10.636719-1.519532-3.035156-13.320313-33.058594-18.714844-45.066406zm0 0"
+                                    fill-rule="evenodd" />
+                              </g>
+                           </svg></a></div>
+                  </div>
+               </div>
+                  {% endif %}
+                  
+                  {% if pmtemplate == 'productdver' %}
+                  <div class="offser"><a href="#callback" class="found-cheaper2"><b class="b-desh">Нашли дешевле или у Вас много дверей?</b><br>Оставьте заявку и мы сделаем индивидуальную скидку</a></div>
+                  {% else %}
+                  <div class="offser"><a href="#found-cheaper" class="found-cheaper2"><b class="b-desh">Нашли дешевле или у Вас большой метраж?</b><br>Оставьте заявку и мы сделаем индивидуальную скидку</a></div>
+                  {% endif %}
+                  <div class="dostavka">
+                     <div class="info-dostavka">
+                        <ul class="info-dostavka-ul">
+                           <li class="info-dostavka-li"><span>Доставка по Москве и МО (1500р. + 20р за км от МКАД)</span></li>
+                           <li class="info-dostavka-li"><span>Доставка в регионы осуществляется транспортными компаниями</span></li>
+                        </ul>
+                        <span class="head-dost">Оплата</span>
+                        <ul class="info-dostavka-ul">
+                           <li class="info-dostavka-li"><span>Наличными в салоне-магазине</span></li>
+                           <li class="info-dostavka-li"><span>Оплата через сайт</span></li>
+                           <li class="info-dostavka-li"><span>Банковским переводом</span></li>
+                        </ul>
+                     </div>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+                  <div>
+                     <div class="menuprem-feat menuprem-just menuprem-dark menuprem-inline menuprem-feattop">
+                        <ul>
+                           <li><a> <i class="icon-prem icon-dostavka">&nbsp;</i> </a>
+                              <div><a>Бесплатная доставка по Москве </a></div>
+                              <span class="menuprem-dropdown"
+                                 data-text="Мы привезём любой заказ от 50000р, сделанный в нашем магазине бесплатно в пределах МКАД.">
+                                 <!--noindex-->Мы привезём любой заказ от 50000р, сделанный в нашем магазине бесплатно в пределах МКАД.
+                                 <!--/noindex-->
+                              </span>
+                           </li>
+                           <li><a> <i class="icon-prem icon-vozvrat">&nbsp;</i> </a>
+                              <div><a>Возврат-обмен товара </a></div>
+                              <span class="menuprem-dropdown"
+                                 data-text="Возврат товаров осуществляется в соответствии с законом о Защите прав потребителей.">
+                                 <!--noindex-->Возврат товаров осуществляется в соответствии с законом о Защите прав потребителей.
+                                 <!--/noindex-->
+                              </span>
+                           </li>
+                           <li><a> <i class="icon-prem icon-sklad">&nbsp; </i> </a>
+                              <div><a>Бесплатное хранение товара </a></div>
+                              <span class="menuprem-dropdown"
+                                 data-text="При необходимости, мы готовы бесплатно хранить любую вашу покупку на нашем складе в течении 2-х месяцев. Более длительное хранение возможно и является предметом взаимовыгодных соглашений.">
+                                 При необходимости, мы готовы бесплатно хранить любую вашу покупку на нашем складе в течении
+                                 2-х месяцев. Более длительное хранение возможно и является предметом взаимовыгодных соглашений.
+                              </span>
+                           </li>
+                           <li><a> <i class="icon-prem icon-garant">&nbsp;</i> </a>
+                              <div><a>Расширенная гарантия </a></div>
+                              <span class="menuprem-dropdown"
+                                 data-text="При условии, что приобретённые у нас напольные покрытия будут смонтированы нашими специалистами, мы предоставляем расширенную до 3 лет гарантию от нашей компании.">
+                                 При условии, что приобретённые у нас напольные покрытия будут смонтированы нашими
+                                 специалистами, мы предоставляем расширенную до 3 лет гарантию от нашей компании.
+                              </span>
+                           </li>
+                           {% if pmtemplate == 'productdver' %}
+                           <li><a> <i class="icon-prem icon-plintus">&nbsp;</i> </a>
+                              <div><a>Любые аксессуары в цвет дверей </a></div>
+                              <span class="menuprem-dropdown" data-text="У нас можно заказать любой аксессуар в цвет межкомнатных дверей.">У
+                                 нас можно заказать любой аксессуар в цвет межкомнатных дверей.</span>
+                           </li>
+                           {% else %}
+                           <li><a> <i class="icon-prem icon-plintus">&nbsp;</i> </a>
+                              <div><a>Любые аксессуары в цвет пола </a></div>
+                              <span class="menuprem-dropdown"
+                                 data-text="У нас можно заказать любой аксессуар в цвет напольного покрытия. Плинтуса, переходные порожки">
+                                 У нас можно заказать любой аксессуар в цвет напольного покрытия. Плинтуса, переходные порожки и другое.
+                                 Собственное производство.
+                              </span>
+                           </li>
+                           {% endif %}
+                        </ul>
+                     </div>
+                     </div>
+
+</div>
+<div class="product-tabs">
+   <ul class="nav nav-tabs">
+      <li class="active"><a href="#tab-description" data-toggle="tab">{{ tab_description }}</a></li>
+      {% if attribute_groups %}
+      <li><a href="#tab-specification" data-toggle="tab">{{ tab_attribute }}</a></li>
+      {% endif %}
+      {% if review_status %}
+      <li><a href="#tab-review" data-toggle="tab">{{ tab_review }}</a></li>
+      {% endif %}
+      {% if pmtemplate == 'productdver' %}
+      <li><a href="#sistemopen-dvery" data-toggle="tab">Системы открывания</a></li>
+      <li><a href="#pay-deliverydver" data-toggle="tab">Доставка и оплата</a></li>
+      <li><a href="#montag-dvery" data-toggle="tab">Монтаж</a></li>
+      {% endif %}
+      {% if pmtemplate == 'productpol' %}
+      <li><a href="#tab-podlojka" data-toggle="tab" aria-expanded="true">Подложка</a></li>
+      {% endif %}
+   </ul>
+   <div class="tab-content">
+      <div class="tab-pane active" id="tab-description">
+         <div class="h2">{{ tab_description }}</div>
+         <!-- XD stickers start -->
+         {% if xdstickers is not empty %}
+         <div class="xdstickers_wrapper boooottom-stickers clearfix {{xdstickers_position}}">
+            {% for xdsticker in xdstickers %}
+            {% if xdsticker.postiont == 'bottom' %}
+            <div class="xdstickers {{xdsticker.id}}">
+               <div class="xdstickerbackground xdstickid{{xdsticker.id}}" data-html="true" data-toggle="tooltip"
+                  data-placement="top" data-original-title="{{xdsticker.tooooltip}}"
+                  style="background-image: url('/{{xdsticker.imagestick}}');" alt="{{xdsticker.tooooltip}}"
+                  datatyp="{{xdsticker.typet}}" datatwo="{{xdsticker.postiont}}"></div>
+            </div>
+            {% endif %}
+            {% endfor %}
+         </div>
+         {% endif %}
+         <!-- XD stickers end -->
+         {{ description }}
+         <div class="proddescrakc">
+            <h3 class="akcdeqstv-h">Действуют следующие акции на {{ heading_title }}</h3>
+            <!-- XD stickers start -->
+            {% if xdstickers is not empty %}
+            {% for xdsticker in xdstickers %}
+            {% if xdsticker.postiont == 'left' %}
+            <div class="xdstickers {{xdsticker.id}}">
+               <div class="deystvakc">{{xdsticker.tooooltip}}</div>
+            </div>
+            <br>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+            {% if xdstickers is not empty %}
+            {% for xdsticker in xdstickers %}
+            {% if xdsticker.postiont == 'right' %}
+            <div class="xdstickers {{xdsticker.id}}">
+               <div class="deystvakc">{{xdsticker.tooooltip}}</div>
+            </div>
+            <br>
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+            <!-- XD stickers end -->
+         </div>
+      </div>
+                              {% if attribute_groups %}
+                              <div class="tab-pane" id="tab-specification">
+                                 {% for attribute_group in attribute_groups %}
+                                 {% for attribute in attribute_group.attribute %}
+                                 <div class="table-list__item">
+                                    <div>{{ attribute.name }}</div>
+                                    <div class="secondatttr">{{ attribute.text }}</div>
+                                 </div>
+                                 {% endfor %}
+                                 {% endfor %}
+                              </div>
+                              {% if pmtemplate == 'productdver' %}
+                              <div class="tab-pane" id="sistemopen-dvery">
+                                 <div class="row sistem-opendver">
+                                    <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
+                                       <a href="/sistema-otkryvaniya-kupe">
+                                          <img src="image/catalog/sistem-open/1452952820-1681649530.jpg">
+                                          <p>Купе</p>
+                                       </a>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
+                                       <a href="/sistema-compack">
+                                          <img src="image/catalog/sistem-open/1452952800-621121661.jpg">
+                                          <p>Compack</p>
+                                       </a>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
+                                       <a href="/sistema-otkryvaniya-knizhka">
+                                          <img src="image/catalog/sistem-open/1452952858-1164568791.jpg">
+                                          <p>Книжка</p>
+                                       </a>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
+                                       <a href="/sistema-otkryvaniya-magic">
+                                          <img src="image/catalog/sistem-open/1452952879-1693125004.jpg">
+                                          <p>Magic</p>
+                                       </a>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
+                                       <a href="/povorotnaya-sistema-otkryvaniya">
+                                          <img src="image/catalog/sistem-open/1452952900-506942101.jpg">
+                                          <p>Поворотная</p>
+                                       </a>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
+                                       <a href="/sistema-skrytyh-dverej-invisible">
+                                          <img src="image/catalog/sistem-open/1452952926-1005964045.jpg">
+                                          <p>Invisible</p>
+                                       </a>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
+                                       <a href="/sistema-otkryvaniya-izyda">
+                                          <img src="image/catalog/sistem-open/1.jpg">
+                                          <p>Izyda</p>
+                                       </a>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
+                                       <a href="/sistem-skrytyh-dverej-invisible-reverse">
+                                          <img src="image/catalog/sistem-open/232020.jpg">
+                                          <p>Invisible Reverse</p>
+                                       </a>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-4 col-md-4 col-xs-6">
+                                       <a href="/sistema-otkryvaniya-magic2-uniq">
+                                          <img src="image/catalog/sistem-open/10032020.jpg">
+                                          <p>Magic2 Uniq</p>
+                                       </a>
+                                    </div>
+                                 </div>
+                              </div>
+                              {% endif %}
+                              {% if pmtemplate == 'productdver' %}
+                              <div class="tab-pane" id="pay-deliverydver">
+                                 <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                       <img class="deliveryprofil-img" src="image/catalog/home-img/truck-mock-updostavka.jpg">
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                       <div>
+                                          <h3>Доставка</h3>
+                                          <div>Москва и Московская область</div>
+                                          <div>
+                                             <b>Заказ от 30 000 руб. – БЕСПЛАТНО</b>
+                                             + 30 руб./км за МКАД<br>
+                                          </div>
+                                          <div>
+                                             Заказ до 30 000 руб. – стоимость доставки на объект или
+                                             перемещение заказа в ШоуРум для самовывоза 3000р + 30 руб/км за МКАД
+                                          </div>
+                                          <p>Регионы РФ</p>
+                                          <div>
+                                             Заказ до 200 000 руб. – 2000 руб. до любой транспортной
+                                             компании в Москве с экспедированием
+                                          </div>
+                                          <div>
+                                             Заказ от 200 000 руб. – БЕСПЛАТНО до любой транспортной
+                                             компании в Москве с экспедированием
+                                          </div>
+                                       </div>
+                                       <div>
+                                          <h3>Оплата</h3>
+                                          <div>Оплата банковскими картами или наличными при получении.</div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              {% endif %}
+                              {% if pmtemplate == 'productdver' %}
+                              <div class="tab-pane" id="montag-dvery">
+                                 <p><strong>Стоимость замера по Москве: межкомнатных дверей 500 рублей, входной двери 700 рублей. За МКАД (за 1 км) 35 руб.</strong></p>
+                                 <p>Что входит в стандартную установку межкомнатных дверей</p>
+                                 <ul>
+                                    <li>сборка коробки</li>
+                                    <li>врезка петель</li>
+                                    <li>врезка обычной ручки-защелки</li>
+                                    <li>навешивание полотна</li>
+                                    <li>установка наличников с обеих сторон</li>
+                                    <li>комплект расходных материалов на одну дверь (строительная пена, саморезы, гвозди)</li>
+                                 </ul>
+                                 <p><strong>В стоимость не входит:</strong></p>
+                                 <ul>
+                                    <li>демонтаж</li>
+                                    <li>врезка сложного или сантехнического замка</li>
+                                    <li>установка доборов</li>
+                                 </ul>
+                                 <p>Цены на установку стандартных межкомнатных дверей</p>
+                                 <ul>
+                                    <li>Установка одной двери (минимальный выезд) 3 600 руб.</li>
+                                    <li>Установка двери (от 2-х шт.) стоимостью более 2000 руб. - 2 000 руб.</li>
+                                    <li><strong>Установка двери (от 2-х шт.) телескоп, шпон и стоимостью более 2000 руб. - 2 200 руб.</strong></li>
+                                    <li><strong>Установка двери (от 2-х шт.) эмаль, телескоп и стоимостью от 8000 руб. - 2 500 руб.</strong></li>
+                                    <li>Установка двери с Компланарной коробкой (от 2-х шт.) "Silvia" на клей - 3 500 руб.</li>
+                                    <li>Установка двустворчатой двери - 4 000 руб.</li>
+                                    <li>Установка двустворчатой двери эмаль, телескоп и от 8000 руб. - 4 500 руб.</li>
+                                    <li>Установка двери купе (без портала) ДЛЯ МОНТАЖА НУЖЕН БРУС 50Х50 - 2 500 руб.</li>
+                                    <li>Установка стеклянной двери - 2 500 руб.</li>
+                                    <li><strong>Установка двери из массива ценных пород дерева - 3 500 руб.</strong></li>
+                                    <li>Установка двери книжка - 3 000 руб.</li>
+                                    <li>Установка двери INVISIBLE - 2 800 руб.</li>
+                                    <li>Установка арки - 2 500 руб.</li>
+                                 </ul>
+                              </div>
+                              {% endif %}
+                              </div>
+            {% endif %}
+            {% if review_status %}
+            <div class="tab-pane" id="tab-review">
+              <div class="tab-reviews__title">
+                <div class="h2">{{ tab_reviews }}</div>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#reviewsModal">{{ text_write }}</button>
+              </div>
+              <form id="form-review">
+                <div id="review"></div>
+                <div class="modal fade" id="reviewsModal" tabindex="-1" role="dialog" aria-labelledby="reviewsModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-body">
+                        <div class="reviews-title__header">
+                          <div class="modal-title h2" id="reviewsModalLabel">{{ text_new_review }}</div>
+                          <div class="reviews-subtitle">{{ heading_title }}</div>
+                          <button type="button" class="close-btn" data-dismiss="modal" aria-label="Close"><span class="close-icon__cross icon-cross__image"></span></button>
+                        </div>
+                        <div class="form-review__card">
+                          {% if review_guest %}
+                          <div class="review-card">
+                            <div class="review-card__wrap">
+                              <div class="review-image">
+                                <div>
+                                  <img src="{{ thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}" class="review-img" />
+                                  <div class="review-text">{{ text_your_rating }}</div>
+                                </div>
+                              </div>
+                              <div class="form-group required">
+                                <div class="stars-rating">
+                                  <input name="rating" id="s_rating" value="0" type="hidden">
+                                  <div class="wrap" data-rate="0">
+                                    <span data-toggle="tooltip" title="{{ text_awful }}" data-rate="1"></span>
+                                    <span data-toggle="tooltip" title="{{ text_bad }}" data-rate="2"></span>
+                                    <span data-toggle="tooltip" title="{{ text_normal }}" data-rate="3"></span>
+                                    <span data-toggle="tooltip" title="{{ text_good }}" data-rate="4"></span>
+                                    <span data-toggle="tooltip" title="{{ text_excellent }}" data-rate="5"></span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group required flex flex-wrap-media">
+                            <label class="control-label form-label" for="input-name">{{ entry_name }}</label>
+                            <div class="form-input">
+                              <input type="text" name="name" value="{{ customer_name }}" id="input-name" class="form-control form-review" />
+                            </div>
+                          </div>
+                          <div class="form-group required flex flex-wrap-media">
+                            <label class="control-label form-label" for="input-review">{{ entry_review }}</label>
+                            <div class="form-input">
+                              <textarea name="text" rows="5" id="input-review" class="form-control form-input form-review"></textarea>
+                            </div>
+                          </div>
+                          <div class="buttons">
+                            <button type="button" id="button-review" data-loading-text="{{ text_loading }}" class="btn btn-primary">{{ button_continue }}</button>
+                          </div>
+                          {{ captcha }}
+                          {% else %}
+                          {{ text_login }}	
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            {% endif %}
+            <div class="tab-pane" id="tab-podlojka"></div>
+          </div>
+          {% if tags %}
+          <div class="tags-container">
+            <div class="tags-title">{{ text_product_tags }}</div>
+            <div class="product-tags">		    
+              {% for i in 0..(tags|length - 1) %}
+              {% if i < (tags|length - 1) %}
+              <a href="{{ tags[i].href }}">{{ tags[i].tag }}</a>
+              {% else %}
+              <a href="{{ tags[i].href }}">{{ tags[i].tag }}</a>
+              {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+       {% if pmtemplate == 'productdver' %}
+         <div id="zamer-categ-bottom">
+            <div class="container" id="zamer-categ-bottom1">
+               <div>
+                  <div class="zamer-main">
+                     <h3 class="zamer-maintitle">
+                        <span>Записаться на бесплатный замер</span>
+                     </h3>
+                     <form id="form-zamerdver" class="ajax-form ajax-form-mail form-zamer" action="" method="post"
+                        enctype="multipart/form-data">
+                        <input type="hidden" name="project_name" value="Polmetra">
+                        <input type="hidden" name="admin_email" value="zakaz@polmetra.ru">
+                        <input type="hidden" name="form_subject" value="Форма Замер (Polmetra) Двери">
+                        <div class="form-dann">
+                           <div class="hiclass-form">
+                              <input type="text" name="Name" placeholder="Ваше имя...">
+                           </div>
+                           <div class="forms-inputheadcall form-object-right">
+                              <input type="text" name="NameTwo" placeholder="Ваше имя...">
+                           </div>
+                           <div class="form-object-right">
+                              <input class="form-control raz phone_masckcom" type="tel" id="phone1" name="Телефон" placeholder="Ваш телефон..." required="">
+                           </div>
+                        </div>
+                        <div class="form-object_recv">
+                           <p>Введите номер телефона и наш менеджер перезвонит вам в течение <strong>15 минут</strong>.</p>
+                           <span class="label">Нажимая кнопку "Отправить", вы даёте согласие на обработку ваших персональных данных</span>
+                        </div>
+                        <div class="button-form-zamer">
+                           <button class="button-zakaz">Отправить</button>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <section class="contbot">
+            <div class="container contbotdiv">
+               {{ content_bottom }}
+            </div>
+         </section>
+<div id="individual-offerprofil">
+   <div class="container" id="individual-offerprofil1">
+      <div>
+         <div class="individual-offerblockmain">
+            <div class="individual-offerblocktitle">
+               <h3><span>Получить индивидуальное предложение</span></h3>
+            </div>
+            <form id="individual-offerprofiltext" class="ajax-form form-individualblock ajax-form-mail" action=""
+               method="post" enctype="multipart/form-data">
+               <input type="hidden" name="project_name" value="Polmetra">
+               <input type="hidden" name="admin_email" value="zakaz@polmetra.ru">
+               <input type="hidden" name="form_subject" value="Индивидуальное предложение (Polmetra) Двери">
+               <div class="form-individdann">
+                  <div class="hiclass-form">
+                     <input type="text" name="Name" placeholder="Ваше имя...">
+                  </div>
+                  <div class="forms-inputheadcall">
+                     <input class="form-control form-control-individobject" type="text" name="NameTwo"
+                        placeholder="Ваше имя...">
+                  </div>
+                  <div class="form-individobject">
+                     <input class="form-control form-control-individobject raz phone_masckcom" type="tel" id="phone1"
+                        name="Телефон" placeholder="Ваш телефон..." required="">
+                  </div>
+                  <div class="form-individobject form-individobject-select form-control-individobject">
+                     <select class="individual-select">
+                        <option>Нужна максимальная % скидка %</option>
+                        <option>Надо сравнить цены, есть расчёт</option>
+                        <option>Лучше подарок от Профиль Дорс</option>
+                        <option>Срочно! Нужны двери ещё вчера</option>
+                     </select>
+                     <input class="form-control" type="hidden" name="Предложение" id="individual-inputsel">
+                  </div>
+               </div>
+               <div class="form-object_recv">
+                  <p>Введите номер телефона и наш менеджер перезвонит вам в течение <strong>15 минут</strong>.</p>
+                  <span class="label">Нажимая кнопку "Отправить", вы даёте согласие на обработку ваших персональных
+                     данных</span>
+               </div>
+               <div class="button-individual-ofset">
+                  <button class="button-individual">Отправить</button>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>
+   <script>
+      var $carsList = $('#individual-inputsel'),
+         carObj = {};
+      carObj.length = 0;
+      $('.individual-select').change(function () {
+         carObj[$(this).index()] = $(this).val();
+         carObj.length = Object.keys(carObj).length - 1;
+         $carsList.val(Array.prototype.join.call(carObj, ', '));
+      })
+   </script>
+   <script>
+      $('.toclick, .byeoneclick1, .view-interior-a').magnificPopup({
+         mainClass: 'mfp-zoom-in',
+         removalDelay: 400
+      });
+   </script>
+<div class="hidden">
+  <div class="container" style="top: -70px;">
+    <div id="view-interior" class=" callback-form product-popup">
+      <div class="formoneclickprod-title">
+      <h3>{{ heading_title }} в интерьере</h3>
+      </div>
+      <div class="interior-background interior-form interior-form-bg-first" id="bg-inter-change">
+        <a class="thumbnail mainimg-prod transparent-interior" href="{{ thumb }}" title="{{ heading_title }}"><img src="{{ thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}" /></a>
+        
+      </div>
+        <div class="interiors-carousel">
+          <div class="interiors-carousel-item" id="interior-first">
+            <img src="/image/interior/first.jpg" class="interiors-img-item">
+          </div>
+          <div class="interiors-carousel-item" id="interior-second">
+            <img src="/image/interior/second.jpg" class="interiors-img-item">
+          </div>
+          <div class="interiors-carousel-item" id="interior-three">
+            <img src="/image/interior/three.jpg" class="interiors-img-item">
+          </div>
+          <div class="interiors-carousel-item" id="interior-four">
+            <img src="/image/interior/four.jpg" class="interiors-img-item">
+          </div>
+          <div class="interiors-carousel-item" id="interior-five">
+            <img src="/image/interior/five.jpg" class="interiors-img-item">
+          </div>
+          <div class="interiors-carousel-item" id="interior-six">
+            <img src="/image/interior/six.jpg" class="interiors-img-item">
+          </div>
+          
+        </div>
+    </div>
+  </div>
+</div>
+<div class="hidden">
+   <div class="container">
+      <div id="found-cheaper" class="callback-form product-popup">
+         <div class="formoneclickprod-title">
+            <h3>Нашли этот товар дешевле?</h3>
+         </div>
+         <div class="formoneclickprod-main">
+            <form id="found-cheaperform" class="forma-qwest forms-sfloor-popu">
+               <input type="hidden" name="project_name" value="Polmetra">
+               <input type="hidden" name="admin_email" value="zakaz@polmetra.ru">
+               <input type="hidden" name="form_subject" value="Форма - Нашли дешевле (Polmetra)">
+               <input type="hidden" name="Name-product" value="{{ heading_title }}">
+               <div class="hiclass-form">
+                  <input type="text" name="Name" placeholder="Ваше имя...">
+               </div>
+               <div class="forms-inputheadcall">
+                  <input type="text" name="NameTwo" placeholder="Ваше имя...">
+               </div>
+               <div class="forms-inputbyeoneclick">
+                  <input class="phone_masckcom" type="text" name="Phone" placeholder="Ваш телефон..." required>
+               </div>
+               <div class="forms-inputbyeoneclick">
+                  Ссылка на товар в другом магазине
+                  <input type="text" name="Link" placeholder="Ссылка...">
+               </div>
+               <div class="forms-byeoneclickbutton">
+               <button class="popup-a-button-form">Применить</button>
+               </div>
+            </form>
+         </div>
+         <div class="success">Сообщение отправлено</div>
+      </div>
+   </div>
+</div>
+
+            {% endif %}
+            {% if pmtemplate == 'productpol' %}
+            <section class="forma-productpred">
+               <div class="form-prodpredcall">
+                  <div class="container containeradapt">
+                     <div class="row">
+                        <form id="forma-podpred" class="forma-qwest forms-sfloor-popu">
+                           <!-- Hidden Required Fields -->
+                           <input type="hidden" name="project_name" value="Polmetra">
+                           <input type="hidden" name="admin_email" value="zakaz@polmetra.ru">
+                           <input type="hidden" name="form_subject" value="Форма - Подбор покрытия (Polmetra)">
+                           <input type="hidden" name="Name-product" value="{{ heading_title }}">
+                           <!-- END Hidden Required Fields -->
+                           <div class="forms-inputprod">
+                              <input type="text" name="Name" placeholder="Ваше имя...">
+                           </div>
+                           <div class="forms-inputprod">
+                              <input class="phone_masckcom" type="text" name="Phone" placeholder="Ваш телефон..." required="">
+                           </div>
+                           <div class="forms-inputprod">
+                              <button class="popup-a-button-form button-formprod"><span>Отправить</span></button>
+                           </div>
+                        </form>
+                        <div class="form-prodsec-text">
+                           <p>Мы прекрасно понимаем, что выбор отделочных материалов зачастую занимает много времени на поиск лучшего предложения по цене и качеству, предлагаем Вам получить действительно выгодное предложения и от нашей компании, т.к. мы являемся дилерами более чем от 50 брендов и можем предложить лучшие цены на продукцию, представленных на сайте производителей.</p><span>Нажимая кнопку "Отправить", вы даёте согласие на обработку ваших персональных данных</span>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </section>
+            {% endif %}
+      
+      {% if products %}
+      <div class="container">
+         <div class="related-products">
+            <div class="text-title">
+               {% if shadow_title %}
+               <div class="shadow-title">{{ text_buy_product }}</div>
+               {% endif %}
+               <div class="content-title">{{ text_related }}</div>
+            </div>
+            <div class="catalog-section">
+               <div class="row no-gutters">
+                  {% for product in products %}
+                  {% if product.pmtemplate == 'productdver' %}
+                  <div class="product-layout product-grid prodreldver col-xxl-2 col-lg-2 col-md-2 col-sm-4 col-4">
+                     {% else %}
+                     <div class="product-layout product-grid prodrelpol col-xxl-20 col-lg-2 col-md-3 col-sm-4 col-6">
+                        {% endif %}
+                        <div class="product-item__container">
+                           <div class="product-item">
+                              <div class="product-item__image">
+                                 <a href="{{ product.href }}" class="product-image">
+                                    <img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}"
+                                       class="img-responsive" />
+                                 </a>
+                                 <div class="product-item__icons">
+                                    <div class="product-item__delay" data-toggle="tooltip" title="{{ button_wishlist }}"
+                                       onclick="wishlist.add('{{ product.product_id }}');">
+                                       <i class="fi fi-rr-heart"></i>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="product-item__title">
+                                 <h3 class="product-item__heading">
+                                    <a href="{{ product.href }}"><span>{{ product.name }}</span></a>
+                                 </h3>
+                              </div>
+                              <div class="product-item__info">
+                                 <div class="product-item__caption-block">
+                                    <div class="product-item__caption">
+                                       <div class="product-item__blocks">
+                                          {% if product.price %}
+                                          <div class="product-item__price">
+                                             {% if not product.special %}
+                                             <div class="product-price__main">
+                                                <span class="product-price__current">{{ product.price }}{% if product.mpn %}
+                                                   за {{ product.mpn }}{% endif %}</span>
+                                             </div>
+                                             {% else %}
+                                             <div class="product-price__main">
+                                                <span class="product-price__current price-new">{{ product.special }}</span>
+                                             </div>
+                                             <div class="product-item-price-stock">
+                                                <div class="product-item-price-old">{{ product.price }}</div>
+                                                {% if product.economy %}
+                                                <div class="product-item-price-economy"> - {{ product.economy }}</div>
+                                                {% endif %}
+                                             </div>
+                                             {% endif %}
+                                          </div>
+                                          {% endif %}
+                                          {% if product.price == false %}
+                                          <div class="alert-price">{{ product.attention }}</div>
+                                          {% endif %}
+                                          {% if product.price %}
+                                          {% if product.quantity <= 0 %} <div class="product-item__hidden">
+                                             <div class="product-item__quantity">
+                                                <i class="product-item__quantity-icon icon-danger"></i>
+                                                <span class="product-item__quantity-val">{{ product.stock }}</span>
+                                             </div>
+                                       </div>
+                                       {% else %}
+                                       <div class="product-item__hidden">
+                                          <div class="product-item__quantity">
+                                             <i class="product-item__quantity-icon icon-success"></i>
+                                             <span class="product-item__quantity-val">{{ text_instock }}</span>
+                                          </div>
+                                       </div>
+                                       {% endif %}
+                                       {% if quantity_btn %}
+                                       <div class="product-item__amount">
+                                          <button type="button" aria-label="Button minus"
+                                             class="minus product-item__amount-btn-minus">-</button>
+                                          <input type="text" name="quantity" class="product-item__amount-input" size="2"
+                                             value="{{ product.minimum }}" data-maximum="{{ product.quantity }}" />
+                                          <button type="button" aria-label="Button plus"
+                                             class="plus product-item__amount-btn-plus">+</button>
+                                       </div>
+                                       {% endif %}
+                                       {% endif %}
+                                    </div>
+                                    <div class="product-button__container">
+                                       <button type="button" class="btn btn-buy"
+                                          onclick="cart.add('{{ product.product_id }}', $(this).parent().parent().find('.product-item__amount-input').val());"><span>{{
+                                             button_cart }}</span></button>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  {% endfor %}
+               </div>
+            </div>
+         </div>
+      </div>
+      {% endif %}
+      </div>
+      </section>
+      </div>
+<script>
+$("select[name='recurring_id'], input[name=\"quantity\"]").change(function () {
+	$.ajax({
+		url: "index.php?route=product/product/getRecurringDescription",
+		type: "post",
+		data: $("input[name='product_id'], input[name='quantity'], select[name='recurring_id']"),
+		dataType: "json",
+		beforeSend: function () {
+			$("#recurring-description").html("")
+		},
+		success: function (a) {
+			$(".alert-dismissible, .text-danger").remove();
+			if (a.success) {
+				$("#recurring-description").html(a.success)
+			}
+		}
+	})
+});
+</script> 
+<script><!--
+$("#button-cart").on("click", function () {
+	$.ajax({
+		url: "index.php?route=checkout/cart/add",
+		type: "post",
+		data: $("#product input[type='text'], #product input[type='hidden'], #product input[type='radio']:checked, #product input[type='checkbox']:checked, #product select, #product textarea"),
+		dataType: "json",
+		success: function (b) {
+			$(".alert-dismissible, .text-danger").remove();
+			$(".form-group").removeClass("has-error");
+			if (b.error) {
+				if (b.error["option"]) {
+					for (i in b.error["option"]) {
+						var a = $("#input-option" + i.replace("_", "-"));
+						if (a.parent().hasClass("input-group")) {
+							a.parent().after('<div class="text-danger">' + b.error["option"][i] + "</div>")
+						} else {
+							a.after('<div class="text-danger">' + b.error["option"][i] + "</div>")
+						}
+					}
+					var options = $('.product-options').offset().top - 300;				
+					$('html, body').animate({ scrollTop: options }, 'slow');
+				}
+				if (b.error["recurring"]) {
+					$("select[name='recurring_id']").after('<div class="text-danger">' + b.error["recurring"] + "</div>")
+				}
+				$(".text-danger").parent().addClass("has-error")
+			}
+			if (b.success) {
+				setTimeout(function () {
+					$("body").append('<div class="alert alert-top alert-cart alert-dismissible"><i class="fi fi-rr-check"></i>' + b.success + '<button type="button" class="close" data-dismiss="alert">×</button></div>');
+					if (window.innerWidth >= 992) {
+						$(".alert-top").animate({
+							top: 44
+						}, 500)
+					} else {
+						$(".alert-top").animate({
+							top: 0
+						}, 500)
+					}
+				}, 500);
+				setTimeout(function () {
+          $(".cart-count").html(b.cart_total);
+          $('.panel-cart').removeClass('cart-empty');
+				}, 100);
+				$("#button-cart").addClass("add");
+				setTimeout(function () {
+					$("#button-cart").removeClass("add")
+				}, 8000);
+				$(".cart-panel").load("index.php?route=common/cart/info .cart-panel > *")
+			}
+		},
+		error: function (c, a, b) {
+			alert(b + "\r\n" + c.statusText + "\r\n" + c.responseText)
+		}
+	})
+});
+</script> 
+<script><!--
+$(".date").datetimepicker({
+	language: "{{ datepicker }}",
+	pickTime: false
+});
+$(".datetime").datetimepicker({
+	language: "{{ datepicker }}",
+	pickDate: true,
+	pickTime: true
+});
+$(".time").datetimepicker({
+	language: "{{ datepicker }}",
+	pickDate: false
+});
+$("button[id^='button-upload']").on("click", function () {
+	var a = this;
+	$("#form-upload").remove();
+	$("body").prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file" /></form>');
+	$("#form-upload input[name='file']").trigger("click");
+	if (typeof timer != "undefined") {
+		clearInterval(timer)
+	}
+	timer = setInterval(function () {
+		if ($("#form-upload input[name='file']").val() != "") {
+			clearInterval(timer);
+			$.ajax({
+				url: "index.php?route=tool/upload",
+				type: "post",
+				dataType: "json",
+				data: new FormData($("#form-upload")[0]),
+				cache: false,
+				contentType: false,
+				processData: false,
+				beforeSend: function () {
+					$(a).button("loading")
+				},
+				complete: function () {
+					$(a).button("reset")
+				},
+				success: function (b) {
+					$(".text-danger").remove();
+					if (b.error) {
+						$(a).parent().find("input").after('<div class="text-danger">' + b.error + "</div>")
+					}
+					if (b.success) {
+						alert(b.success);
+						$(a).parent().find("input").val(b.code)
+					}
+				},
+				error: function (d, b, c) {
+					alert(c + "\r\n" + d.statusText + "\r\n" + d.responseText)
+				}
+			})
+		}
+	}, 500)
+});
+//--></script> 
+<script><!--
+$("#review").delegate(".pagination a", "click", function (a) {
+	a.preventDefault();
+	$("#review").fadeOut("slow");
+	$("#review").load(this.href);
+	$("#review").fadeIn("slow")
+});
+$("#review").load("index.php?route=product/product/review&product_id={{ product_id }}");
+$("#button-review").on("click", function () {
+	$.ajax({
+		url: "index.php?route=product/product/write&product_id={{ product_id }}",
+		type: "post",
+		dataType: "json",
+		data: $("#form-review").serialize(),
+		beforeSend: function () {
+			$("#button-review").button("loading")
+		},
+		complete: function () {
+			$("#button-review").button("reset")
+		},
+		success: function (a) {
+			$(".alert-dismissible").remove();
+			if (a.error) {
+				$(".form-review__card").after('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + a.error + "</div>")
+			}
+			if (a.success) {
+				$(".form-review__card").after('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + a.success + "</div>");
+				$("input[name='name']").val("");
+				$("textarea[name='text']").val("");
+				$("input[name='rating']:checked").prop("checked", false)
+			}
+		}
+	})
+});
+$(document).ready(function () {
+	$(".thumbnails").magnificPopup({
+		type: "image",
+		delegate: "a",
+		gallery: {
+			enabled: true
+		}
+	})
+});
+//--></script>
+<!--Marquiz script start--><!--<script src="//script.marquiz.ru/v1.js"type="application/javascript"></script><script>document.addEventListener("DOMContentLoaded",function(){Marquiz.init({host:'//quiz.marquiz.ru',id:'5f4bc94f6622a70044cb1056',autoOpen:false,autoOpenFreq:'once',openOnExit:false})});</script>Marquiz script end--><!--<div class="marquiz-pops marquiz-pops_position_bottom-left marquiz-pops_rounded marquiz-pops_shadowed marquiz-pops_blicked marquiz-pops_position"><a class="marquiz-pops__body"href="#popup:marquiz_5f4bc94f6622a70044cb1056"data-marquiz-pop-text-color="#ffffff"data-marquiz-pop-background-color="#BA9160"data-marquiz-pop-svg-color="#fff"data-marquiz-pop-close-color="#fff"data-marquiz-pop-color-pulse="rgba(186, 145, 96, 0.4)"data-marquiz-pop-color-pulse-alpha="rgba(186, 145, 96, 0)"data-marquiz-pop-bonuses="1"data-marquiz-pop-delay="5s"data-marquiz-pop="true"><span class="marquiz-pops__icon"></span><span class="marquiz-pops__content"><span class="marquiz-pops__content-title">Подобратьдвери</span><span class="marquiz-pops__content-text">&laquo;Рассчитайтестоимостьвашихдверейиполучитескидку&raquo;</span></span><span class="marquiz-pops__bonus">Вамдоступенбонусискидка</span></a></div><script>function jivo_onLoadCallback(){jivo_config.rules=[{"conditions":[{"condition":"time_on_site","comparator":"greater","value":50},{"condition":"time_after_close","comparator":"greater","value":500}],"commands":[{"command":"proactive","params":{"message":"Сейчас действует специальное предложение на {{ heading_title }}, если хотите узнать подробнее - напишите нам или оставьте контактный номер. Наши менеджеры Вам все расскажут ;)"}}],"name":"Proactive Invitation on Every Page","enabled":true,"type":"all"},{"name":"Lead Collection When Agents are Offline","enabled":true,"type":"all","conditions":[{"condition":"online","value":false},{"condition":"time_on_page","comparator":"greater","value":10},{"condition":"time_on_site","comparator":"greater","value":20},{"condition":"time_after_close","comparator":"greater","value":300},{"condition":"time_after_invitation","comparator":"greater","value":60}],"commands":[{"command":"open_offline","params":{"title":"Отправьте нам сообщение","message":"Здравствуйте. \nУ вас возникли вопросы? Мы с удовольствием ответим!"}}]},{"name":"Retaining Message if Agent is not Answering","enabled":true,"type":"all","conditions":[{"condition":"online","value":true},{"condition":"time_after_first_message","comparator":"greater","value":60}],"commands":[{"command":"system_message","params":{"message":"Пожалуйста, подождите. Сейчас операторы заняты, но скоро кто-нибудь освободится и ответит вам!"}}]}]}</script>-->
+<script>
+   $(document).ready(function () {
+      $("#forma-podpred").submit(function () {
+         var th = $(this);
+         $.ajax({
+            type: "POST",
+            url: "mail.php",
+            data: th.serialize()
+         }).done(function () {
+            alert("Благодарим за заявку!");
+            setTimeout(function () {
+               // Done Functions
+               th.trigger("reset");
+            }, 1000);
+         });
+         return false;
+      });
+   });
+   $(document).ready(function() {
+     $(".ajax-form-mail").submit(function() {
+       var th = $(this);
+       $.ajax({
+         type: "POST",
+         url: "mail.php",
+         data: th.serialize()
+       }).done(function() {
+         alert("Благодарим за заявку!");
+         setTimeout(function() {
+           // Done Functions
+           th.trigger("reset");
+         }, 1000);
+       });
+       return false;
+     });
+   });
+   </script>
+
+   <script>
+      $(document).ready(function(){
+         $('#interior-first').click(function () {
+           $('#bg-inter-change').addClass('interior-form-bg-first');
+           $('#bg-inter-change').removeClass('interior-form-bg-second');
+           $('#bg-inter-change').removeClass('interior-form-bg-three');
+           $('#bg-inter-change').removeClass('interior-form-four');
+           $('#bg-inter-change').removeClass('interior-form-five');
+           $('#bg-inter-change').removeClass('interior-form-six');
+         });
+         $('#interior-second').click(function () {
+           $('#bg-inter-change').removeClass('interior-form-bg-first');
+           $('#bg-inter-change').addClass('interior-form-bg-second');
+           $('#bg-inter-change').removeClass('interior-form-bg-three');
+           $('#bg-inter-change').removeClass('interior-form-four');
+           $('#bg-inter-change').removeClass('interior-form-five');
+           $('#bg-inter-change').removeClass('interior-form-six');
+         });
+         $('#interior-three').click(function () {
+           $('#bg-inter-change').removeClass('interior-form-bg-first');
+           $('#bg-inter-change').removeClass('interior-form-bg-second');
+           $('#bg-inter-change').addClass('interior-form-bg-three');
+           $('#bg-inter-change').removeClass('interior-form-four');
+           $('#bg-inter-change').removeClass('interior-form-five');
+           $('#bg-inter-change').removeClass('interior-form-six');
+         });
+         $('#interior-four').click(function () {
+           $('#bg-inter-change').removeClass('interior-form-bg-first');
+           $('#bg-inter-change').removeClass('interior-form-bg-second');
+           $('#bg-inter-change').removeClass('interior-form-bg-three');
+           $('#bg-inter-change').addClass('interior-form-four');
+           $('#bg-inter-change').removeClass('interior-form-five');
+           $('#bg-inter-change').removeClass('interior-form-six');
+         });
+         $('#interior-five').click(function () {
+           $('#bg-inter-change').removeClass('interior-form-bg-first');
+           $('#bg-inter-change').removeClass('interior-form-bg-second');
+           $('#bg-inter-change').removeClass('interior-form-bg-three');
+           $('#bg-inter-change').removeClass('interior-form-four');
+           $('#bg-inter-change').addClass('interior-form-five');
+           $('#bg-inter-change').removeClass('interior-form-six');
+         });
+         $('#interior-six').click(function () {
+           $('#bg-inter-change').removeClass('interior-form-bg-first');
+           $('#bg-inter-change').removeClass('interior-form-bg-second');
+           $('#bg-inter-change').removeClass('interior-form-bg-three');
+           $('#bg-inter-change').removeClass('interior-form-four');
+           $('#bg-inter-change').removeClass('interior-form-five');
+           $('#bg-inter-change').addClass('interior-form-six');
+         });
+       });
+      // Кнопки Minus Click
+      $( "#minus-input-calc, #minus-input-calc2" ).click(function() {
+         let factkolvoup = $('#kolvopachek').val();
+         caaaalcminus(factkolvoup);
+       });
+       // Кнопки Plus Click
+       $( "#plus-input-calc, #plus-input-calc2" ).click(function() {
+          let factkolvoup = $('#kolvopachek').val();
+          caaaalcplus(factkolvoup);
+        });
+        <!-- Изменения в поле упаковок -->
+        $( "#kolvopachek" ).change(function() {
+         let factkolvoup = $('#kolvopachek').val();
+         caaaalcinputup(factkolvoup);
+       });
+        <!-- Изменения в поле метража-->
+        $( "#chislo" ).change(function() {
+         let factkolvoup = $('#chislo').val();
+         caaaalcinputmetraj(factkolvoup);
+       });
+      // Общие переменные
+
+         var metraj = $('#chislo').val();
+         var pricenoskid = $('#chislo').attr('pricemain');
+         var priceed = parseInt($('#chislo').attr('priceskidk'));
+         var skidkar = $('#chislo').attr('skidkatrue');
+         
+      // Работа по вводу в инпут
+         function caaaalcinputup(summcalcin){
+            <!-- Логика -->
+            let pachkasht = Math.ceil(parseFloat(summcalcin).toFixed(2))
+            vyvodinput(pachkasht);
+         }
+         function caaaalcinputmetraj(summcalcin){
+            <!-- Логика -->
+            let metrajvalid = summcalcin / metraj
+            let pachkasht = Math.ceil(parseFloat(metrajvalid).toFixed(2))
+            vyvodinput(pachkasht);
+         }
+      // Работа по кнопкам
+         function caaaalcminus(summcalcin){
+            <!-- Логика -->
+            let pluspachk = parseFloat(summcalcin).toFixed(2)
+            let finalValue = parseInt(pluspachk) - 1
+            vyvodinput(finalValue);
+         }
+         function caaaalcplus(summcalcin){
+            <!-- Логика -->
+            let pluspachk = parseFloat(summcalcin).toFixed(2)
+            let finalValue = parseInt(pluspachk) + 1
+            vyvodinput(finalValue);
+         }
+      // Вывод значений в инпуте
+         function vyvodinput(final_upak){
+            var input_id = '#kolvopachek';
+            var input_metraj = '#chislo';
+            let proverka = parseInt(final_upak)
+            let metrajitog = parseFloat(proverka * metraj).toFixed(3)
+         // Проверка на единицу
+            if(proverka > 1000) {
+               let calcpromup = 1000;
+               let calcprommetr = metraj * calcpromup;
+               vyvodinputtwo(calcpromup,calcprommetr);
+            } else if(proverka > 1) {
+               let calcpromup = proverka;
+               let calcprommetr = metrajitog;
+               vyvodinputtwo(calcpromup,calcprommetr);
+            } else {
+               let calcpromup = 1;
+               let calcprommetr = metraj;
+               vyvodinputtwo(calcpromup,calcprommetr);
+            }
+         // Вывод в поля калькулятора
+            function vyvodinputtwo(calcprup,calcprmetr){
+               $(input_id).val(calcprup);
+               $(input_metraj).val(calcprmetr);
+               $('#input-quantity').attr('value', calcprmetr);
+
+               function declination(number, titles) {
+                  cases = [2, 0, 1, 1, 1, 2];
+                  return titles[ (number%100>4 && number%100<20)? 2:cases
+                     [(number%10<5)?number%10:5] ];
+               }
+               let title = declination(calcprup, [' упаковка', ' упаковки', ' упаковок']);
+               let pricesumm = parseInt(calcprmetr * priceed)
+               let priceskidka = parseInt(pricenoskid - priceed)
+               let pricesmbezskidk = parseInt(calcprmetr * pricenoskid)
+               let pricesumskidk = parseInt(priceskidka * calcprmetr)
+               if(skidkar == '1') {
+                  let textoffer = '<p class="double-info-stoimost">'
+                     + calcprup
+                     + ' '
+                     + title
+                     + ' ('
+                     +  calcprmetr
+                     + 'м<sup>2</sup>)</p>'
+                     + '<p class="clcnoskdksm"><span class="prclc-snsk">Сумма без скидки: '
+                     + pricesmbezskidk
+                     + ' р.</span></p>'
+                     + '<p class="clcsmckd">Скидка: <span class="razmskidk">'
+                     + pricesumskidk
+                     + 'р. </span></p><p class="items-stoimost">Общая стоимость: '
+                     + pricesumm
+                     + ' руб.</p>';
+                  $('#resultcalcflo').html(textoffer);
+               } else {
+                  let textoffer = '<p class="double-info-stoimost">'
+                     + calcprup
+                     + ' '
+                     + title
+                     + ' ('
+                     +  calcprmetr
+                     + 'м<sup>2</sup>)</p>'
+                     + '<p class="items-stoimost">Общая стоимость: '
+                     + pricesumm
+                     + ' руб.</p>';
+                  $('#resultcalcflo').html(textoffer);
+               }
+               
+            }
+         }
+    </script>
+{{ footer }}

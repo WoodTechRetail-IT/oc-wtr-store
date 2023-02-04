@@ -1,0 +1,32 @@
+<div class="list-module">
+  <div class="title-module">
+    <i class="fi fi-rr-menu-burger mr-3"></i>
+    <div class="title-module__name">Категории</div>
+  </div>
+  <div class="list-module__wrap">
+    <ul class="list-module__list list-unstyled accordeon">
+      {% for category in categories %}
+      {% if category.category_id and category.children %} 
+      <li class="list-module__item has-item">
+        <a href="{{ category.href }}" class="list-module__link list-module-item active">{{ category.name }}</a>
+        {% if category.children %}
+        <ul class="list-unstyled list-child">
+          {% for child in category.children %}	  
+          {% if child.category_id == child_id %}
+          <li><a href="{{ child.href }}" class="list-module-item">{{ child.name }}</a></li>
+          {% else %} 
+          <li><a href="{{ child.href }}" class="list-module-item">{{ child.name }}</a></li>      
+          {% endif %}
+          {% endfor %}
+        </ul>	
+        {% endif %}	
+      </li>	
+      {% else %}
+      <li class="list-module__item">
+        <a href="{{ category.href }}" class="list-module__link list-module-item">{{ category.name }}</a>
+      </li>
+      {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+</div>

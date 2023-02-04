@@ -1,0 +1,169 @@
+{# microdatapro 7.7  #}
+{% if company_syntax  ==  "md" or company_syntax  ==  "all"%} {# syntax md  #}
+<!--microdatapro {{ version }} company start [microdata] -->
+<span itemscope itemtype="http://schema.org/{{ store_type }}">
+<meta itemprop="name" content="{{ organization_name }}" />
+<link itemprop="url" href="{{ organization_url }}" />
+<link itemprop="image" href="{{ organization_logo }}" />
+<link itemprop="logo" href="{{ logo }}" />
+<meta itemprop="email" content="{{ organization_email }}" />
+<meta itemprop="priceRange" content="{{ code }}" />
+{% if organization_map %}
+<meta itemprop="hasMap" content="{{ organization_map }}" />
+{% endif %}
+{% if organization_phones %}
+{% for phone in organization_phones %}
+<meta itemprop="telephone" content="{{ phone }}" />
+{% endfor %}
+{% endif %}
+{% if organization_groups %}
+{% for group in organization_groups %}
+<link itemprop="sameAs" href="{{ group }}" />
+{% endfor %}
+{% endif %}
+{% if organization_locations %}
+{% for location in organization_locations %}
+<span itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+<meta itemprop="addressLocality" content="{{ location.addressLocality }}" />
+<meta itemprop="postalCode" content="{{ location.postalCode }}" />
+<meta itemprop="streetAddress" content="{{ location.streetAddress }}" />
+</span>
+<span itemprop="location" itemscope itemtype="http://schema.org/Place">
+<meta itemprop="name" content="{{ organization_name }}" />
+<link itemprop="image" href="{{ organization_logo }}" />
+{% if organization_phones %}
+{% for phone in organization_phones %}
+<meta itemprop="telephone" content="{{ phone }}" />
+{% endfor %}
+{% endif %}
+<span itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+<meta itemprop="addressLocality" content="{{ location.addressLocality }}" />
+<meta itemprop="postalCode" content="{{ location.postalCode }}" />
+<meta itemprop="streetAddress" content="{{ location.streetAddress }}" />
+</span>
+<span itemprop="geo" itemscope itemtype="http://schema.org/GeoCoordinates">
+<meta itemprop="latitude" content="{{ location.latitude }}" />
+<meta itemprop="longitude" content="{{ location.longitude }}" />
+<span itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+<meta itemprop="streetAddress" content="{{ location.streetAddress }}" />
+<meta itemprop="addressLocality" content="{{ location.addressLocality }}" />
+<meta itemprop="postalCode" content="{{ location.postalCode }}" />
+</span>
+</span>
+</span>
+{% endfor %}
+{% endif %}
+<span itemprop="potentialAction" itemscope itemtype="http://schema.org/SearchAction">
+<meta itemprop="target" content="{{ organization_url }}index.php?route=product/search&search={search_term_string}"/>
+<input type="hidden" itemprop="query-input" name="search_term_string">
+</span>
+{% if organization_oh %}
+{% for day, oh in organization_oh %}
+<span itemprop="openingHoursSpecification" itemscope itemtype="http://schema.org/OpeningHoursSpecification">
+<link itemprop="dayOfWeek" href="http://schema.org/{{ day }}" />
+<meta itemprop="opens" content="{{ oh.open }}" />
+<meta itemprop="closes" content="{{ oh.close }}" />
+</span>
+{% endfor %}
+{% endif %}
+</span>
+<!--microdatapro {{ version }} company end [microdata] -->
+{% endif %}{# end syntax md  #}
+{% if company_syntax  ==  "ld" or company_syntax  ==  "all" %} {# syntax json-ld  #}
+<!--microdatapro {{ version }} company start [json-ld] -->
+<script type="application/ld+json">
+{
+"@context": "http://schema.org",
+"@type": "{{ store_type }}",
+"name": "{{ organization_name }}",
+"url": "{{ organization_url }}",
+"image": "{{ organization_logo }}",
+"logo": "{{ logo }}",
+{% if organization_phones.0 %}
+"telephone" : "{{ organization_phones.0 }}",
+{% endif %}
+"email": "{{ organization_email }}",
+"priceRange": "{{ code }}",
+{% if organization_locations_json %}
+{% for location in organization_locations_json %}
+"address": {
+"@type": "PostalAddress",
+"addressLocality": "{{ location.addressLocality }}",
+"postalCode": "{{ location.postalCode }}",
+"streetAddress": "{{ location.streetAddress }}"
+},
+"location": {
+"@type": "Place",
+"address": {
+"@type": "PostalAddress",
+"addressLocality": "{{ location.addressLocality }}",
+"postalCode": "{{ location.postalCode }}",
+"streetAddress": "{{ location.streetAddress }}"
+},
+"geo": {
+"@type": "GeoCoordinates",
+"latitude": "{{ location.latitude }}",
+"longitude": "{{ location.longitude }}"
+}
+},
+{% endfor %}
+{% endif %}
+"potentialAction": {
+"@type": "SearchAction",
+"target": "{{ organization_url }}index.php?route=product/search&search={search_term_string}",
+"query-input": "required name=search_term_string"
+}{% if organization_phones %},
+"contactPoint" : [
+{% set pi = 1 %} {% for phone in organization_phones %}{
+"@type" : "ContactPoint",
+"telephone" : "{{ phone }}",
+"contactType" : "customer service"
+}{% if pi  !=  count_organization_phones %},{% endif %}{% set pi = pi + 1 %}{% endfor %}]{% endif %}{% if organization_groups %},
+"sameAs" : [
+{% set gi = 1 %}{% for group in organization_groups %}
+"{{ group }}"{% if gi  !=  count_organization_groups %},{% endif %}
+{% set gi = gi + 1 %}{% endfor %}
+]{% endif %}{% if organization_oh %},
+"openingHoursSpecification":[
+{% set oh_i = 1 %} {% for day, oh in organization_oh %}
+{
+"@type": "OpeningHoursSpecification",
+"dayOfWeek": "{{ day }}",
+"opens": "{{ oh.open }}",
+"closes": "{{ oh.close }}"
+}{% if oh_i  != count_organization_oh %},{% endif %}
+{% set oh_i = oh_i + 1 %}{% endfor %}
+]
+{% endif %}
+}
+</script>
+<!--microdatapro {{ version }} company end [json-ld] -->
+{% endif %} {# end syntax json-ld  #}
+{% if config_hcard %}
+<!--microdatapro {{ version }} company start [hCard] -->
+<span class="vcard">
+<span class="fn org"><span class="value-title" title="{{ organization_name }}"></span></span>
+<span class="org"><span class="value-title" title="{{ organization_name }}"></span></span>
+<span class="url"><span class="value-title" title="{{ organization_url }}"></span></span>
+{% if organization_locations %}
+{% for location in organization_locations %}
+<span class="adr">
+<span class="locality"><span class="value-title" title="{{ location.addressLocality }}"></span></span>
+<span class="street-address"><span class="value-title" title="{{ location.streetAddress }}"></span></span>
+<span class="postal-code"><span class="value-title" title="{{ location.postalCode }}"></span></span>
+</span>
+<span class="geo">
+<span class="latitude"><span class="value-title" title="{{ location.latitude }}"></span></span>
+<span class="longitude"><span class="value-title" title="{{ location.longitude }}"></span></span>
+</span>
+{% endfor %}
+{% endif %}
+{% if organization_phones %}
+{% for phone in organization_phones %}
+<span class="tel"><span class="value-title" title="{{ phone }}"></span></span>
+{% endfor %}
+{% endif %}
+<span class="photo"><span class="value-title" title="{{ organization_logo }}"></span></span>
+</span>
+<!--microdatapro {{ version }} company end [hCard ] -->
+{% endif %}

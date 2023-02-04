@@ -1,0 +1,31 @@
+{% if heading_status %} <h4>{{ name }}</h4> {% endif %}
+{{ about }}
+<div class="ldev-question-banner-wrap">
+
+    {% for row in list|batch(banner_rows) %}
+        <div class="row">
+            {% for question in row %}
+            <div class="col-sm-{{ 12/banner_rows }}">
+                {% if question.thumb %}
+
+                <div class="ldev-question-banner">
+                    {% if question.link %}
+                    <a href="{{ question.link }}"><img src="{{ question.thumb }}" alt="{{ question.title }}" title="{{ question.title }}"></a>
+                    {% else %}
+                        <img src="{{ question.thumb }}" alt="{{ question.title }}" title="{{ question.title }}">
+                    {% endif %}
+                </div>
+                {% if question.text %}
+                <div class="ldev-question-banner-text">
+                    {{ question.text  }}
+                </div>
+                {% endif %}
+
+                {% endif %}
+            </div>
+            {% endfor %}
+
+        </div>
+    {% endfor %}
+
+</div>

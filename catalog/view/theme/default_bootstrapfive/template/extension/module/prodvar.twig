@@ -1,0 +1,32 @@
+{% if products %}
+<div class="content-title">{{ prodvar_title }}</div>
+<div class="prodvar">
+  {% for product in products %}
+  <div class="prodvar-item">
+    <a href="{{ product.href }}" class="prodvar-link">
+      <div class="prodvar-item__form">
+        <div class="prodvar-image">
+          <img src="{{ product.image }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive"/>
+        </div>
+        <div class="prodvar-name">
+          <span class="prodvar-name__text">{{ product.name }}</span>
+          {% if product.price %}
+          <div class="prodvar-price">
+            {% if not product.special %}
+            <div class="prodvar-price__main">
+              <span class="prodvar-price__current">{{ product.price }}</span>
+            </div>
+            {% else %}
+            <div class="prodvar-price__main">
+              <span class="prodvar-price__current price-new">{{ product.special }}</span>
+            </div>
+            {% endif %}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </a>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}

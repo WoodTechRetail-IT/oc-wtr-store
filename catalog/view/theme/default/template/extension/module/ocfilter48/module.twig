@@ -1,0 +1,138 @@
+<div class="ocf-container ocf-theme-{{ theme }} ocf-mobile-{{ index }} ocf-mobile-{{ mobile_placement }} ocf-{{ layout }} ocf-{{ position }}" id="ocf-module-{{ index }}">
+{% if index < 2 %}
+<link rel="stylesheet" href="{{ stylesheet }}" />
+{% endif %}
+
+  <div class="ocf-content">
+    <div class="ocf-header">
+      <i class="ocf-icon ocf-icon-16 ocf-brand ocf-sliders"></i>      
+      
+      {{ heading_title }}
+      
+      {% if layout == 'horizontal' and (search_button or selecteds) %}
+      <div class="ocf-header-btn ocf-desktop">
+        {% if selecteds %}
+        <button type="button" onclick="location = '{{ link }}';" class="ocf-btn ocf-btn-link">{{ button_cancel_all }}</button>
+        {% else %}
+        <button type="button" data-ocf-discard="*" class="ocf-btn ocf-btn-link ocf-disabled" disabled="disabled">{{ button_cancel_all }}</button>
+        {% endif %}         
+        {% if search_button %}
+        <button type="button" class="ocf-btn ocf-btn-link ocf-disabled" data-ocf="button" data-loading-text="{{ text_loading }}" disabled="disabled">{{ button_select }}</button>
+        {% endif %}        
+      </div>   
+      {% endif %}  
+      
+      <button type="button" data-ocf="mobile" class="ocf-btn ocf-btn-link ocf-mobile ocf-close-mobile" aria-label="Close filter"><i class="ocf-icon ocf-icon-16 ocf-times"></i></button>
+    </div>
+          
+    <div class="ocf-body">     
+      {% include('default/template/extension/module/ocfilter48/filter_list.twig') %}
+    </div>      
+       
+    {% if search_button or selecteds %}
+    {% if layout == 'vertical' %}
+    {% set class = 'ocf-footer' %}
+    {% else %}
+    {% set class = 'ocf-footer ocf-mobile' %}
+    {% endif %}
+    <div class="{{ class }}">
+      <div class="ocf-between">
+        {% if selecteds %}
+        <button type="button" onclick="location = '{{ link }}';" class="ocf-btn ocf-btn-link">{{ button_cancel_all }}</button>
+        {% else %}
+        <button type="button" data-ocf-discard="*" class="ocf-btn ocf-btn-link ocf-disabled" disabled="disabled">{{ button_cancel_all }}</button>
+        {% endif %}        
+        {% if search_button %}
+        <button type="button" class="ocf-btn ocf-disabled ocf-btn-block ocf-search-btn-static" data-ocf="button" data-loading-text="{{ text_loading }}" disabled="disabled">{{ button_select }}</button>
+        {% endif %}        
+      </div>
+    </div>            
+    {% endif %}
+  </div><!-- /.ocf-content -->
+  
+  <div class="ocf-is-mobile"></div>
+  
+  {% if (mobile_button_position == 'fixed' or mobile_button_position == 'both') and index < 2 %}
+  <div class="ocf-btn-mobile-fixed ocf-mobile">
+    <button type="button" class="ocf-btn ocf-btn-default" data-ocf="mobile" aria-label="{{ button_ocfilter_mobile }}">
+      <span class="ocf-btn-name">{{ button_ocfilter_mobile }}</span>
+      <i class="ocf-icon ocf-icon-16 ocf-brand ocf-sliders"></i>
+    </button>
+  </div>  
+  {% endif %} 
+  
+  <div class="ocf-hidden">
+    <button class="ocf-btn ocf-search-btn-popover" data-ocf="button" data-loading-text="{{ text_loading }}">{{ button_select }}</button>
+  </div>
+  
+<script>
++(function(global) {
+
+var startOCFilter = function() {
+  var loadScript = function(url, callback) {
+    $.ajax({ url: url, dataType: 'script', success: callback, async: true });
+  };
+  
+  var init = function() {
+    $('#ocf-module-{{ index }}').ocfilter({
+      index: '{{ index }}',
+      
+      paramsIndex: '{{ url_index }}',
+      
+      urlHost: '{{ url_host }}',
+      urlParams: '{{ url_params }}',
+      
+      params: '{{ filter_params }}',
+      
+      sepFilt: '{{ sep_filt }}',
+      sepFsrc: '{{ sep_fsrc }}',
+      sepVals: '{{ sep_vals }}',
+      sepSdot: '{{ sep_sdot }}',
+      sepSneg: '{{ sep_sneg }}',
+      sepSran: '{{ sep_sran }}',
+
+      position: '{{ position }}',
+      layout: '{{ layout }}',
+      numeralLocale: '{{ numeral_locale }}',
+      searchButton: {{ search_button + 0 }},
+      showCounter: {{ show_counter + 0 }},
+      sliderInput: {{ slider_input + 0 }},
+      sliderPips: {{ slider_pips + 0 }},
+      priceLogarithmic: {{ price_logarithmic + 0 }},
+      lazyLoadFilters: {{ hidden_filters_lazy_load + 0 }},
+      lazyLoadValues: {{ hidden_values_lazy_load + 0 }},
+      
+      mobileMaxWidth: {{ mobile_max_width + 0 }},
+      mobileRememberState: {{ mobile_remember_state + 0 }},
+      
+      textLoad: '{{ text_loading_ocf|e('js') }}',
+      textSelect: '{{ button_select|e('js') }}'
+    });
+  };
+  
+  {% if index < 2 %}
+  loadScript('{{ javascript }}', init);
+  {% endif %}
+};
+
+var ready = function(fn) {
+  if (global.readyState != 'loading') {
+    fn();
+  } else {
+    global.addEventListener('DOMContentLoaded', fn);
+  }
+};
+
+ready(function() { // DOM loaded
+  if ('undefined' == typeof jQuery) {
+    console.error('OCFilter required jQuery');
+    
+    return;
+  }
+
+  $(startOCFilter); // jQuery loaded
+});
+
+})(document);
+</script>
+</div><!-- /.ocf-container -->

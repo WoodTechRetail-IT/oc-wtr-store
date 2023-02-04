@@ -1,0 +1,33 @@
+<script>
+var hpmodel = {
+    copy: {
+        {% if replace_desc %}
+        '#tab-description': '',
+        {% endif %}
+        {% if replace_att %}
+        '#tab-specification': '',
+        {% endif %}
+        {% if replace_image %}
+        '#content ul.thumbnails': '',
+        {% endif %}
+        {% if replace_h1 %}
+        '#content h1': '',
+        '.breadcrumb': '',
+        {% endif %}
+        '#product': '',
+        '#content ul.list-unstyled:eq(0)': '',
+        '#content ul.list-unstyled:eq(1)': '',
+        '#content .btn-group:eq(0)': '',
+    },
+    rest: {
+        {% if replace_att %}
+        '.product_informationss > ul .rating': '',
+        {% endif %}
+    },
+    input: {
+        '#product input[name="quantity"]': 'change',
+    },
+};
+function hmodel_onchange() {
+}
+</script>

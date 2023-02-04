@@ -1,0 +1,132 @@
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button class="close" type="button" data-dismiss="modal">×</button>
+			<h2 id="boc_order_title" class="modal-title text-center">{{buyoneclick_title}}</h2>
+		</div>
+		<div class="modal-body">
+			<form id="boc_form" action="" role="form">
+				<fieldset>
+					{% if buyoneclick_exan_status %}
+						<div id="source" style="display:none">
+							<input id="sb_first_typ" class="hidden" type="text" name="sb_first_typ" value="">
+							<input id="sb_first_src" class="hidden" type="text" name="sb_first_src" value="">
+							<input id="sb_first_mdm" class="hidden" type="text" name="sb_first_mdm" value="">
+							<input id="sb_first_cmp" class="hidden" type="text" name="sb_first_cmp" value="">
+							<input id="sb_first_cnt" class="hidden" type="text" name="sb_first_cnt" value="">
+							<input id="sb_first_trm" class="hidden" type="text" name="sb_first_trm" value="">
+
+							<input id="sb_current_typ" class="hidden" type="text" name="sb_current_typ" value="">
+							<input id="sb_current_src" class="hidden" type="text" name="sb_current_src" value="">
+							<input id="sb_current_mdm" class="hidden" type="text" name="sb_current_mdm" value="">
+							<input id="sb_current_cmp" class="hidden" type="text" name="sb_current_cmp" value="">
+							<input id="sb_current_cnt" class="hidden" type="text" name="sb_current_cnt" value="">
+							<input id="sb_current_trm" class="hidden" type="text" name="sb_current_trm" value="">
+
+							<input id="sb_first_add_fd" class="hidden" type="text" name="sb_first_add_fd" value="">
+							<input id="sb_first_add_ep" class="hidden" type="text" name="sb_first_add_ep" value="">
+							<input id="sb_first_add_rf" class="hidden" type="text" name="sb_first_add_rf" value="">
+
+							<input id="sb_current_add_fd" class="hidden" type="text" name="sb_current_add_fd" value="">
+							<input id="sb_current_add_ep" class="hidden" type="text" name="sb_current_add_ep" value="">
+							<input id="sb_current_add_rf" class="hidden" type="text" name="sb_current_add_rf" value="">
+
+							<input id="sb_session_pgs" class="hidden" type="text" name="sb_session_pgs" value="">
+							<input id="sb_session_cpg" class="hidden" type="text" name="sb_session_cpg" value="">
+
+							<input id="sb_udata_vst" class="hidden" type="text" name="sb_udata_vst" value="">
+							<input id="sb_udata_uip" class="hidden" type="text" name="sb_udata_uip" value="">
+							<input id="sb_udata_uag" class="hidden" type="text" name="sb_udata_uag" value="">
+							<input id="sb_promo_code" class="hidden" type="text" name="sb_promo_code" value="">
+						</div>
+					{% endif %}
+					<div id="boc_product_field" class="col-pd-15 col-mb-10">
+						<div class="row boc_product_info">
+							{% if product %}
+								<div class="col-xs-12 col-sm-3">
+									<img src="{{product.thumb}}" alt="{{product.name}}" title="{{product.name}}" class="img-responsive" />
+								</div>
+								<div class="col-xs-12 col-sm-9 text-right">
+									<div class="row" style="width: calc(100% + 30px);">
+										<div class="col-xs-12 col-sm-6">
+											<div class="caption" style="padding-right:1em;">
+												<p class="h4" style="margin-bottom:0; line-height:1;">{{product.name}}</p>
+												{% if product.option %}
+													<div class="product_options">
+														{% for option in product.option %}
+														- <small>
+															{{option.name}} {{option.value}}
+															{% if option.value_price %}{{' ('}} {{option.value_price_prefix}} {{option.value_price}} {{')'}} {% endif %}
+														</small>
+														<br />
+														{% endfor %}
+													</div>
+												{% endif %}
+											</div>
+										</div>
+										<div class="col-xs-12 col-sm-6">
+											<div class="h4" style="margin-bottom:0;">x {{product.quantity}} = {{product.total}}</div>
+										</div>
+									</div>
+								</div>
+							{% else %}
+								<div class="col-xs-12">
+									<p class="text-center">{{text_empty}}</p>
+								</div>
+							{% endif %}
+						</div>
+						{% if stock != '' %}
+							<div class="row">
+								<div class="col-xs-12"><div class="text-left text-danger"><i class="fa fa-exclamation-circle"></i> <strong>{{stock}}</strong></p></div>
+							</div>
+						{% endif %}
+					</div>
+					<div class="clearfix"></div>
+					<div class="col-pd-15"><hr /></div>
+					<div class="clearfix"></div>
+					<div class="col-pd-15">
+						<div style="display:none">
+							<input id="boc_product_id" type="text" name="boc_product_id">
+						</div>
+						{% if buyoneclick_field1_status %}
+							<div class="col-mb-10 input-group{{buyoneclick_field1_required ? ' has-warning'}}">
+								<span class="input-group-addon"><i class="fa fa-fw fa-user" aria-hidden="true"></i></span>
+								<input id="boc_name" class="form-control{{buyoneclick_field1_required ? ' required'}}" type="text" name="boc_name" placeholder="{{buyoneclick_field1_title}}" value="{% if customer_info is defined and (customer_info.firstname != '' or customer_info.lastname != '') %}{{customer_info.firstname}} {{customer_info.lastname}}{% endif %}" >
+							</div>
+						{% endif %}
+						{% if buyoneclick_field2_status %}
+							<div class="col-mb-10 input-group{{buyoneclick_field2_required ? ' has-warning'}}">
+								<span class="input-group-addon"><i class="fa fa-fw fa-phone-square" aria-hidden="true"></i></span>
+								<input id="boc_phone" class="form-control{{buyoneclick_field2_required ? ' required'}}" type="tel" name="boc_phone" placeholder="{% if buyoneclick_validation_type %}{{buyoneclick_validation_type}}{% else %}{{buyoneclick_field2_title}}{% endif %}" {% if buyoneclick_validation_type %}{{' data-pattern="true"'}}{% else %}{{' data-pattern="false"'}} {% endif %} value="{% if customer_info is defined and customer_info.telephone != '' %}{{customer_info.telephone}} {% endif %}" >
+							</div>
+						{% endif %}
+						{% if buyoneclick_field3_status %}
+							<div class="col-mb-10 input-group{{buyoneclick_field3_required ? ' has-warning'}}">
+								<span class="input-group-addon"><i class="fa fa-fw fa-envelope" aria-hidden="true"></i></span>
+								<input id="boc_email" class="form-control{{buyoneclick_field3_required ? ' required'}}" type="email" name="boc_email" placeholder="{{buyoneclick_field3_title}}" value="{{customer_info and customer_info.email != '' ? customer_info.email}}" >
+							</div>
+						{% endif %}
+						{% if buyoneclick_field4_status %}
+							<div class="col-mb-10 form-group{{buyoneclick_field4_required ? ' has-warning'}}">
+								<textarea id="boc_message" class="form-control{{buyoneclick_field4_required ? ' required'}}" name="boc_message" rows="3" placeholder="{{buyoneclick_field4_title}}" ></textarea>
+							</div>
+						{% endif %}
+						{% if buyoneclick_agree_status %}
+							<div class="col-mb-10 checkbox">
+								<label>
+									<input id="boc_agree" type="checkbox" name="boc_agree" class="required" value="1"> {{buyoneclick_text_agree}}
+								</label>
+							</div>
+						{% endif %}
+					</div>
+					<div class="clearfix"></div>
+					<div class="col-pd-15"><hr /></div>
+					<div class="clearfix"></div>
+					<div class="col-pd-15">
+						<button type="submit" id="boc_submit" class="btn btn-lg btn-block btn-primary" style="max-width:250px; margin:0 auto;" onClick="clickAnalyticsSend(); return true;">{{buyoneclick_button_order}}</button>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+</div>

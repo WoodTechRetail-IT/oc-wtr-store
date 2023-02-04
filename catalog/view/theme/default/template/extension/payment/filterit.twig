@@ -1,0 +1,24 @@
+{% if instruction %}   
+    {% if header %}
+    <div class="checkout-heading">{{ header }}</div>
+    {% endif %}
+    <div class="content well well-sm">
+      {{ instruction }}   
+    </div>
+{% endif %}
+<div class="buttons">
+  <div class="pull-right right">
+    <input type="button" value="{{ button_confirm }}" id="button-confirm" class="button btn btn-primary" />
+  </div>
+</div>
+<script type="text/javascript">
+$('#button-confirm').on('click', function() {
+    $.ajax({
+        type: 'get',
+        url: 'index.php?route={{ route }}',
+        success: function() {
+            location = '{{ continue }}';
+        }
+    });
+});
+</script>

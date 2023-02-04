@@ -1,0 +1,19 @@
+{% if products %}
+<div class="prodvar-title">{{ prodvar_title }}</div>
+<div class="prodvar">
+  {% for product in products %}
+  <div class="prodvar-item">
+    <a href="{{ product.href }}" class="prodvar-link">
+      <div class="prodvar-item__form">
+        <div class="prodvar-image">
+          <img src="{{ product.image }}" alt="{{ product.name }}" title="{{ product.name }}" class="img-responsive"/>
+        </div>
+        <div class="prodvar-name">
+          <span class="prodvar-name__text">{{ product.name }}</span>
+        </div>
+      </div>
+    </a>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}

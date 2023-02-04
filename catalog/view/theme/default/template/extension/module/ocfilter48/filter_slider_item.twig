@@ -1,0 +1,53 @@
+<div class="ocf-value-list">
+  {% if slider_input %}
+  <div class="ocf-input-group ocf-slider-input-group">
+    {% if filter.prefix %}
+    <span class="ocf-input-group-addon">{{ filter.prefix }}</span>
+    {% endif %}
+    <input type="number" name="ocf[{{ filter.id }}][min]" value="{{ filter.min_request }}" class="ocf-form-control" id="ocf-input-min-{{ filter.id }}" autocomplete="off" aria-label="{{ filter.name }}" {{ filter.slider_enabled ? '' : 'disabled="disabled"' }} />
+    {% if filter.type == 'slide_dual' %}
+    <span class="ocf-input-group-addon">-</span>
+    <input type="number" name="ocf[{{ filter.id }}][max]" value="{{ filter.max_request }}" class="ocf-form-control" id="ocf-input-max-{{ filter.id }}" autocomplete="off" aria-label="{{ filter.name }}" {{ filter.slider_enabled ? '' : 'disabled="disabled"' }} />
+    {% endif %}
+    {% if filter.suffix %}
+    <span class="ocf-input-group-addon">{{ filter.suffix }}</span>
+    {% endif %}
+  </div>
+  {% endif %}
+  <div class="ocf-value-slider">
+    <div id="ocf-s-{{ filter.id }}" class="ocf-value-scale"
+      data-filter-key="{{ filter.filter_key }}"
+      data-min="{{ filter.min }}"
+      data-max="{{ filter.max }}"
+      data-range="{{ filter.type == 'slide_dual' ? 'true' : 'false' }}"
+      data-min-start="{{ filter.min_request }}"
+      {% if filter.type == 'slide_dual' %}
+      data-max-start="{{ filter.max_request }}"
+      {% endif %}
+      
+      {% if slider_input %}
+      data-input-min="#ocf-input-min-{{ filter.id }}"
+      {% if filter.type == 'slide_dual' %}
+      data-input-max="#ocf-input-max-{{ filter.id }}"
+      {% endif %}
+      {% endif %}
+      
+      data-text-min="#ocf-text-min-{{ filter.id }}"
+      {% if filter.type == 'slide_dual' %}
+      data-text-max="#ocf-text-max-{{ filter.id }}"
+      {% endif %}
+      
+      data-prefix="{{ filter.prefix }}"
+      data-suffix="{{ filter.suffix }}"
+      
+      {% if not filter.slider_enabled %}
+      disabled="disabled"
+      {% endif %}
+    ></div>
+  </div>
+  {% if not search_button %}
+  <div class="ocf-mobile ocf-btn-search-slider ocf-text-right">
+    <button type="button" class="ocf-btn ocf-disabled ocf-search-btn-static" data-ocf="button" data-loading-text="{{ text_loading }}" disabled="disabled">{{ button_select }}</button>
+  </div>
+  {% endif %}   
+</div>

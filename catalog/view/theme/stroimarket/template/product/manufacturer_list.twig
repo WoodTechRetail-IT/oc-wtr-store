@@ -1,0 +1,77 @@
+{{ header }}
+<div id="product-manufacturer">
+  <div class="bg-container">
+    <div class="container">
+      <div class="navigation-content">
+        <ul class="breadcrumb">
+          {% for i,breadcrumb in breadcrumbs %} 
+          {% if (i+1<breadcrumbs|length) %}
+          <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+          {% else %}
+          <li>{{ breadcrumb.text }}</li>
+          {% endif %} 
+          {% endfor %}	
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="content-wrapper">
+      <div class="row">
+        {{ column_left }}
+        {% if column_left and column_right %}
+        {% set class = 'col-sm-6' %}
+        {% elseif column_left or column_right %}
+        {% set class = 'col-sm-9' %}
+        {% else %}
+        {% set class = 'col-sm-12' %}
+        {% endif %}
+        <div id="content" class="{{ class }}">
+          {{ content_top }}
+          <h1>{{ heading_title }}</h1>
+          {% if categories %}
+          <div class="form-group">
+            <div class="brand-categories">
+              <p>{{ text_index }}</p>
+              {% for category in categories %}
+              <a href="index.php?route=product/manufacturer#{{ category.name }}" class="btn btn-default">{{ category.name }}</a>
+              {% endfor %}
+            </div>
+          </div>
+          {% for category in categories %}
+          <h2 id="{{ category.name }}">{{ category.name }}</h2>
+          {% if category.manufacturer %}
+          {% for manufacturers in category.manufacturer|batch(4) %}
+          <div class="manufacturers">
+            <div class="row">
+              {% for manufacturer in manufacturers %}
+              <div class="col-xl-2 col-md-3 col-sm-4 col-12">
+                <a href="{{ manufacturer.href }}" class="manufacturer-link">
+                  {% if manufacturer.image %}
+                  <span class="manufacturer-image">
+                    <img src="{{ manufacturer.image }}" alt="{{ manufacturer.name }}" title="{{ manufacturer.name }}">
+                  </span>
+                  {% endif %}
+                  <span class="manufacturer-name">{{ manufacturer.name }}</span>
+                </a>
+              </div>
+              {% endfor %} 
+            </div>
+          </div>
+          {% endfor %}
+          {% endif %}
+          {% endfor %}
+          {% else %}
+          <p>{{ text_empty }}</p>
+          <div class="buttons clearfix">
+            <div class="pull-right"><a href="{{ continue }}" class="btn btn-primary">{{ button_continue }}</a></div>
+          </div>
+          {% endif %}
+          {{ content_bottom }}
+        </div>
+        {{ column_right }}
+      </div>
+    </div>
+  </div>
+</div>
+{{ footer }}

@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<!--[if IE 8 ]>
+<html dir="{{ direction }}" lang="{{ lang }}" class="ie8">
+  <![endif]-->
+  <!--[if IE 9 ]>
+  <html dir="{{ direction }}" lang="{{ lang }}" class="ie9">
+    <![endif]-->
+    <!--[if (gt IE 9)|!(IE)]><!-->
+    <html dir="{{ direction }}" lang="{{ lang }}">
+      <!--<![endif]-->
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>{{ title }}</title>
+        {% if robots %}
+        <meta name="robots" content="{{ robots }}" />
+        {% endif %}
+        <base href="{{ base }}" />
+        {% if description %}
+        <meta name="description" content="{{ description }}" />
+        {% endif %}
+        {% if keywords %}
+        <meta name="keywords" content="{{ keywords }}" />
+        {% endif %}
+        <meta property="og:title" content="{{ title }}" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="{{ og_url }}" />
+        {% if og_image %}
+        <meta property="og:image" content="{{ og_image }}" />
+        {% else %}
+        <meta property="og:image" content="{{ logo }}" />
+        {% endif %}
+        <meta property="og:site_name" content="{{ name }}" />
+        <script src="catalog/view/javascript/jquery/jquery-2.1.1.min.js"></script>
+        <script src="catalog/view/javascript/bootstrap/js/bootstrap.min.js"></script>
+        <link href="catalog/view/javascript/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+        {% if not theme_colors %}
+        <link href="catalog/view/theme/stroimarket/stylesheet/default.css" rel="stylesheet">
+        {% else %}
+        <link href="catalog/view/theme/stroimarket/stylesheet/{{ theme_colors }}.css" rel="stylesheet">
+        {% endif %}
+        <link href="catalog/view/theme/stroimarket/stylesheet/custom.css" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+        {% for style in styles %}
+        <link href="{{ style.href }}" type="text/css" rel="{{ style.rel }}" media="{{ style.media }}" />
+        {% endfor %}
+        {% for script in scripts %}
+        <script src="{{ script }}"></script>
+        {% endfor %}
+        <script src="catalog/view/theme/stroimarket/js/common.min.js"></script>
+        {% for link in links %}
+        <link href="{{ link.href }}" rel="{{ link.rel }}" />
+        {% endfor %}
+        {% for analytic in analytics %}
+        {{ analytic }}
+        {% endfor %}
+        {% if custom_js %}
+				<script>{{ custom_js }}</script>
+				{% endif %}
+				{% if custom_css %}
+				<style>{{ custom_css }}</style>
+				{% endif %}
+		<style>.swiper-wrapper{max-height:none!important};.footer-bottom__powered img {max-width: 100%;}</style>
+      </head>
+      
+      <body>
+      
+      <script src="catalog/view/javascript/readmore.min.js"></script>
+        <div class="site-main">
+          <header class="top-header">
+            <div class="top-menu__wrapper">
+              <div class="container">
+                <div class="d-flex justify-content-between top-info__panels">
+                  <div class="top-blocks top-left">
+                    <ul class="horizontal-menu">
+                      {% if informations %}
+                      {% for information in informations %}
+                      <li><a href="{{ information.href }}">{{ information.title }}</a></li>
+                      {% endfor %}
+                      {% endif %}
+                      <li><a href="{{ special }}">{{ text_special }}</a></li>
+                    </ul>
+                  </div>
+                  <div class="top-blocks top-right">
+                    <div class="top-info__blocks d-flex align-items-center">
+                      {{ currency }}
+                      {{ language }}
+                      {% if open and header_open %}
+                      <div class="header-open"><i class="fi fi-rr-clock mr-2"></i>{{ open }}</div>
+                      {% endif %}
+                      {% if social and social_top %}
+                      <div class="header-social">
+                        <div class="header-social__item">
+                          {% if config_facebookid and facebook_top %}
+                          <a href="{{ config_facebookid }}" class="config-facebook {% if not config_social_style %}btn-rounded{% endif %} {% if not config_social_color_style %}social-color{% endif %}" rel="nofollow noopener" target="_blank" title="Facebook">
+                            <span class="header-social__icon">
+                              <svg width="9" height="19" viewBox="0 0 9 19" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M6.88476 3.2295C5.69888 3.2295 5.62175 3.76791 5.62175 4.6282V6.16224H8.58643L8.329 9.33857H5.62175V19H1.90892V9.33857H0V6.16224H1.90892V4.19806C1.90892 1.50794 3.12082 0 6.16264 0C7.22026 0 7.99349 0.161426 9 0.376984L8.53532 3.41799C8.01952 3.30973 7.32342 3.2295 6.88476 3.2295Z"></path>
+                              </svg>
+                            </span>
+                          </a>
+                          {% endif %}
+                          {% if config_vkid and vk_top %}
+                          <a href="{{ config_vkid }}" class="config-vk {% if not config_social_style %}btn-rounded{% endif %} {% if not config_social_color_style %}social-color{% endif %}" rel="nofollow noopener" target="_blank" title="ВКонтакте">
+                            <span class="header-social__icon">
+                              <svg width="22" height="12" viewBox="0 0 22 12" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M21.8038 10.7034C22.5326 11.8582 20.9965 11.9491 20.9965 11.9491L18.0582 11.989C18.0582 11.989 17.4269 12.1079 16.5957 11.5625C15.4977 10.8412 14.4609 8.96619 13.6536 9.20994C12.8339 9.45968 12.8607 11.1469 12.8607 11.1469C12.8607 11.1469 12.8655 11.5065 12.6799 11.6983C12.4762 11.9071 12.0792 11.9491 12.0792 11.9491H10.7641C10.7641 11.9491 7.86306 12.1169 5.30734 9.57256C2.52111 6.79845 0.0591262 1.29318 0.0591262 1.29318C0.0591262 1.29318 -0.082431 0.932559 0.072519 0.757741C0.245642 0.561945 0.717187 0.548958 0.717187 0.548958L3.86018 0.528979C3.86018 0.528979 4.15669 0.57593 4.36808 0.724775C4.54311 0.847647 4.64163 1.07841 4.64163 1.07841C4.64163 1.07841 5.14952 2.30613 5.82288 3.41697C7.13613 5.58771 7.74732 6.06222 8.19304 5.82946C8.8425 5.49081 8.64833 2.76265 8.64833 2.76265C8.64833 2.76265 8.65981 1.77268 8.32121 1.33114C8.05818 0.990498 7.56368 0.889604 7.34465 0.861633C7.1677 0.838657 7.45847 0.447064 7.83436 0.271247C8.39964 0.0055241 9.39917 -0.0084614 10.5795 0.00252716C11.4986 0.0115178 11.7645 0.0664607 12.1232 0.148375C13.2069 0.399114 12.8396 1.36511 12.8396 3.68269C12.8396 4.42492 12.7 5.46884 13.2595 5.81547C13.5006 5.96332 14.0898 5.83745 15.5627 3.44594C16.261 2.31312 16.7842 0.97951 16.7842 0.97951C16.7842 0.97951 16.898 0.742757 17.0768 0.639864C17.2576 0.535972 17.5034 0.568937 17.5034 0.568937L20.8119 0.548958C20.8119 0.548958 21.8057 0.436076 21.9664 0.864629C22.1347 1.31516 21.5953 2.36607 20.2437 4.08827C18.0247 6.91633 17.777 6.6516 19.6201 8.2869C21.3801 9.84927 21.7445 10.6095 21.8038 10.7034Z"></path>
+                              </svg>
+                            </span>
+                          </a>
+                          {% endif %}
+                          {% if config_telegramid and telegram_top %}
+                          <a href="{{ config_telegramid }}" class="config-telegram {% if not config_social_style %}btn-rounded{% endif %} {% if not config_social_color_style %}social-color{% endif %}" rel="nofollow noopener" target="_blank" title="Telegram">
+                            <span class="header-social__icon">
+                              <svg width="18" height="18" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M29.919 6.163l-4.225 19.925c-0.319 1.406-1.15 1.756-2.331 1.094l-6.438-4.744-3.106 2.988c-0.344 0.344-0.631 0.631-1.294 0.631l0.463-6.556 11.931-10.781c0.519-0.462-0.113-0.719-0.806-0.256l-14.75 9.288-6.35-1.988c-1.381-0.431-1.406-1.381 0.288-2.044l24.837-9.569c1.15-0.431 2.156 0.256 1.781 2.013z"/>
+                              </svg>
+                            </span>
+                          </a>
+                          {% endif %}
+                          {% if config_instagramid and instagram_top %}
+                          <a href="{{ config_instagramid }}" class="config-instagram {% if not config_social_style %}btn-rounded{% endif %} {% if not config_social_color_style %}social-color{% endif %}" rel="nofollow noopener" target="_blank" title="Instagram">
+                            <span class="header-social__icon">
+                              <svg width="20" height="21" viewBox="0 0 20 21" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M14.2257 21H5.77336C2.58451 21 0 18.2855 0 14.9363V6.06368C0 2.71543 2.58451 0 5.77336 0H14.2257C17.4146 0 20 2.71543 20 6.06368V14.9363C20 18.2855 17.4146 21 14.2257 21ZM18.1098 5.78784C18.1098 3.65749 16.4649 1.92992 14.4366 1.92992C14.4366 1.92992 12.3046 1.8192 10.219 1.8192C7.88258 1.8192 5.56345 1.92992 5.56345 1.92992C3.53419 1.92992 1.88932 3.65749 1.88932 5.78784C1.88932 5.78784 1.8366 8.2847 1.8366 10.6928C1.8366 12.9367 1.88932 15.1024 1.88932 15.1024C1.88932 17.2337 3.53419 18.9613 5.56345 18.9613C5.56345 18.9613 7.85805 19.071 10.1136 19.071C12.2928 19.071 14.4366 18.9613 14.4366 18.9613C16.4649 18.9613 18.1098 17.2337 18.1098 15.1024C18.1098 15.1024 18.2152 12.9367 18.2152 10.6928C18.2152 8.2847 18.1098 5.78784 18.1098 5.78784ZM15.3281 6.11808C14.661 6.11808 14.1203 5.55113 14.1203 4.85151C14.1203 4.15094 14.661 3.58399 15.3281 3.58399C15.9951 3.58399 16.5358 4.15094 16.5358 4.85151C16.5358 5.55113 15.9951 6.11808 15.3281 6.11808ZM9.99911 15.929C7.14378 15.929 4.82915 13.4989 4.82915 10.5C4.82915 7.50205 7.14378 5.07199 9.99911 5.07199C12.8553 5.07199 15.1699 7.50205 15.1699 10.5C15.1699 13.4989 12.8553 15.929 9.99911 15.929ZM9.99911 6.9456C8.15887 6.9456 6.66576 8.51282 6.66576 10.4446C6.66576 12.3784 8.15887 13.9456 9.99911 13.9456C11.8412 13.9456 13.3333 12.3784 13.3333 10.4446C13.3333 8.51282 11.8412 6.9456 9.99911 6.9456Z"></path>
+                              </svg>
+                            </span>
+                          </a>
+                          {% endif %}
+                          {% if config_youtubeid and youtube_top %}
+                          <a href="{{ config_youtubeid }}" class="config-youtube {% if not config_social_style %}btn-rounded{% endif %} {% if not config_social_color_style %}social-color{% endif %}" rel="nofollow noopener" target="_blank" title="YouTube">
+                            <span class="header-social__icon">
+                              <svg width="23" height="15" viewBox="0 0 23 15" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M20.4991 0.458823C21.4843 0.705882 22.261 1.42941 22.5263 2.34706C23.0188 4.02353 22.9999 7.51765 22.9999 7.51765C22.9999 7.51765 22.9999 10.9941 22.5263 12.6706C22.261 13.5883 21.4843 14.3117 20.4991 14.5588C18.6993 15 11.5 15 11.5 15C11.5 15 4.31959 15 2.50081 14.5412C1.51564 14.2941 0.738878 13.5706 0.473635 12.6529C0 10.9941 0 7.5 0 7.5C0 7.5 0 4.02353 0.473635 2.34706C0.738878 1.42941 1.53459 0.688235 2.50081 0.441177C4.30064 0 11.5 0 11.5 0C11.5 0 18.6993 0 20.4991 0.458823ZM9.2076 4.33715L15.1944 7.58535L9.2076 10.8336V4.33715Z"></path>
+                              </svg>
+                            </span>
+                          </a>
+                          {% endif %}
+                          {% if config_whatsappid and whatsapp_top %}
+                          <a href="{{ config_whatsappid }}" class="config-whatsapp {% if not config_social_style %}btn-rounded{% endif %} {% if not config_social_color_style %}social-color{% endif %}" rel="nofollow noopener" target="_blank" title="Whatsapp">
+                            <span class="header-social__icon">
+                              <svg width="24" height="24" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d=" M19.11 17.205c-.372 0-1.088 1.39-1.518 1.39a.63.63 0 0 1-.315-.1c-.802-.402-1.504-.817-2.163-1.447-.545-.516-1.146-1.29-1.46-1.963a.426.426 0 0 1-.073-.215c0-.33.99-.945.99-1.49 0-.143-.73-2.09-.832-2.335-.143-.372-.214-.487-.6-.487-.187 0-.36-.043-.53-.043-.302 0-.53.115-.746.315-.688.645-1.032 1.318-1.06 2.264v.114c-.015.99.472 1.977 1.017 2.78 1.23 1.82 2.506 3.41 4.554 4.34.616.287 2.035.888 2.722.888.817 0 2.15-.515 2.478-1.318.13-.33.244-.73.244-1.088 0-.058 0-.144-.03-.215-.1-.172-2.434-1.39-2.678-1.39zm-2.908 7.593c-1.747 0-3.48-.53-4.942-1.49L7.793 24.41l1.132-3.337a8.955 8.955 0 0 1-1.72-5.272c0-4.955 4.04-8.995 8.997-8.995S25.2 10.845 25.2 15.8c0 4.958-4.04 8.998-8.998 8.998zm0-19.798c-5.96 0-10.8 4.842-10.8 10.8 0 1.964.53 3.898 1.546 5.574L5 27.176l5.974-1.92a10.807 10.807 0 0 0 16.03-9.455c0-5.958-4.842-10.8-10.802-10.8z" fill-rule="evenodd"></path></svg>
+                            </span>
+                          </a>
+                          {% endif %}
+                        </div>
+                      </div>
+                      {% endif %}
+                      {% if header_phone %}
+                      <div class="header-email">
+                        <a href="mail:zakaz@dooralliance.ru" class="phone-link">zakaz@dooralliance.ru</a>
+                      </div>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="top-panel__wrapper">
+              <div class="top-panel catalog-menu__outside">
+                <div class="container">
+                  <div class="top-panel__cols header-middle">
+                    <div class="top-panel__col top-panel__thead top-panels left-side">
+                      <div class="top-panel__cols top-panel__left">
+                          <div class="telephone-block visible-xs hidden-md">
+                                <div class="phone-bl-h">
+                                    <a href="tel:+74997777777"><span class="mobile-information__icon"><i class="fi fi-rr-phone-call"></i></span> +7 (499) 777-77-77</a>
+                                </div>
+                                <div class="phone-bl-h-callback">
+                                      <div class="header-phone-callback">
+                                        <a href="#small-dialog" class="phone-link phone-link-callback popup-with-move-anim">Заказать звонок</a>
+                                        
+                                      </div>
+                                </div>
+                          </div>
+                        <!--<div class="top-panel__col menu-toggle top-panel__menu-icon-container hidden-md hidden-lg">
+                          <div class="menu-button__icon">
+                            <div class="long line"></div>
+                            <div class="long sec line"></div>
+                            <div class="short line"></div>
+                          </div>
+                        </div>-->
+                        <div class="top-panel__col top-panel__logo top-panel__tfoot">
+                          {% if logo %}
+                          {% if home == og_url %}
+                          <img src="{{ logo }}" title="{{ name }}" alt="{{ name }}" class="img-responsive" />
+                          {% else %}
+                          <a href="{{ home }}"><img src="{{ logo }}" title="{{ name }}" alt="{{ name }}" class="img-responsive" /></a>
+                          {% endif %}
+                          {% else %}
+                          <a href="{{ home }}">{{ name }}</a>
+                          {% endif %}
+                        </div>
+                        <div class="top-panel__col top-panel__informer top-panel__menu-icon-container hidden-md hidden-lg">
+                          <div class="icon-box">
+                            <i class="fi fi-rr-settings-sliders"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="top-panel__col top-panel__tfoot top-panels right-side">
+                      <div class="top-mobile__icons top-panel__cols">
+                      
+                        <div class="top-panel__col top-panel_telephonebl hidden-sm hidden-xs">
+                          
+                          <div class="telephone-block">
+                                <div class="phone-bl-h">
+                                    <a href="tel:{{ tel }}"><span class="mobile-information__icon"><i class="fi fi-rr-phone-call"></i></span> {{ telephone }}</a>
+                                </div>
+                                <div class="phone-bl-h-callback">
+                                      <div class="header-phone-callback">
+                                        <a href="#small-dialog" class="phone-link phone-link-callback popup-with-move-anim">Заказать звонок</a>
+                                      </div>
+                                </div>
+                          </div>
+                         </div>
+                        <div class="top-panel__col top-panel__search-container top-panel__tfoot">
+                          <div class="mini-cart hidden-md hidden-lg">
+                            <div class="top-panel__search-btn">
+                              <div class="icon-box">
+                                <i class="fi fi-rr-search"></i>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="search-block hidden-xs hidden-sm">
+                            <div class="top-panel__search">{{ search }}</div>
+                          </div>
+                        </div>
+                        <div class="top-panel__col top-panel__compare">
+                          <div class="mini-cart">
+                            <a href="{{ compare }}" {% if not title_menu %}title="{{ text_title_compare }}"{% endif %} class="panel-compare {{ compare_total == '0' ? 'compare-empty' : '' }}" id="compare-total">
+                              <div class="icon-box">
+                                <i class="fi fi-rr-balance-scale-right"></i>
+                                <span class="compare-count count">{{ compare_total }}</span>
+                              </div>
+                              {% if title_menu %}
+                              <div class="top-panel__title">{{ text_title_compare }}</div>
+                              {% endif %}
+                            </a>
+                          </div>
+                        </div>
+                        <div class="top-panel__col top-panel__wishlist">
+                          <div class="mini-cart">
+                            <a href="{{ wishlist }}" {% if not title_menu %}title="{{ text_title_wishlist }}"{% endif %} class="panel-wishlist {{ wishlist_total == '0' ? 'wishlist-empty' : '' }}" id="wishlist-total">
+                              <div class="icon-box">
+                                <i class="fi fi-rr-heart"></i>
+                                <span class="wishlist-count count">{{ wishlist_total }}</span>
+                              </div>
+                              {% if title_menu %}
+                              <div class="top-panel__title">{{ text_title_wishlist }}</div>
+                              {% endif %}
+                            </a>
+                          </div>
+                        </div>
+                        <div class="top-panel__col top-panel__user">
+                          <div class="mini-cart">
+                            <a href="{{ account }}" {% if not title_menu %}title="{{ text_title_login }}"{% endif %} class="top-panel__user-link">
+                              <div class="icon-box">
+                                <i class="fi fi-rr-user"></i>
+                              </div>
+                              {% if title_menu %}
+                              {% if logged %}
+                              <div class="top-panel__title">{{ firstname }}</div>
+                              {% else %}
+                              <div class="top-panel__title">{{ text_title_login }}</div>
+                              {% endif %}
+                              {% endif %}
+                            </a>
+                          </div>
+                        </div>
+                        <div class="top-panel__col top-panel__mini-cart">
+                          <div class="mini-cart">
+                            <a href="{{ shopping_cart }}" {% if not title_menu %}title="{{ text_title_cart }}"{% endif %} class="panel-cart {{ cart_total == '0' ? 'cart-empty' : '' }}">
+                              <div class="icon-box">
+                                <i class="fi fi-rr-shopping-cart"></i>
+                                <span class="cart-count count">{{ cart_total }}</span>
+                              </div>
+                              {% if title_menu %}
+                              <div class="top-panel__title">{{ text_title_cart }}</div>
+                              {% endif %}
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {{ menu }}
+            {% if fixed_header %}
+            <script>$(window).scroll(function(){$(this).scrollTop()>120?$(".site-main").addClass("sticky"):$(this).scrollTop()<40&&$(".site-main").removeClass("sticky")});</script>
+            {% endif %}
+          </header>
+          
+<nav class="mobile-nav-footer visible-xs">
+
+
+    <div id="uni_menu_mobile_button" class="bloc-icon-foooter uni-menu-mobile d-lg-none visible-sm visible-xs hc-nav-trigger hc-nav-1" role="button" aria-label="Open Menu" aria-controls="hc-nav-1" aria-expanded="false">
+        <span class="uni-menu-mobile-button-icon "><div class="bars"></div><div class="bars"></div><div class="bars"></div></span>
+      </div>
+
+
+
+    <a href="{{ compare }}" {% if not title_menu %}title="{{ text_title_compare }}"{% endif %} class="panel-compare bloc-icon-foooter {{ compare_total == '0' ? 'compare-empty' : '' }}" id="compare-total">
+      <div class="icon-box">
+        <i class="fi fi-rr-balance-scale-right"></i>
+        <span class="compare-count count">{{ compare_total }}</span>
+      </div>
+      {% if title_menu %}
+      <div class="top-panel__title">{{ text_title_compare }}</div>
+      {% endif %}
+    </a>
+  <a href="{{ wishlist }}" {% if not title_menu %}title="{{ text_title_wishlist }}"{% endif %} class="bloc-icon-foooter panel-wishlist {{ wishlist_total == '0' ? 'wishlist-empty' : '' }}" id="wishlist-total">
+                              <div class="icon-box">
+                                <i class="fi fi-rr-heart"></i>
+                                <span class="wishlist-count count">{{ wishlist_total }}</span>
+                              </div>
+                              {% if title_menu %}
+                              <div class="top-panel__title">{{ text_title_wishlist }}</div>
+                              {% endif %}
+                            </a>
+
+                          <a href="{{ account }}" {% if not title_menu %}title="{{ text_title_login }}"{% endif %} class="bloc-icon-foooter top-panel__user-link">
+          <div class="icon-box">
+            <i class="fi fi-rr-user"></i>
+          </div>
+          {% if title_menu %}
+          {% if logged %}
+          <div class="top-panel__title">{{ firstname }}</div>
+          {% else %}
+          <div class="top-panel__title">{{ text_title_login }}</div>
+          {% endif %}
+          {% endif %}
+        </a>
+        <a href="{{ shopping_cart }}" {% if not title_menu %}title="{{ text_title_cart }}"{% endif %} class="bloc-icon-foooter panel-cart {{ cart_total == '0' ? 'cart-empty' : '' }}">
+          <div class="icon-box">
+            <i class="fi fi-rr-shopping-cart"></i>
+            <span class="cart-count count">{{ cart_total }}</span>
+          </div>
+          {% if title_menu %}
+          <div class="top-panel__title">{{ text_title_cart }}</div>
+          {% endif %}
+        </a>
+        
+
+        
+</nav>
+          <div class="menu-shadow"></div>
+          <div class="menu-mobile__informations menu-fixed hidden-md hidden-lg">
+            <div class="menu-information-container">
+              <div class="slide-header">
+                <span class="slide-title">{{ text_menu }}</span>
+                <span class="slide-close"><svg width="16" height="16" fill="#172033" viewBox="0 0 16 16" class="icon icon-close"><path fill-rule="evenodd" d="M2.293 2.293a1 1 0 011.414 0l10 10a1 1 0 01-1.414 1.414l-10-10a1 1 0 010-1.414z" clip-rule="evenodd"></path><path fill-rule="evenodd" d="M13.707 2.293a1 1 0 00-1.414 0l-10 10a1 1 0 101.414 1.414l10-10a1 1 0 000-1.414z" clip-rule="evenodd"></path></svg></span>
+              </div>
+            
+              <div class="search-block visible-xs visible-sm">
+                <div class="top-panel__search">{{ search }}</div>
+              </div>
+              <div class="menu-informations-blocks">
+                {% if informations %}
+                <div class="mobile-informations menu-info__item">
+                  <div class="title-information">{{ text_info }}</div>
+                  <ul class="list-unstyled">
+                    {% for information in informations %}
+                    <li class="item-information"><a href="{{ information.href }}" rel="nofollow">{{ information.title }}</a></li>
+                    {% endfor %}			    
+                  </ul>
+                </div>
+                {% endif %}
+                <div class="mobile-telephone menu-info__item">
+                  <div class="title-information">{{ text_contacts }}</div>
+                  <a href="tel:{{ tel }}"><span class="mobile-information__icon"><i class="fi fi-rr-phone-call"></i></span> {{ telephone }}</a>
+                  {% if email %}
+                  <a href="mailto:{{ email }}"><span class="mobile-information__icon"><i class="fi fi-rr-envelope"></i></span> {{ email }}</a>
+                  {% endif %}
+                  <a href="{{ contact }}"><span class="mobile-information__icon"><i class="fi fi-rr-info"></i></span> {{ text_contact }}</a>
+                  {% if social and social_top %}
+                  <div class="mobile-social">
+                    <div class="header-social__item">
+                      {% if config_facebookid and facebook_top %}
+                      <a href="{{ config_facebookid }}" class="config-facebook {% if not config_social_style %}btn-rounded{% endif %} {% if not config_social_color_style %}social-color{% endif %}" rel="nofollow noopener" target="_blank" title="Facebook">
+                        <span class="header-social__icon">
+                          <svg width="9" height="19" viewBox="0 0 9 19" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M6.88476 3.2295C5.69888 3.2295 5.62175 3.76791 5.62175 4.6282V6.16224H8.58643L8.329 9.33857H5.62175V19H1.90892V9.33857H0V6.16224H1.90892V4.19806C1.90892 1.50794 3.12082 0 6.16264 0C7.22026 0 7.99349 0.161426 9 0.376984L8.53532 3.41799C8.01952 3.30973 7.32342 3.2295 6.88476 3.2295Z"></path>
+                          </svg>
+                        </span>
+                      </a>
+                      {% endif %}
+                      {% if config_vkid and vk_top %}
+                      <a href="{{ config_vkid }}" class="config-vk {% if not config_social_style %}btn-rounded{% endif %} {% if not config_social_color_style %}social-color{% endif %}" rel="nofollow noopener" target="_blank" title="ВКонтакте">
+                        <span class="header-social__icon">
+                          <svg width="22" height="12" viewBox="0 0 22 12" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M21.8038 10.7034C22.5326 11.8582 20.9965 11.9491 20.9965 11.9491L18.0582 11.989C18.0582 11.989 17.4269 12.1079 16.5957 11.5625C15.4977 10.8412 14.4609 8.96619 13.6536 9.20994C12.8339 9.45968 12.8607 11.1469 12.8607 11.1469C12.8607 11.1469 12.8655 11.5065 12.6799 11.6983C12.4762 11.9071 12.0792 11.9491 12.0792 11.9491H10.7641C10.7641 11.9491 7.86306 12.1169 5.30734 9.57256C2.52111 6.79845 0.0591262 1.29318 0.0591262 1.29318C0.0591262 1.29318 -0.082431 0.932559 0.072519 0.757741C0.245642 0.561945 0.717187 0.548958 0.717187 0.548958L3.86018 0.528979C3.86018 0.528979 4.15669 0.57593 4.36808 0.724775C4.54311 0.847647 4.64163 1.07841 4.64163 1.07841C4.64163 1.07841 5.14952 2.30613 5.82288 3.41697C7.13613 5.58771 7.74732 6.06222 8.19304 5.82946C8.8425 5.49081 8.64833 2.76265 8.64833 2.76265C8.64833 2.76265 8.65981 1.77268 8.32121 1.33114C8.05818 0.990498 7.56368 0.889604 7.34465 0.861633C7.1677 0.838657 7.45847 0.447064 7.83436 0.271247C8.39964 0.0055241 9.39917 -0.0084614 10.5795 0.00252716C11.4986 0.0115178 11.7645 0.0664607 12.1232 0.148375C13.2069 0.399114 12.8396 1.36511 12.8396 3.68269C12.8396 4.42492 12.7 5.46884 13.2595 5.81547C13.5006 5.96332 14.0898 5.83745 15.5627 3.44594C16.261 2.31312 16.7842 0.97951 16.7842 0.97951C16.7842 0.97951 16.898 0.742757 17.0768 0.639864C17.2576 0.535972 17.5034 0.568937 17.5034 0.568937L20.8119 0.548958C20.8119 0.548958 21.8057 0.436076 21.9664 0.864629C22.1347 1.31516 21.5953 2.36607 20.2437 4.08827C18.0247 6.91633 17.777 6.6516 19.6201 8.2869C21.3801 9.84927 21.7445 10.6095 21.8038 10.7034Z"></path>
+                          </svg>
+                        </span>
+                      </a>
+                      {% endif %}
+                      {% if config_telegramid and telegram_top %}
+                      <a href="{{ config_telegramid }}" class="config-telegram {% if not config_social_style %}btn-rounded{% endif %} {% if not config_social_color_style %}social-color{% endif %}" rel="nofollow noopener" target="_blank" title="Telegram">
+                        <span class="header-social__icon">
+                          <svg width="18" height="18" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M29.919 6.163l-4.225 19.925c-0.319 1.406-1.15 1.756-2.331 1.094l-6.438-4.744-3.106 2.988c-0.344 0.344-0.631 0.631-1.294 0.631l0.463-6.556 11.931-10.781c0.519-0.462-0.113-0.719-0.806-0.256l-14.75 9.288-6.35-1.988c-1.381-0.431-1.406-1.381 0.288-2.044l24.837-9.569c1.15-0.431 2.156 0.256 1.781 2.013z"/>
+                          </svg>
+                        </span>
+                      </a>
+                      {% endif %}
+                      {% if config_instagramid and instagram_top %}
+                      <a href="{{ config_instagramid }}" class="config-instagram {% if not config_social_style %}btn-rounded{% endif %} {% if not config_social_color_style %}social-color{% endif %}" rel="nofollow noopener" target="_blank" title="Instagram">
+                        <span class="header-social__icon">
+                          <svg width="20" height="21" viewBox="0 0 20 21" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M14.2257 21H5.77336C2.58451 21 0 18.2855 0 14.9363V6.06368C0 2.71543 2.58451 0 5.77336 0H14.2257C17.4146 0 20 2.71543 20 6.06368V14.9363C20 18.2855 17.4146 21 14.2257 21ZM18.1098 5.78784C18.1098 3.65749 16.4649 1.92992 14.4366 1.92992C14.4366 1.92992 12.3046 1.8192 10.219 1.8192C7.88258 1.8192 5.56345 1.92992 5.56345 1.92992C3.53419 1.92992 1.88932 3.65749 1.88932 5.78784C1.88932 5.78784 1.8366 8.2847 1.8366 10.6928C1.8366 12.9367 1.88932 15.1024 1.88932 15.1024C1.88932 17.2337 3.53419 18.9613 5.56345 18.9613C5.56345 18.9613 7.85805 19.071 10.1136 19.071C12.2928 19.071 14.4366 18.9613 14.4366 18.9613C16.4649 18.9613 18.1098 17.2337 18.1098 15.1024C18.1098 15.1024 18.2152 12.9367 18.2152 10.6928C18.2152 8.2847 18.1098 5.78784 18.1098 5.78784ZM15.3281 6.11808C14.661 6.11808 14.1203 5.55113 14.1203 4.85151C14.1203 4.15094 14.661 3.58399 15.3281 3.58399C15.9951 3.58399 16.5358 4.15094 16.5358 4.85151C16.5358 5.55113 15.9951 6.11808 15.3281 6.11808ZM9.99911 15.929C7.14378 15.929 4.82915 13.4989 4.82915 10.5C4.82915 7.50205 7.14378 5.07199 9.99911 5.07199C12.8553 5.07199 15.1699 7.50205 15.1699 10.5C15.1699 13.4989 12.8553 15.929 9.99911 15.929ZM9.99911 6.9456C8.15887 6.9456 6.66576 8.51282 6.66576 10.4446C6.66576 12.3784 8.15887 13.9456 9.99911 13.9456C11.8412 13.9456 13.3333 12.3784 13.3333 10.4446C13.3333 8.51282 11.8412 6.9456 9.99911 6.9456Z"></path>
+                          </svg>
+                        </span>
+                      </a>
+                      {% endif %}
+                      {% if config_youtubeid and youtube_top %}
+                      <a href="{{ config_youtubeid }}" class="config-youtube {% if not config_social_style %}btn-rounded{% endif %} {% if not config_social_color_style %}social-color{% endif %}" rel="nofollow noopener" target="_blank" title="YouTube">
+                        <span class="header-social__icon">
+                          <svg width="23" height="15" viewBox="0 0 23 15" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M20.4991 0.458823C21.4843 0.705882 22.261 1.42941 22.5263 2.34706C23.0188 4.02353 22.9999 7.51765 22.9999 7.51765C22.9999 7.51765 22.9999 10.9941 22.5263 12.6706C22.261 13.5883 21.4843 14.3117 20.4991 14.5588C18.6993 15 11.5 15 11.5 15C11.5 15 4.31959 15 2.50081 14.5412C1.51564 14.2941 0.738878 13.5706 0.473635 12.6529C0 10.9941 0 7.5 0 7.5C0 7.5 0 4.02353 0.473635 2.34706C0.738878 1.42941 1.53459 0.688235 2.50081 0.441177C4.30064 0 11.5 0 11.5 0C11.5 0 18.6993 0 20.4991 0.458823ZM9.2076 4.33715L15.1944 7.58535L9.2076 10.8336V4.33715Z"></path>
+                          </svg>
+                        </span>
+                      </a>
+                      {% endif %}
+                      {% if config_whatsappid and whatsapp_top %}
+                      <a href="{{ config_whatsappid }}" class="config-whatsapp {% if not config_social_style %}btn-rounded{% endif %} {% if not config_social_color_style %}social-color{% endif %}" rel="nofollow noopener" target="_blank" title="Whatsapp">
+                        <span class="header-social__icon">
+                          <svg width="24" height="24" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d=" M19.11 17.205c-.372 0-1.088 1.39-1.518 1.39a.63.63 0 0 1-.315-.1c-.802-.402-1.504-.817-2.163-1.447-.545-.516-1.146-1.29-1.46-1.963a.426.426 0 0 1-.073-.215c0-.33.99-.945.99-1.49 0-.143-.73-2.09-.832-2.335-.143-.372-.214-.487-.6-.487-.187 0-.36-.043-.53-.043-.302 0-.53.115-.746.315-.688.645-1.032 1.318-1.06 2.264v.114c-.015.99.472 1.977 1.017 2.78 1.23 1.82 2.506 3.41 4.554 4.34.616.287 2.035.888 2.722.888.817 0 2.15-.515 2.478-1.318.13-.33.244-.73.244-1.088 0-.058 0-.144-.03-.215-.1-.172-2.434-1.39-2.678-1.39zm-2.908 7.593c-1.747 0-3.48-.53-4.942-1.49L7.793 24.41l1.132-3.337a8.955 8.955 0 0 1-1.72-5.272c0-4.955 4.04-8.995 8.997-8.995S25.2 10.845 25.2 15.8c0 4.958-4.04 8.998-8.998 8.998zm0-19.798c-5.96 0-10.8 4.842-10.8 10.8 0 1.964.53 3.898 1.546 5.574L5 27.176l5.974-1.92a10.807 10.807 0 0 0 16.03-9.455c0-5.958-4.842-10.8-10.802-10.8z" fill-rule="evenodd"></path></svg>
+                        </span>
+                      </a>
+                      {% endif %}
+                    </div>
+                  </div>
+                  {% endif %}
+                </div>
+                {% if open %}
+                <div class="mobile-job menu-info__item">
+                  <div class="title-information">{{ text_job }}</div>
+                  <div class="information-job">{{ open }}</div>
+                </div>
+                {% endif %}
+                {% if currency|length > 1 %}
+                <div class="mobile-currency menu-info__item">
+                  <div class="title-information">{{ text_currency }}</div>
+                </div>
+                {% endif %}
+                {% if language|length > 1 %}
+                <div class="mobile-language menu-info__item">
+                  <div class="title-information">{{ text_language }}</div>
+                </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          {{ cart }}
+          <div class="header-search__mobile slide-search hidden-md hidden-lg">
+            <div class="slide-header">
+              <span class="slide-title">{{ text_search }}</span>
+              <span class="slide-close"><svg width="16" height="16" fill="#172033" viewBox="0 0 16 16" class="icon icon-close"><path fill-rule="evenodd" d="M2.293 2.293a1 1 0 011.414 0l10 10a1 1 0 01-1.414 1.414l-10-10a1 1 0 010-1.414z" clip-rule="evenodd"></path><path fill-rule="evenodd" d="M13.707 2.293a1 1 0 00-1.414 0l-10 10a1 1 0 101.414 1.414l10-10a1 1 0 000-1.414z" clip-rule="evenodd"></path></svg></span>
+            </div>
+            <div class="header-search__mobile-control-container slide-search__content scroll-wrapper">
+              <div class="slide-search__content scroll-content">
+                <div class="search-control-mobile search-input"></div>
+              </div>
+            </div>
+          </div>
+          <div class="page-wrapper">
+            <div class="wrapper-middle">

@@ -1,0 +1,407 @@
+    </div>
+    <footer class="site-footer">
+      <div class="footer-container">
+        <div class="site-footer__inner">
+          <div class="container">
+            <div class="footer-column">
+            
+              <div class="footer-column__block footer-column__list">
+                <div class="footer-column__list-item footer-column__information">
+                  <div class="footer-column__title">Двери и фурнитура</div>
+                  <ul class="bottom-menu">
+                    <li><a href="/mezhkomnatnye-dveri/">Межкомнатные двери</a></li>
+                    <li><a href="/vhodnye-dveri/">Входные двери</a></li>
+                    <li><a href="/furnitura/sistemy-otkryvaniya">Системы открывания</a></li>
+                    <li><a href="/furnitura">Дверная фурнитура</a></li>
+                    <li><a href="/plintus">Плинтуса</a></li>
+                  </ul>
+                </div>
+                <div class="footer-column__list-item footer-column__service">
+                  <div class="footer-column__title">Напольные покрытия</div>
+                  <ul class="bottom-menu">
+                    <li><a href="/laminat">Ламинат</a></li>
+                    <li><a href="/kvarcvinilovaya-plitka">Виниловый пол</a></li>
+                    <li><a href="/parketnaya-doska">Паркетная доска</a></li>
+                    <li><a href="/inzhenernaya-doska">Инженерная доска</a></li>
+                    <li><a href="/massivnaya-doska">Массивная доска</a></li>
+                    <li><a href="/aksessuary">Сопутствующие товары</a></li>
+                  </ul>
+                </div>
+                <div class="footer-column__list-item footer-column__service">
+                  <div class="footer-column__title pust-footer-column__title">Информация</div>
+                  <ul class="bottom-menu bottom-menu2child-footer">
+                    <li><a href="{{ manufacturer }}">{{ text_manufacturer }}</a></li>
+                    <li><a href="{{ special }}">{{ text_special }}</a></li>
+                    <li><a href="{{ account }}">{{ text_account }}</a></li>
+                    <li><a href="{{ wishlist }}">{{ text_wishlist }}</a></li>
+                    <li><a href="{{ contact }}">{{ text_contact }}</a></li>
+                  </ul>
+                </div>
+                <div class="footer-column__list-item footer-column__extra">
+                  <div class="footer-column__title">{{ text_information }}</div>
+                  <ul class="bottom-menu">
+                    {% for information in informations %}
+                    <li><a href="{{ information.href }}">{{ information.title }}</a></li>
+                    {% endfor %}
+                  </ul>
+                </div>
+                
+              <div class="footer-bottom">
+                <div class="footer-bottom__powered">
+                  <img src="image/catalog/woodtech_item/frontend/paymethod.png" style="max-width:100%;">
+                    <p>Двери и точка. Межкомнатные двери.</p>
+                    <p>Информация на сайте ориентировочная и не является публичной офертой</p>
+                </div>
+              </div>
+              </div>
+              <div class="footer-column__block footer-column__contacts">
+                <div class="footer-column__phone-contacts">
+                  <div class="footer-column__title">{{ text_contacts }}</div>
+                  <div class="footer-column__phone column-contacts">
+                  
+                            <div class="blocklogo-footer">
+                              <img src="/image/catalog/dveri-i-tochka-logo.png" class="img-footer-logo" style="max-width:120px;">
+                              <div>17 фабрик межкомнатных дверей в одном месте</div>
+                            </div>
+
+                    <div class="phone-body telephone-block">
+                      
+                    <div class="phone-bl-h">
+                        <a href="tel:+79266192289"><span class="mobile-information__icon">
+                                    {% if contacts_icon %}
+                                    <div class="icon-contacts phone-icon">
+                                      <i class="fi fi-rr-phone-call"></i>
+                                    </div>
+                                    {% endif %}
+                                    </span> +7 (926) 619-22-89</a>
+                    </div>
+                    <div class="phone-bl-h-callback">
+                          <div class="header-phone-callback">
+					                  <a href="#newwwwexmp" class="open-popup-link">Заказать звонок</a>
+                          </div>
+                    </div>
+                    </div>
+                  </div>
+
+                  {% if config_footer_open %}
+                  {% if open %}
+                  <div class="footer-column__open column-contacts">
+                    {% if contacts_icon %}
+                    <div class="icon-contacts open-icon">
+                      <i class="fi fi-rr-clock"></i>
+                    </div>
+                    {% endif %}
+                    {{ open }}
+                  </div>
+                  {% endif %}
+                  {% endif %}
+                  {% if config_footer_email %}
+                  {% if email %}
+                  <div class="footer-column__email column-contacts">
+                    {% if contacts_icon %}
+                    <div class="icon-contacts email-icon">
+                      <i class="fi fi-rr-envelope"></i>
+                    </div>
+                    {% endif %}
+                    {{ email }}
+                  </div>
+                  {% endif %}
+                  {% endif %}
+                </div>
+
+                  {% if config_payment_icon %}
+                  <div class="footer-column__payment">
+                    <div class="footer-column__title">{{ text_accept_payment }}</div>
+                    <img src="/image/payment/visa.png" alt="Visa">
+                    <img src="/image/payment/mastercard.png" alt="MasterCard">
+                    <img src="/image/payment/mir.png" alt="МИР">
+                  </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+
+      
+
+
+</footer>
+    
+    
+<script>
+  
+document.addEventListener('DOMContentLoaded', function(){
+  		$('.section-shops').readmore({
+			maxHeight: 240,
+			moreLink: '<a href="#" class="viev-all-prod"><span class="viev-block-prod footer-shops-more">Показать все салоны</span></a>',
+			lessLink: '<a href="#" class="viev-all-prod"><span class="viev-block-prod footer-shops-more">Скрыть адреса</span></a>'
+		});
+});
+</script>
+<script>
+$(document).ready(function() {
+	$('.popup-with-move-anim').magnificPopup({
+		type: 'inline',
+		fixedContentPos: false,
+		fixedBgPos: true,
+		overflowY: 'auto',
+		closeBtnInside: true,
+		preloader: false,
+		midClick: true,
+		removalDelay: 300,
+		mainClass: 'my-mfp-slide-bottom'
+	});
+});
+</script>
+
+
+<!-- Yandex.Metrika Dveri-i-tochka counter --> <script type="text/javascript" > (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)}; m[i].l=1*new Date(); for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }} k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)}) (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym"); ym(92060828, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true }); </script> <noscript><div><img src="https://mc.yandex.ru/watch/92060828" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
+    {% for script in scripts %}
+    <script src="{{ script }}"></script>
+    {% endfor %}
+    </div>
+    {% if top_button %}
+    <!-- Кнопка вверх -->
+    <div class="scroll-fixed scroll-up">
+      <svg viewBox="0 0 8 11" class="ToTopIcon" width="8" height="11"><path d="M0 3.99h3V11h2V3.99h3L4 0 0 3.99z"></path></svg>
+    </div>
+    {% endif %}
+    </div>
+    
+
+
+    <div id="hidewindd">
+	<div id="newwwwexmp" class="white-popup mfp-hide formdesignwtr">
+		
+		<form id="wtrform">
+			<h4>Заказать звонок</h4>
+			<!-- Hidden Required Fields -->
+
+			<div id="succesblock"></div>
+			<input type="hidden" name="hidden_example_field" value="Hidden Field">
+			<input type="hidden" name="form_subject" value="Тестовая форма (Название)">
+			<input type="hidden" name="tekurl" value="Ccs" id="tekurl">
+			<!-- END Hidden Required Fields -->
+			<input type="text" name="Name" value='proshel' placeholder="You name..." class="hgnhf">
+			<input type="text" name="Phone" value='proshel' placeholder="Введите Ваш телефон..." class="hgnhf">
+			<input type="text" name="Telephone" value='proshel' placeholder="Введите Ваш телефон..." class="hgnhf">
+
+
+			<input type="text" name="wtr-phn" placeholder="Введите Ваш телефон..." id="phone">
+			<input type="text" name="wtr-nme" placeholder="You name..." class="hgnhf">
+			<input type="text" name="wtr-email" placeholder="You E-mail...">
+			<button class="formatformbutton">Отправить</button>
+		</form>
+	</div>
+	
+</div>
+	<script>
+		jQuery(document).ready(function($) {
+			$('.open-popup-link').magnificPopup({
+				type:'inline',
+				removalDelay: 300,
+				mainClass: 'my-mfp-zoom-in',
+				midClick: true
+			});
+			$("#phone").mask("+7(999)999-99-99",{placeholder:"+7(999)999-99-99"});
+	  });
+	  $(document).ready(function() {
+		$("form").submit(function() {
+			var th = $(this);
+			var datasucces = "Благодарим за заявку";
+			var base_urlwtr = window.location.origin;
+			var base_urlwtrmail = base_urlwtr + "/woodtechnotification/mail.php";
+			$.ajax({
+				type: "POST",
+				url: base_urlwtrmail,
+				data: th.serialize()
+			}).done(function() {
+				setTimeout(function() {
+					th.trigger("reset");
+				}, 1000);
+				$('#succesblock').html(base_urlwtrmail);
+				setTimeout(function() {
+					$('#succesblock').html('');
+				}, 2500);
+			});
+			return false;
+		});
+	});
+	$(document).ready(function () {
+		$('#tekurl').val(window.location);
+  });
+	</script>
+
+<style>
+	.hgnhf {
+		display: none;
+	}
+	#newwwwexmp {
+		color: #fff;
+		box-shadow: 0px 0px 10px #2fe5bc;
+		border-radius: 6px;
+  }
+  #newwwwexmp h4 {
+	color: #fff;
+	font-size: 18px!important;
+	margin: 10px 0px 30px 0px;
+}
+
+.white-popup {
+	position: relative;
+	background: #2b2f3e;
+	padding: 1px 20px 20px 20px;
+	width: auto;
+	max-width: 430px;
+	margin: 0px auto;
+}
+.formdesignwtr input {
+	margin-bottom: 5px;
+	border: 2px solid #2fe5bc;
+	border-radius: 5px;
+	width: 100%;
+	padding: 5px;
+	background: transparent;
+	color: #fff;
+}
+.formdesignwtr input::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+	color:    #fff;
+}
+.formdesignwtr input::-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+	color:    #fff;
+  opacity:  1;
+}
+.formdesignwtr input::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color:    #fff;
+  opacity:  1;
+}
+.formdesignwtr input::-ms-input-placeholder { /* Internet Explorer 10-11 */
+	color:    #fff;
+}
+.formdesignwtr input::-ms-input-placeholder { /* Microsoft Edge */
+	color:    #fff;
+}
+.formdesignwtr input::placeholder { /* Most modern browsers support this now. */
+	color:    #fff;
+}
+
+.mfp-close-btn-in .mfp-close {
+	color: #2fe5bc;
+	border-left: 2px solid #2fe5bc;
+	border-bottom: 2px solid #2fe5bc;
+	background: #2b2f3e;
+	border-top-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+.formatformbutton {
+	margin-bottom: 5px;
+	border: 2px solid #2fe5bc;
+	background: #2fe5bc;
+	border-radius: 5px;
+	width: 100%;
+	padding: 5px;
+	box-shadow: 0px 0px 3px #d7b0e1;
+}
+.formdesignwtr {
+	text-align: center;
+}
+.my-mfp-zoom-in .zoom-anim-dialog {
+	opacity: 0;
+	-webkit-transition: all 0.2s ease-in-out; 
+	-moz-transition: all 0.2s ease-in-out; 
+	-o-transition: all 0.2s ease-in-out; 
+	transition: all 0.2s ease-in-out; 
+	-webkit-transform: scale(0.8); 
+	-moz-transform: scale(0.8); 
+	-ms-transform: scale(0.8); 
+	-o-transform: scale(0.8); 
+	transform: scale(0.8); 
+  }
+  /* animate in */
+  .my-mfp-zoom-in.mfp-ready .zoom-anim-dialog {
+	opacity: 1;
+	-webkit-transform: scale(1); 
+	-moz-transform: scale(1); 
+	-ms-transform: scale(1); 
+	-o-transform: scale(1); 
+	transform: scale(1); 
+  }
+  /* animate out */
+  .my-mfp-zoom-in.mfp-removing .zoom-anim-dialog {
+	-webkit-transform: scale(0.8); 
+	-moz-transform: scale(0.8); 
+	-ms-transform: scale(0.8); 
+	-o-transform: scale(0.8); 
+	transform: scale(0.8);
+	opacity: 0;
+  }
+  /* Dark overlay, start state */
+  .my-mfp-zoom-in.mfp-bg {
+	opacity: 0;
+	-webkit-transition: opacity 0.3s ease-out; 
+	-moz-transition: opacity 0.3s ease-out; 
+	-o-transition: opacity 0.3s ease-out; 
+	transition: opacity 0.3s ease-out;
+  }
+  /* animate in */
+  .my-mfp-zoom-in.mfp-ready.mfp-bg {
+	opacity: 0.8;
+  }
+  /* animate out */
+  .my-mfp-zoom-in.mfp-removing.mfp-bg {
+	opacity: 0;
+  }
+  .my-mfp-slide-bottom .zoom-anim-dialog {
+	opacity: 0;
+	-webkit-transition: all 0.2s ease-out;
+	-moz-transition: all 0.2s ease-out;
+	-o-transition: all 0.2s ease-out;
+	transition: all 0.2s ease-out;
+	-webkit-transform: translateY(-20px) perspective( 600px ) rotateX( 10deg );
+	-moz-transform: translateY(-20px) perspective( 600px ) rotateX( 10deg );
+	-ms-transform: translateY(-20px) perspective( 600px ) rotateX( 10deg );
+	-o-transform: translateY(-20px) perspective( 600px ) rotateX( 10deg );
+	transform: translateY(-20px) perspective( 600px ) rotateX( 10deg );
+  }
+  /* animate in */
+  .my-mfp-slide-bottom.mfp-ready .zoom-anim-dialog {
+	opacity: 1;
+	-webkit-transform: translateY(0) perspective( 600px ) rotateX( 0 ); 
+	-moz-transform: translateY(0) perspective( 600px ) rotateX( 0 ); 
+	-ms-transform: translateY(0) perspective( 600px ) rotateX( 0 ); 
+	-o-transform: translateY(0) perspective( 600px ) rotateX( 0 ); 
+	transform: translateY(0) perspective( 600px ) rotateX( 0 ); 
+  }
+  /* animate out */
+  .my-mfp-slide-bottom.mfp-removing .zoom-anim-dialog {
+	opacity: 0;
+	-webkit-transform: translateY(-10px) perspective( 600px ) rotateX( 10deg ); 
+	-moz-transform: translateY(-10px) perspective( 600px ) rotateX( 10deg ); 
+	-ms-transform: translateY(-10px) perspective( 600px ) rotateX( 10deg ); 
+	-o-transform: translateY(-10px) perspective( 600px ) rotateX( 10deg ); 
+	transform: translateY(-10px) perspective( 600px ) rotateX( 10deg ); 
+  }
+  /* Dark overlay, start state */
+  .my-mfp-slide-bottom.mfp-bg {
+	opacity: 0;
+	-webkit-transition: opacity 0.3s ease-out; 
+	-moz-transition: opacity 0.3s ease-out; 
+	-o-transition: opacity 0.3s ease-out; 
+	transition: opacity 0.3s ease-out;
+  }
+  /* animate in */
+  .my-mfp-slide-bottom.mfp-ready.mfp-bg {
+	opacity: 0.8;
+  }
+  /* animate out */
+  .my-mfp-slide-bottom.mfp-removing.mfp-bg {
+	opacity: 0;
+  }
+</style>
+
+  </body>
+</html>

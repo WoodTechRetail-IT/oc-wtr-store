@@ -1,0 +1,8 @@
+#uni-menu-top {background:rgb(42, 41, 37);}
+#uni-menu-box .uni-ultra-menu, .uni-menu-mobile, .modal-header, button.uni-close, .hc-offcanvas-nav.nav-close-button-empty .nav-title, .hc-offcanvas-nav .nav-content > h2, .hc-offcanvas-nav .nav-content > h3, .hc-offcanvas-nav .nav-content > h4, .hc-offcanvas-nav .nav-content > h5, .hc-offcanvas-nav .nav-content > h6 {background:rgb(30, 29, 23);}
+#uni-menu-box:hover .uni-ultra-menu, button.uni-close:hover, #uni_menu_mobile_button:hover {background:rgb(0, 0, 0);}
+.uni-mm-simple-link:hover, .uni-mm-link:hover, .uni-mm-simple-link:active, .uni-mm-link:active, li.flexMenu-viewMore:hover, li.flexMenu-viewMore:active, li.flexMenu-viewMore.active {background:rgb(101, 98, 43);}
+.uni-mm-link > a.unia, .uni-mm-simple-link > a.unia, .flexMenu-viewMore > a.unia {color:#ccc;}
+.uni-mm-link > a span.triangle-down, .uni-mm-simple-link > a span.triangle-down, .flexMenu-viewMore > a span.triangle-down, #main-menu > .uni-mm-link > a .sub-arrow {border-top: 4px solid #ccc;}
+.uni-mm-link:focus > a.unia, .uni-mm-simple-link:focus > a.unia, .uni-mm-link:hover > a.unia, .uni-mm-simple-link:hover > a.unia,  .flexMenu-viewMore:hover > a.unia, .uni-mm-link:active > a.unia, .uni-mm-simple-link:active > a.unia,  .flexMenu-viewMore:active > a.unia,   .flexMenu-viewMore.active > a.unia {color:#fff;}
+.uni-mm-link:hover > a .triangle-down, .uni-mm-simple-link:hover > a .triangle-down, #main-menu > .uni-mm-link:hover > a .sub-arrow, #main-menu > .uni-mm-link:active > a .sub-arrow, .flexMenu-viewMore:hover > a span.triangle-down, .flexMenu-viewMore:active > a span.triangle-down, .flexMenu-viewMore.active > a span.triangle-down {border-top: 4px solid #fff;}

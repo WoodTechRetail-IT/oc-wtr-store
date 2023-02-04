@@ -1,0 +1,57 @@
+<div class="swiper-viewport swiper-slideshow">
+  <div id="slideshow{{ module }}" class="swiper-container">
+    <div class="swiper-wrapper">
+	  {% for banner in banners %}
+      <div class="swiper-slide text-center slideshow-magnimg">
+	    {% if banner.link %}
+	    <a href="{{ banner.link }}"><img src="{{ banner.image }}" alt="{{ banner.title }}" class="img-responsive" /></a>
+	    {% else %}
+	    <img src="{{ banner.image }}" alt="{{ banner.title }}" class="img-responsive" />
+	    {% endif %}
+	  </div>
+      {% endfor %}
+	</div> 
+    <div class="swiper-pagination slideshow{{ module }}"></div>
+    <div class="swiper-pager">
+      <div class="swiper-next"></div>
+      <div class="swiper-prev"></div>
+    </div>
+  </div>
+</div>
+<script>
+$(document).ready(function() {
+      var swiper = new Swiper("#slideshow{{ module }}", {
+        slidesPerView: 8,
+        spaceBetween: 30,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+      });
+      
+      $('.slideshow-magnimg').magnificPopup({
+		delegate: 'a',
+		type: 'image',
+		closeOnContentClick: false,
+		closeBtnInside: false,
+		mainClass: 'mfp-with-zoom mfp-img-mobile',
+		image: {
+			verticalFit: true,
+			titleSrc: function(item) {
+				return item.el.attr('title') + ' &middot; <a class="image-source-link" href="'+item.el.attr('data-source')+'" target="_blank">image source</a>';
+			}
+		},
+		gallery: {
+			enabled: true
+		},
+		zoom: {
+			enabled: true,
+			duration: 300,
+			opener: function(element) {
+				return element.find('img');
+			}
+		}
+		
+	});
+});
+</script>

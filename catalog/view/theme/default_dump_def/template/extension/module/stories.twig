@@ -1,0 +1,54 @@
+{% if  stories.stories_block %}
+
+    <h3>{{ heading_title }}</h3>
+    <div class="row">
+        <div class="col-sm-12">
+            <div id="stories" class="storiesWrapper"></div>
+        </div>
+    </div>
+
+
+<script>
+    var currentSkin = getCurrentSkin();
+    var stories = new Zuck('stories', {
+        backNative: true,
+        previousTap: true,
+        skin: currentSkin['name'],
+        autoFullScreen: currentSkin['params']['autoFullScreen'],
+        avatars: currentSkin['params']['avatars'],
+        paginationArrows: currentSkin['params']['paginationArrows'],
+        list: currentSkin['params']['list'],
+        cubeEffect: currentSkin['params']['cubeEffect'],
+        localStorage: true,
+        stories: [
+            {% for block, story in stories['stories_block'] %}
+            Zuck.buildTimelineItem(
+                "{{ block }}",
+                "/image/{{ story['stories']['images'][0] }}",
+                "{{ story.name }}",
+                "#",
+                timestamp(),
+                [
+                    {% for key, story_img in story['stories']['images'] %}
+                    [
+                        "{{ block }}-{{ key }}",
+                        "photo",
+                        3,
+                        "/image/{{ story_img }}",
+                        "/image/{{ story_img }}",
+                        "{{ story['stories']['links'][key] }}",
+                        false,
+                        false,
+                        timestamp()
+                    ],
+                    {% endfor %}
+                ]
+            ),
+            {% endfor %}
+        ]
+
+    });
+</script>
+
+
+{% endif %}

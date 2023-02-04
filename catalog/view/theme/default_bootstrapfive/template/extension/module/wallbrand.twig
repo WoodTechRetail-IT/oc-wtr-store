@@ -1,0 +1,29 @@
+<div class="wrapper-brands__new">
+  <div class="wrapper-brands__container">
+    <div class="wrapper-brands__header">
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 wrapper-brands__link">
+          <div class="content-title">
+            <i class="ion-ios-star"></i> {{ heading_title }}
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 text-right">
+          <div class="brands-new__show__all text-right">
+            <a href="{{ brands }}">
+              <p>{{ all_brands }} <i class="ion-ios-arrow-thin-right"></i></p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="brands-new">
+      <div class="row">
+        {% for manufacturer in manufacturers %}
+        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-6 brands-new__item">
+          <a href="{{ manufacturer.href }}" class="brand-link"><img src="{{ manufacturer.thumb }}" alt="{{ manufacturer.name }}" title="{{ manufacturer.name }}" class="img-responsive" /></a>     
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>

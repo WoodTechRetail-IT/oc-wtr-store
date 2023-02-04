@@ -1,0 +1,152 @@
+{% if groups %}
+<div id="hpmodel" class="form-group" {{ plink ? 'style="display:block;"' }} data-change="hpm_pp_select">
+  {% for group_id, group in groups %}
+  <div class="hpm-group hpm-group-{{ group_id }}" data-id="{{ group_id }}" data-type="{{ group.type }}">
+    
+    {% if group.type == 'type_plink' %}
+    <div class="hpm-type-images">
+      {% for key, value in group.value %}
+      {% if not value.active and value.href %}<a href="{{ value.href }}">{% endif %}
+      <div class="hpm-item{% if value.active %} active{% endif %}{% if value.disabled %} disabled{% endif %}">
+        {% for col, col_value in value.view %}
+        <div class="hcol-{{ col }}">{{ col_value }}</div>
+        {% endfor %}
+      </div>
+      {% if not value.active and value.href %}</a>{% endif %}
+      {% endfor %}
+    </div>
+    {% endif %}
+    
+    {% if group.type == 'type_images' %}
+    <div class="hpm-type-images">
+      {% for key, value in group.value %}
+      <div class="hpm-item{% if value.active %} active{% endif %}" data-key="{{ key }}" data-id="{{ value.ids }}">
+        {% for col, col_value in value.view %}
+        <div class="hcol-{{ col }}">{{ col_value }}</div>
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+    
+    {% if group.type == 'type_select' %}
+    <div class="hpmodel-type-select text-left">
+      <select name="hpm_select" class="form-control">
+        <option value="">{{ text_select }}</option>
+        {% for key, value in group.value %}
+        <option class="hpm-item{% if value.active %} active{% endif %}" {% if value.active %}selected{% endif %} data-key="{{ key }}" data-id="{{ value.ids }}" value="{{ key }}">{{ value.view_text }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    {% endif %}
+    
+    {% if group.type == 'type_html_select' %}
+    <div class="hpm-type-html-select">
+      <div class="hpm-select">
+        <div class="selected" data-clean="<div class='hpm-select-item'><div class='hpm-col-none'>{{ text_select }}</div></div>">
+          <div class="hpm-select-item"><div class="hpm-col-none">{{ text_select }}</div></div>
+        </div>
+        <div class="drop-down" style="display:none;">
+          {% for key, value in group.value %}
+          <div class="hpm-select-item hpm-item {% if value.active %}active{% endif %}" data-key="{{ key }}" data-id="{{ value.ids }}">
+            {% for col, col_value in value.view %}
+            <div class="hcol-{{ col }}">{{ col_value }}</div>
+            {% endfor %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  
+    <div class="hpm-clearfix"></div>
+  </div>
+  {% endfor %}
+  <div class="hpm-clearfix"></div>
+</div>
+{% if not plink %}
+{{ config }}
+<script>
+var hpm_products = {
+{% for product in products %}
+{{ product.product_id }}: {href:'{{ product.href }}'},
+{% endfor %}
+}
+function hpm_eq_width(s) {$(s).each(function(){var mw = 0;$(this).find('.hpm-item').each(function(){if ($(this).width() > mw) mw = $(this).width();});if (mw > 0) $(this).find('.hpm-item').width(mw);});}
+function hpmodel_rri(r, ri, $d) {
+    for (s in r) { $(s).html(r[s]); }
+    for (s in ri) { $i = $(s).val(ri[s]); v = hpmodel.input[s]; if (v) $i.trigger(v); }
+    if (typeof hmodel_onchange === 'function') hmodel_onchange($d);
+    if (typeof autocalc_init === 'function') autocalc_init();
+}
+var hpm_main_pid = {{ product_id }};
+var hpm_last_pid = {{ product_id }};
+var hpc = [];
+function hpm_set_hash(h){try{history.replaceState(null,null,(location.href).split('#')[0]+'#'+h);return;}catch(e){}location.hash = h;}
+{% if not redirect %}
+function hpm_set_url(u){try{history.replaceState(null,null,u);}catch(e){}}
+{% endif %}
+function hpm_pp_select($c) {
+    var product_id = $c.data('id');
+    if (product_id) {
+        $('body').removeClass('hpm-no-active').addClass('hpm-has-active');
+    } else {
+        $('body').addClass('hpm-no-active').removeClass('hpm-has-active');
+    }
+    
+    {% if hash %}
+    var hash = [];
+    if (product_id) hash.push(product_id); else hash.push('');
+    $c.find('.hpm-group').each(function(){var hv='';$(this).find('.hpm-item.active').each(function(){hv=$(this).data('key');});hash.push(hv);});
+    hpm_set_hash(hash.join('-'));
+    {% elseif not redirect %}
+    if (hpm_products[product_id]) hpm_set_url(hpm_products[product_id].href);
+    {% endif %}   
+    
+    if (!product_id) return;    
+    
+    if (product_id == hpm_last_pid) return;
+    hpm_last_pid = product_id;
+    if (typeof hmodel_before === 'function') hmodel_before();
+    if (typeof hpc[product_id] != 'undefined') {
+        hpm_cc(hpc[product_id]);
+    } else {
+        $.ajax({
+            url: 'index.php?route=product/product&product_id='+product_id+'&path={{ path }}',
+            type: 'post',
+            data: 'hpmodel_orig=1',
+            dataType: 'html',
+            success: function(h){hpc[product_id]=h;hpm_cc(h);}
+        });
+    }
+}
+function hpm_cc(h) {
+    var $d=$(h); var r = []; var ri = [];
+    {% if replace_h1 %}document.title=$d.filter('title').text();{% endif %}
+    for (s in hpmodel.rest) { r[s] = $(s).html(); };
+    for (s in hpmodel.input) { ri[s] = $(s).val();  };
+    var cc = 0;
+    for (s in hpmodel.copy) { cc++; $h = $d.find(s); var $i = $h.find('img'); var ic = $i.length; if (ic == 0) { $(s).html($h.html()); cc--; } else { (function(ic, $i, s, $h){ $i.each(function(){ $ii = $('<img src="'+$(this).attr('src')+'" style="width:1px;height:1px;" />').on('load',function(){ ic--; if (ic == 0) { $(s).html($h.html()); cc--; if (cc == 0) hpmodel_rri(r, ri, $d);}}).on('error',function(){ ic--; if (ic == 0) { $(s).html($h.html()); cc--; if (cc == 0) hpmodel_rri(r, ri, $d);}});});})(ic, $i, s, $h);}};
+    if (cc == 0) hpmodel_rri(r, ri, $d);
+}
+$(document).ready(function () {
+    $('#hpmodel .hpm-type-images .hpm-item, #hpmodel .hpm-type-html-select .hpm-item').on('click', function(e){hpm_validate_items(this,e);});
+    $('#hpmodel .hpmodel-type-select select').on('change', function(e){hpm_validate_items($(this).find('option:selected'),e);});
+    var whash=location.hash.replace('#','');
+    var pid='{{ product_id }}';
+    if (whash){var wsa=whash.split('-');pid=wsa.shift();}pid+='';
+    $('#hpmodel .hpm-group .hpm-item.active').removeClass('active');
+    var $fa = false;
+    $('#hpmodel .hpm-group').each(function(){var $c=$(this);$c.find('.hpm-item').each(function(){var $t=$(this);if(!$t.data('id'))return;var ip=$t.data('id').toString().split(',');if(ip.indexOf(pid)>=0){$t.addClass('active');$fa=$t;}});});
+    if ($fa) { $fa.removeClass('active'); hpm_validate_items($fa); }
+    {% if selector and position %}$('#hpmodel').{{ position }}('{{ selector }}');{% endif %}
+    $('#hpmodel').show();
+});
+$(window).load(function(){
+    hpm_eq_width('#hpmodel .hpm-type-images');
+});
+</script>
+{% endif %}
+{% if custom_css %}<style>{{ custom_css }}</style>{% endif %}
+{% if custom_js %}<script>{{ custom_js }}</script>{% endif %}
+{% endif %}

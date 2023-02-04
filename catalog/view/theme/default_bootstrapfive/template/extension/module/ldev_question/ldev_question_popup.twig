@@ -1,0 +1,38 @@
+{% if heading_status %} <h4>{{ name }}</h4> {% endif %}
+<div class="ldev-question-popup-wrap popup-wrap-{{ item_id }}">
+    {% for k, question in list  %}
+    <div class="ldev-question-popup-item">
+
+        <a href="#ldev-popup-{{ item_id~'-'~k }}" class="open-popup-link">
+            <span class="accordion-item-icon">{{ question.marker }}</span>
+            {{ question.title }}
+        </a>
+
+
+
+        <div id="ldev-popup-{{ item_id~'-'~k }}" class="ldev-popup mfp-hide">
+            {% if question.thumb %}
+                <img src="{{ question.thumb }}" alt="{{ question.title }}" title="{{ question.title }}">
+            {% endif %}
+            {{ question.text }}
+            <div>{{ question.module }}</div>
+        </div>
+
+    </div>
+    {% endfor %}
+</div>
+
+
+<script>
+    $(function () {
+        $('.ldev-question-popup-wrap.popup-wrap-{{ item_id }} .open-popup-link').magnificPopup({
+            type: 'inline',
+        });
+        $(document).on('click', '.popup-modal-dismiss', function(e) {
+            e.preventDefault();
+            $.magnificPopup.close();
+        });
+    })
+
+</script>
+

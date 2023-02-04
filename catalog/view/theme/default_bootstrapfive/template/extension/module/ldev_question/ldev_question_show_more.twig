@@ -1,0 +1,29 @@
+<div class="ldev-question-show-more">
+
+    {% if heading_status %} <h4>{{ name }}</h4> {% endif %}
+    {{ about }}
+
+    {% for k, question in list  %}
+
+    <div class="ldev-question-text-show-more" data-text-more-height="{{ show_more_height }}">
+
+        {% if question.thumb %}
+        {% if question.link %}
+            <a href="{{ question.link }}"><img src="{{ question.thumb }}" alt="{{ question.title }}" title="{{ question.title }}"></a>
+        {% else %}
+            <img src="{{ question.thumb }}" alt="{{ question.title }}" title="{{ question.title }}">
+        {% endif %}
+        {% endif %}
+
+        <div>{{ question.text }}</div>
+        <div>{{ question.module }}</div>
+
+        <a href="#" class="btn btn-link btn-show-more-toggle">
+            <span class="text-show-more">{{ lang.btn_text_show_more }}</span>
+            <span class="text-show-less">{{ lang.btn_text_show_less }}</span>
+        </a>
+    </div>
+
+    {% endfor %}
+</div>
+

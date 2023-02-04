@@ -1,0 +1,45 @@
+<div class="ocf-filter-list ocf-clearfix">   
+  {% if has_loaded_filters is not defined %}
+  {% if seo_pages %}
+  {% include('default/template/extension/module/ocfilter48/page_link_list.twig') %}
+  {% endif %}
+
+  {% if layout == 'vertical' and selecteds %}
+  {% include('default/template/extension/module/ocfilter48/selected_filter.twig') %}
+  {% endif %}
+  {% endif %}
+
+  {% if layout == 'vertical' and has_loaded_filters is defined %}
+  <div class="ocf-hidden-filters-divider">
+    <span data-ocf="collapse" data-target="#ocf-hidden-filters-{{ index }}">{{ button_hide }} <i class="ocf-icon ocf-angle ocf-angle-up"></i></span>
+  </div>
+  {% endif %}
+
+  {% for filter in filters %}
+  {% include('default/template/extension/module/ocfilter48/filter_item.twig') %}
+  {% endfor %}
+
+  {% if button_show_more_filters %}
+  {% if layout == 'horizontal' %}
+  <div class="ocf-btn-block ocf-text-center">
+    <button type="button" class="ocf-btn ocf-btn-link ocf-btn-show-filters" data-ocf="collapse" data-target="#ocf-hidden-filters-{{ index }}" data-loading-text="{{ text_loading }}" aria-expanded="false"> 
+      <span class="ocf-hide-expand-1">{{ button_show_more_filters }} <i class="ocf-icon ocf-angle ocf-angle-down"></i></span>
+      <span class="ocf-hide-expand-0">{{ button_hide }} <i class="ocf-icon ocf-angle ocf-angle-up"></i></span>  
+    </button>   
+  </div>
+  {% endif %}
+  <div class="ocf-collapse ocf-collapse-filter" id="ocf-hidden-filters-{{ index }}" data-ocf-load="filters"> 
+    <div class="ocf-filter-list">
+      {% for filter in hidden_filters %}
+      {% include('default/template/extension/module/ocfilter48/filter_item.twig') %}
+      {% endfor %}  
+    </div>    
+  </div>
+  {% if layout == 'vertical' %}
+  <button type="button" class="ocf-btn ocf-btn-block ocf-btn-show-filters" data-ocf="collapse" data-target="#ocf-hidden-filters-{{ index }}" data-loading-text="{{ text_loading }}" aria-expanded="false"> 
+    <span class="ocf-hide-expand-1">{{ button_show_more_filters }} <i class="ocf-icon ocf-angle ocf-angle-down"></i></span>
+    <span class="ocf-hide-expand-0">{{ button_hide }} <i class="ocf-icon ocf-angle ocf-angle-up"></i></span>  
+  </button>
+  {% endif %}
+  {% endif %}
+</div>
