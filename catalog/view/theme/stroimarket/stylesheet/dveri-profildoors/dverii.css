@@ -1,16 +1,45 @@
 ::selection {
-   background: #3a3a26; /* Safari */
-   }
-   ::-moz-selection {   
-      background: #3a3a26;
-
-   }
+    background: #3a3a26; /* Safari */
+    color: #fff; /* Safari */
+}
+::-moz-selection {   
+    background: #3a3a26;
+    color: #fff;
+}
 .top-panel {
    background: #ffffff;
    color: #000;
 }
 
-
+.mobile-nav-footer {
+    background: #191714;
+    background: linear-gradient(45deg, #191714, #463b19);
+    box-shadow: 0px 0px 3px #0000;
+    position: fixed;
+    z-index: 105;
+    text-align: center;
+    bottom: 0;
+    height: 48px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+.slide-header {
+    display: none;
+    justify-content: start;
+    align-items: center;
+    height: 56px;
+    min-height: 56px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #676768;
+    padding-left: 24px;
+    position: relative;
+}
+.slide-close svg {
+    color: #fff;
+    fill: #fff;
+}
 .top-panel__title {
    color: #000000 !important;
 }
@@ -69,6 +98,7 @@
 }
 .header-phone-callback a {
    color: #464646;
+   font-size: 12px!important;
    border-bottom: 1px dashed #676271;
 }
 .phone-link-callback {
@@ -134,9 +164,6 @@
    border: 1px solid #ddd;
 }
 
-
-element.style {
-}
 .fake-checkbox .option-name, .fake-radio .option-name {
     border: 1px solid #e8edef;
 }
@@ -437,7 +464,7 @@ element.style {
        padding-left: 15px!important;
        font-size: 18px!important;
        color: #f5f5f5;
-       line-height: 56px;!important
+       line-height: 56px!important;
    }
    .uni-menu-mobile-button-icon div.bars {
        margin: 4px auto!important;
