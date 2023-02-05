@@ -61,6 +61,10 @@
                                                       <a href="{{ popup }}" title="{{ heading_title }}"><img src="{{ thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}" class="img-responsive"  id="mainimagez" /></a>
                                                     </div>
                                                   {% endif %}
+                                                  
+                                                {% if pmtemplate == "productdver" %}
+                                              <a href="#view-in-interior" class="phone-link phone-link-callback popup-with-move-anim view-interior-a open-popup-link"><div class="view-interior"><img src="/image/catalog/woodtech_item/frontend/interior/view-interior.png" class="view-interior-img"></div></a>
+                                            {% endif %}
                                         
                                       </div>
                                       {% endif %}
@@ -70,9 +74,6 @@
                                 </div>
                             {% endif %}
                             
-                            {% if pmtemplate == "productdver" %}
-                              <a href="#view-in-interior" class="phone-link phone-link-callback popup-with-move-anim view-interior-a open-popup-link"><div class="view-interior"><img src="/image/catalog/woodtech_item/frontend/interior/view-interior.png" class="view-interior-img"></div></a>
-                            {% endif %}
                           </div>
                 <div class="col-xl-6">
                         {% if hpmwtrdata %}

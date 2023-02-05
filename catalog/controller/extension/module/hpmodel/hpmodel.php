@@ -16,6 +16,7 @@ class ControllerExtensionModuleHpmodelHpmodel extends Controller {
         if (!$parent) return;
                     
         $this->load->model('tool/image');
+        $this->load->model('tool/imagequadr');
         $this->load->model('catalog/product');
         
         if (empty($this->types)) $this->types = $this->model_extension_module_hpmodel->getTypes();
@@ -417,11 +418,31 @@ class ControllerExtensionModuleHpmodelHpmodel extends Controller {
             
             if (!empty($setting['replace_image'])) {
                 if (!$product_info['product_image']) $product_info['product_image'] = 'no_image.png';
-                if (version_compare(VERSION, '3.0', '>=')) {
-                    $product_info['thumb'] = $this->model_tool_image->resize($product_info['product_image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_product_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_product_height'));
+
+
+
+
+
+                if ($product_info['pmtemplate'] == 'productpol') {
+                    if (version_compare(VERSION, '3.0', '>=')) {
+                        $product_info['thumb'] = $this->model_tool_imagequadr->resize($product_info['product_image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_product_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_product_height'));
+                    } else {
+                        $product_info['thumb'] = $this->model_tool_imagequadr->resize($product_info['product_image'], $this->config->get($this->config->get('config_theme') . '_image_product_width') ? $this->config->get($this->config->get('config_theme') . '_image_product_width') : $this->config->get('config_image_product_width'), $this->config->get($this->config->get('config_theme') . '_image_product_height') ? $this->config->get($this->config->get('config_theme') . '_image_product_height') : $this->config->get('config_image_product_height'));
+                    }
+                } elseif ($product_info['pmtemplate'] == 'productdver') {
+                    if (version_compare(VERSION, '3.0', '>=')) {
+                        $product_info['thumb'] = $this->model_tool_image->resize($product_info['product_image'], 112, 228);
+                    } else {
+                        $product_info['thumb'] = $this->model_tool_image->resize($product_info['product_image'], $this->config->get($this->config->get('config_theme') . '_image_product_width') ? $this->config->get($this->config->get('config_theme') . '_image_product_width') : $this->config->get('config_image_product_width'), $this->config->get($this->config->get('config_theme') . '_image_product_height') ? $this->config->get($this->config->get('config_theme') . '_image_product_height') : $this->config->get('config_image_product_height'));
+                    }
                 } else {
-                    $product_info['thumb'] = $this->model_tool_image->resize($product_info['product_image'], $this->config->get($this->config->get('config_theme') . '_image_product_width') ? $this->config->get($this->config->get('config_theme') . '_image_product_width') : $this->config->get('config_image_product_width'), $this->config->get($this->config->get('config_theme') . '_image_product_height') ? $this->config->get($this->config->get('config_theme') . '_image_product_height') : $this->config->get('config_image_product_height'));
+                    if (version_compare(VERSION, '3.0', '>=')) {
+                        $product_info['thumb'] = $this->model_tool_image->resize($product_info['product_image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_product_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_product_height'));
+                    } else {
+                        $product_info['thumb'] = $this->model_tool_image->resize($product_info['product_image'], $this->config->get($this->config->get('config_theme') . '_image_product_width') ? $this->config->get($this->config->get('config_theme') . '_image_product_width') : $this->config->get('config_image_product_width'), $this->config->get($this->config->get('config_theme') . '_image_product_height') ? $this->config->get($this->config->get('config_theme') . '_image_product_height') : $this->config->get('config_image_product_height'));
+                    }
                 }
+
             }
             
             $products[$product_id] = $product_info;
